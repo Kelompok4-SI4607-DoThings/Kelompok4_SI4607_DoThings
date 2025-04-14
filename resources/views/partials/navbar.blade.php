@@ -10,6 +10,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    
     <!-- Navbar items -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center gap-3">

@@ -15,6 +15,7 @@
       </div>
     </div>
 
+
     <!-- Middle Columns -->
     <div style="display: flex; flex: 2 1 500px; justify-content: space-between; gap: 40px;">
       <!-- Explore -->
@@ -28,6 +29,7 @@
         </ul>
       </div>
 
+
       <!-- Innovate -->
       <div>
         <h4>Innovate</h4>
@@ -39,6 +41,7 @@
         </ul>
       </div>
 
+      
       <!-- About -->
       <div>
         <h4>About</h4>
