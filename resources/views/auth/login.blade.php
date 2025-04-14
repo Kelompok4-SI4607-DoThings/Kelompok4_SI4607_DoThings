@@ -17,6 +17,7 @@
 
         <h5 class="text-center my-4">Login to your account</h5>
 
+        {{-- Tampilkan error jika ada --}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul class="mb-0">
@@ -27,18 +28,18 @@
             </div>
         @endif
 
+        {{-- Form login --}}
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div class="mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Email" required value="{{ old('email') }}">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required value="{{ old('email') }}">
             </div>
 
             <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
-                <div class="text-end">
-                    <a href="{{ route('password.request') }}" class="small text-decoration-none">Forgot?</a>
-                </div>
+                <label for="password" class="form-label">Password</label>
+                <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
             </div>
 
             <div class="d-grid mb-3">
@@ -46,7 +47,7 @@
             </div>
 
             <p class="text-center small mb-0">
-                Don’t Have An Account? <a href="{{ route('register') }}">Sign Up</a>
+                Don’t have an account? <a href="{{ route('register') }}">Sign Up</a>
             </p>
         </form>
     </div>
