@@ -52,8 +52,9 @@
             <button type="submit" class="btn btn-primary w-100">Create account</button>
         </form>
 
+
         <div class="text-center mt-3">
-            Already have an account? <a href="{{ route('login') }}">Log in</a>
+            Belum punya akun? <a href="{{ route('login') }}">Log in</a>
         </div>
     </div>
 </div>
