@@ -9,7 +9,6 @@
         <p class="text-muted">Ini adalah dashboard untuk admin.</p>
     </div>
 
-    
     <!-- Hero Section -->
     <div class="text-center mb-5">
         <img src="{{ asset('images/hands-illustration.png') }}" alt="Helping Hands" class="img-fluid mb-3" style="max-height: 200px;">
