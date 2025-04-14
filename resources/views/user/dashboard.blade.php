@@ -7,6 +7,7 @@
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h4 class="fw-bold">Selamat datang, {{ Auth::user()->name }}!</h4>
     </div>
+    
 
     {{-- Statistik --}}
     <div class="row mb-5">
