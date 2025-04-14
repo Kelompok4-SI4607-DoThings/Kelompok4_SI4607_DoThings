@@ -12,7 +12,7 @@
     <!-- Hero Section -->
     <div class="text-center mb-5">
         <img src="{{ asset('images/hands-illustration.png') }}" alt="Helping Hands" class="img-fluid mb-3" style="max-height: 200px;">
-        <h2 class="fw-semibold fs-4">"More Giving, More Living"</h2>
+        <h2 class="fw-semibold fs-4">"More Giving, More Living🩷🩷"</h2>
     </div>
 
     <!-- Share Your Kindness Section -->
