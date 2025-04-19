@@ -38,7 +38,7 @@
             </div>
 
             <!-- Role -->
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <select name="role" class="form-select" required>
                     <option value="" disabled selected>Register as...</option>
                     <option value="user">User</option>
@@ -47,7 +47,7 @@
                 @error('role')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
-            </div>
+            </div> --}}
 
             <button type="submit" class="btn btn-primary w-100">Create Account</button>
         </form>
