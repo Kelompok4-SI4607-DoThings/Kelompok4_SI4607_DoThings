@@ -16,6 +16,7 @@
                             <input type="text" class="form-control" value="{{ $donation->campaign->title }}" disabled>
                         </div>
                         
+                        
                         <div class="form-group mb-3">
                             <label for="amount">Jumlah Donasi (Rp)</label>
                             <input type="number" name="amount" id="amount" 
