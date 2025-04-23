@@ -37,18 +37,6 @@
                 <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm your password:" required>
             </div>
 
-            <!-- Role -->
-            {{-- <div class="mb-3">
-                <select name="role" class="form-select" required>
-                    <option value="" disabled selected>Register as...</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                </select>
-                @error('role')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div> --}}
-
             <button type="submit" class="btn btn-primary w-100">Create Account</button>
         </form>
 

@@ -23,22 +23,6 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
       
-        // Cek apakah login sebagai admin
-        if ($credentials['email'] === 'ADMIN123@gmail.com' && $credentials['password'] === 'ADMIN321') {
-            $admin = User::firstOrCreate(
-                ['email' => 'ADMIN123@gmail.com'],
-                [
-                    'name' => 'Super Admin',
-                    'password' => bcrypt('ADMIN321'),
-                    'role' => 'admin',
-                ]
-            );
-
-            Auth::login($admin);
-            return redirect()->route('admin.dashboard');
-        }
-
-        // Proses login user biasa
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
