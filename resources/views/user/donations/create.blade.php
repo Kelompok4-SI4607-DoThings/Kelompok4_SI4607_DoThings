@@ -8,7 +8,7 @@
         @csrf
 
         <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
-
+ 
         <div class="mb-3">
             <label for="donor_name" class="form-label">Nama Donatur</label>
             <input type="text" class="form-control" id="donor_name" name="donor_name" required>
