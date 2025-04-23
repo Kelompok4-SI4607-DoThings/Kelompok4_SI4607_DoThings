@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -24,30 +23,6 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
       
-        // Cek apakah login sebagai admin
-        if ($credentials['email'] === 'ADMIN123@gmail.com' && $credentials['password'] === 'ADMIN321') {
-            $admin = User::where('email', 'ADMIN123@gmail.com')->first();
-        
-            if (!$admin) {
-                $admin = User::create([
-                    'name' => 'Super Admin',
-                    'email' => 'ADMIN123@gmail.com',
-                    'password' => bcrypt('ADMIN321'),
-                    'role' => 'admin',
-                ]);
-            } else {
-                // Pastikan role-nya tetap admin
-                $admin->update([
-                    'role' => 'admin',
-                    'password' => bcrypt('ADMIN321'), // Optional: reset password saat login
-                ]);
-            }
-        
-            Auth::login($admin);
-            return redirect()->route('admin.dashboard');
-        }
-
-        // Proses login user biasa
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
