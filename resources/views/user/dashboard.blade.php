@@ -55,15 +55,26 @@
             ['title' => 'Rating & Review', 'icon' => 'rating.png'],
             ['title' => 'Notifikasi & Reminder', 'icon' => 'notif.png'],
         ] as $item)
-        <div class="col-sm-6 col-md-4">
-            <div class="card h-100 text-center shadow-sm">
-                <div class="card-body">
-                    <img src="{{ asset('images/icons/' . $item['icon']) }}" alt="{{ $item['title'] }}" class="mb-3" style="height: 50px">
-                    <h5 class="card-title">{{ $item['title'] }}</h5>
-                    <a href="#" class="btn btn-outline-primary mt-3">Jelajahi</a>
+            <div class="col-sm-6 col-md-4">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        <img src="{{ asset('images/icons/' . $item['icon']) }}" alt="{{ $item['title'] }}" class="mb-3" style="height: 50px">
+                        <h5 class="card-title">{{ $item['title'] }}</h5>
+                        @if ($item['title'] === 'Donasi')
+                            <a href="{{ route('donations.index') }}" class="btn btn-primary mt-3">Lihat Donasi</a>
+                        @endif
+                        @if ($item['title'] === 'Galang Dana')
+                            <a href="{{ route('campaigns.index') }}" class="btn btn-primary mt-3">Lihat Galang Dana</a>
+                        @endif
+                        @if ($item['title'] === 'Pembayaran Zakat')
+                            <a href="{{ route('user.zakat.create') }}" class="btn btn-primary mt-3">Lihat Zakat</a>
+                        @endif
+                        @if ($item['title'] === 'Unggah Artikel')
+                            <a href="{{ route('articles.index') }}" class="btn btn-primary mt-3">Unggah Artikel</a>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
     </div>
 
@@ -72,39 +83,6 @@
         <h5><strong>Menebar <span class="text-primary">Kasih</span>, Meraih <span class="text-info">Berkah Ilahi</span></strong></h5>
         <p class="text-muted fst-italic small">"Dan barang siapa bersedekah kepada Allah, niscaya akan diberikan kemudahan baginya dalam urusannya."</p>
     </div>
-
-    {{-- Footer --}}
-    <footer class="bg-dark text-white py-5 mt-5">
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <h6 class="fw-bold">Open Designers</h6>
-                <p class="small">Open source tools by DoThings. Built with Laravel, Bootstrap & Chart.js. Gratis untuk umat. 💙</p>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h6 class="fw-bold">Explore</h6>
-                <ul class="list-unstyled small">
-                    <li><a href="#" class="text-white text-decoration-none">Explore Designs</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Create Designs</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h6 class="fw-bold">Innovate</h6>
-                <ul class="list-unstyled small">
-                    <li><a href="#" class="text-white text-decoration-none">Tips</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Plugins</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Creative Materials</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h6 class="fw-bold">About</h6>
-                <ul class="list-unstyled small">
-                    <li><a href="#" class="text-white text-decoration-none">Community</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Support</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <p class="text-center small mt-4 mb-0">© All Rights Reserved</p>
-    </footer>
 </div>
+
 @endsection
