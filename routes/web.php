@@ -37,3 +37,13 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(
         return view('admin.dashboard');
     })->name('admin.dashboard');
 });
+
+use App\Http\Controllers\ZakatAdminController;
+
+Route::get('/zakatAdmin', [ZakatAdminController::class, 'index'])->name('zakatAdmin.index');
+Route::get('/zakatAdmin/create', [ZakatAdminController::class, 'create'])->name('zakatAdmin.create');
+Route::post('/zakatAdmin', [ZakatAdminController::class, 'store'])->name('zakatAdmin.store');
+Route::get('/zakatAdmin/{id}', [ZakatAdminController::class, 'show'])->name('zakatAdmin.show');
+Route::get('/zakatAdmin/{id}/edit', [ZakatAdminController::class, 'edit'])->name('zakatAdmin.edit');
+Route::put('/zakatAdmin/{id}', [ZakatAdminController::class, 'update'])->name('zakatAdmin.update');
+Route::delete('/zakatAdmin/{id}', [ZakatAdminController::class, 'destroy'])->name('zakatAdmin.destroy');

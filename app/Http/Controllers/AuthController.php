@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +14,7 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+
 
     // Proses login
     public function login(Request $request)
@@ -48,8 +49,26 @@ class AuthController extends Controller
         }
 
         // Proses login user biasa
+        // Cek apakah login sebagai admin
+        if ($credentials['email'] === 'ADMIN123@gmail.com' && $credentials['password'] === 'ADMIN321') {
+            $admin = User::firstOrCreate(
+                ['email' => 'ADMIN123@gmail.com'],
+                [
+                    'name' => 'Super Admin',
+                    'password' => bcrypt('ADMIN321'),
+                    'role' => 'admin',
+                ]
+            );
+
+            Auth::login($admin);
+            return redirect()->route('admin.dashboard');
+        }
+
+        // Proses login user biasa
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            // Jika yang login adalah admin, logout dan berikan pesan kesalahan
 
             // Jika yang login adalah admin, logout dan berikan pesan kesalahan
             if (Auth::user()->role === 'admin') {
@@ -57,10 +76,17 @@ class AuthController extends Controller
                 return back()->withErrors([
                     'email' => 'Invalid login credentials.',
                 ]);
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Invalid login credentials.',
+                ]);
             }
+
 
             return redirect()->route('user.dashboard');
         }
+
+        // Jika gagal login
 
         // Jika gagal login
         return back()->withErrors(['email' => 'Email atau password salah.']);
@@ -82,12 +108,15 @@ class AuthController extends Controller
         ]);
 
         // Buat user baru dengan role default 'user'
+
+        // Buat user baru dengan role default 'user'
         User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
             'role'     => 'user',
         ]);
+
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan login.');
     }
