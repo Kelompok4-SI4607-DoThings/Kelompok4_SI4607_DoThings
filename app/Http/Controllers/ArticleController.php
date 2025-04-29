@@ -63,7 +63,7 @@ class ArticleController extends Controller
 
         $article->update($request->all());
 
-        return redirect()->route('articles.index')->with('success', 'Artikel berhasil diperbarui!');
+        return redirect()->route('articles.index')->with('success', 'Artikel Berhasil Diperbarui!');
     }
 
     // Menghapus artikel
@@ -72,6 +72,6 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $article->delete();
 
-        return redirect()->route('articles.index')->with('success', 'Artikel berhasil dihapus!');
+        return redirect()->route('articles.index')->with('success', 'Artikel Berhasil Dihapus!');
     }
 }

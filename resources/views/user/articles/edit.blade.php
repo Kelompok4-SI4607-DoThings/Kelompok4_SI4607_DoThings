@@ -14,7 +14,7 @@
     </div>
     <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning mt-3">Edit Artikel</a>
 
-    <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah kamu yakin ingin menghapus artikel ini?');">>
+    <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger mt-3">Hapus Artikel</button>
