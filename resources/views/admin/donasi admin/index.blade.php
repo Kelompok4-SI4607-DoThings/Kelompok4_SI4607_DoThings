@@ -1,42 +1,91 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container my-5">
-    <div class="card p-4 shadow-sm">
-        <h2 class="text-center mb-4">Update <span style="color: #007bff;">Donasi</span></h2>
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12 d-flex justify-content-between align-items-center">
+            <h2>Daftar Kampanye Donasi</h2>
+            <a href="{{ route('campaigns.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Buat Kampanye Baru
+            </a>
+        </div>
+    </div>
 
-        <form action="{{ route('donasi.update', $donasi->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
-            <div class="mb-3">
-                <label for="nama_donasi" class="form-label">Nama Donasi</label>
-                <input type="text" name="nama_donasi" class="form-control" id="nama_donasi" value="{{ $donasi->nama_donasi }}" required>
+    <div class="row">
+        @forelse($campaigns as $campaign)
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ asset('images/'.$campaign->image) }}" 
+                         class="card-img-top" 
+                         alt="{{ $campaign->title }}"
+                         style="height: 200px; object-fit: cover;">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $campaign->title }}</h5>
+                        <p class="card-text text-muted">
+                            {{ Str::limit($campaign->description, 100) }}
+                        </p>
+                        
+                        <div class="progress mb-3">
+                            <div class="progress-bar" 
+                                 role="progressbar" 
+                                 style="width: {{ $campaign->getProgressPercentageAttribute() }}%"
+                                 aria-valuenow="{{ $campaign->getProgressPercentageAttribute() }}"
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
+                                {{ number_format($campaign->getProgressPercentageAttribute(), 1) }}%
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <small class="text-muted">Terkumpul</small>
+                                <p class="fw-bold mb-0">Rp {{ number_format($campaign->current_amount) }}</p>
+                            </div>
+                            <div class="text-end">
+                                <small class="text-muted">Target</small>
+                                <p class="fw-bold mb-0">Rp {{ number_format($campaign->target_amount) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                <i class="far fa-clock"></i> 
+                                {{ \Carbon\Carbon::parse($campaign->deadline)->diffForHumans() }}
+                            </small>
+                            <a href="{{ route('campaigns.show', $campaign->id) }}" 
+                               class="btn btn-outline-primary btn-sm">
+                                Lihat Detail
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label for="target_donasi" class="form-label">Target Donasi</label>
-                <input type="number" name="target_donasi" class="form-control" id="target_donasi" value="{{ $donasi->target_donasi }}" required>
+        @empty
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    Belum ada kampanye yang tersedia.
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label for="kategori_donasi" class="form-label">Kategori Donasi</label>
-                <input type="text" name="kategori_donasi" class="form-control" id="kategori_donasi" value="{{ $donasi->kategori_donasi }}" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="deskripsi" class="form-label">Deskripsi</label>
-                <textarea name="deskripsi" class="form-control" id="deskripsi" rows="4" required>{{ $donasi->deskripsi }}</textarea>
-            </div>
-
-            <div class="mb-4">
-                <label for="gambar" class="form-label">Upload File Gambar</label>
-                <input type="file" name="gambar" class="form-control" id="gambar">
-                <small class="text-muted">Biarkan kosong jika tidak ingin mengganti gambar.</small>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Update Now</button>
-        </form>
+        @endforelse
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    .card {
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+@endpush
