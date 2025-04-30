@@ -19,7 +19,8 @@
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif
+    @endif  
+    
     {{-- menampilkan daftar kampanye --}}
     <div class="row">
         @forelse($campaigns as $campaign)
