@@ -33,7 +33,7 @@ class ArticleController extends Controller
 
         Article::create($request->all());
 
-        return redirect()->route('articles.index')->with('success', 'Artikel berhasil dibuat!');
+        return redirect()->route('articles.index')->with('success', 'Artikel Berhasil Dibuat!');
     }
 
     // Menampilkan artikel berdasarkan ID
