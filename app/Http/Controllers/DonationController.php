@@ -10,7 +10,7 @@ class DonationController extends Controller
 {
     public function create(Campaign $campaign)
     {
-        return view('donations.create', compact('campaign'));
+        return view('user.donations.create', compact('campaign'));
     }
 
     public function store(Request $request)
@@ -43,12 +43,12 @@ class DonationController extends Controller
     public function index()
     {
         $campaigns = Campaign::all(); // Fetch all campaigns from the database
-        return view('donations.index', compact('campaigns')); // Pass the campaigns to the view
+        return view('user.donations.index', compact('campaigns')); // Pass the campaigns to the view
     }
 
     public function edit(Donation $donation)
     {
-        return view('donations.edit', compact('donation'));
+        return view('user.donations.edit', compact('donation'));
     }
 
     public function update(Request $request, Donation $donation)
@@ -71,7 +71,7 @@ class DonationController extends Controller
             'message' => $request->message,
         ]);
 
-        return redirect()->route('donations.index')
+        return redirect()->route('user.donations.index')
             ->with('success', 'Donasi berhasil diperbarui!');
     }
 
@@ -84,7 +84,7 @@ class DonationController extends Controller
         // Hapus donasi
         $donation->delete();
 
-        return redirect()->route('donations.index')
+        return redirect()->route('user.donations.index')
             ->with('success', 'Donasi berhasil dihapus!');
     }
 
@@ -93,7 +93,7 @@ class DonationController extends Controller
         // Ambil semua donasi tanpa memfilter berdasarkan nama donatur
         $donations = Donation::with('campaign')->latest()->get();
 
-        return view('donations.show', compact('donations'));
+        return view('user.donations.show', compact('donations'));
     }
 
 
