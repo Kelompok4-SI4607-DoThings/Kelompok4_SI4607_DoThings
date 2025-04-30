@@ -115,7 +115,7 @@
             <div class="custom-card text-center">
                 <div class="icon">🎮</div>
                 <h5 class="mb-2">Gamifikasi & Reward</h5>
-                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka</p>
                 <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
@@ -123,7 +123,7 @@
             <div class="custom-card text-center active">
                 <div class="icon">📝</div>
                 <h5 class="mb-2">Unggah Artikel</h5>
-                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka</p>
                 <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
@@ -132,7 +132,7 @@
     <!-- Second section -->
     <div class="text-center mb-4">
         <h2 class="fw-bold section-title">Menebar <span>Kasih</span>, Meraih <span>Berkah Ilahi</span></h2>
-        <p class="section-subtitle">"Dan barangsiapa bertakwa kepada Allah, niscaya dia menjadikan kemudahan baginya dalam urusannya."</p>
+        <p class="section-subtitle">"Dan barangsiapa bertakwa kepada Allah, niscaya dia menjadikan kemudahan baginya dalam urusannya"</p>
     </div>
 
     <!-- First row with 3 cards -->
