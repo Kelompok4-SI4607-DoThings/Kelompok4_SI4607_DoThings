@@ -397,7 +397,7 @@
     <h4 class="fw-bold mb-4">Fitur Unggulan</h4>
     <div class="row g-4 mb-5">
         @foreach ([
-            ['title' => 'Volunteer', 'icon' => 'bi-people-fill', 'color' => 'bg-primary', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
+            [tle' => 'Volunteer', 'icon' => 'bi-people-fill', 'color' => 'bg-primary', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
             ['title' => 'Galang Dana', 'icon' => 'bi-cash-coin', 'color' => 'bg-success', 'desc' => 'Buat campaign untuk kebaikan'],
             ['title' => 'Pembayaran Zakat', 'icon' => 'bi-wallet2', 'color' => 'bg-info', 'desc' => 'Tunaikan kewajiban dengan mudah'],
             ['title' => 'Komunitas', 'icon' => 'bi-heart-fill', 'color' => 'bg-warning', 'desc' => 'Bergabung dengan komunitas peduli'],
@@ -417,9 +417,6 @@
                         @if ($item['title'] === 'Donasi')
                             <a href="{{ route('donations.index') }}" class="btn btn-primary mt-2">Lihat Donasi</a>
                         @endif
-                        {{-- @if ($item['title'] === 'Galang Dana')
-                            <a href="{{ route('admin.campaigns.index') }}" class="btn btn-outline-primary mt-2">Mulai Campaign</a>
-                        @endif --}}
                         @if ($item['title'] === 'Pembayaran Zakat')
                             <a href="{{ route('zakat.index') }}" class="btn btn-outline-primary mt-2">Bayar Zakat</a>
                         @endif
