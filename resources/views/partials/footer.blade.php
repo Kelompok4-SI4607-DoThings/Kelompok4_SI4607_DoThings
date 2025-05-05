@@ -9,16 +9,16 @@
       </p>
       <div style="margin-top: 10px;">
         <a href="#" style="margin-right: 10px;">
-          <img src="images/discord.png" alt="Discord" width="20" style="transition: transform 0.3s;">
+          <img src="{{ asset('images/discord.png') }}" alt="Discord" width="20" style="transition: transform 0.3s;">
         </a>
         <a href="#" style="margin-right: 10px;">
-          <img src="images/instagram.png" alt="Instagram" width="20" style="transition: transform 0.3s;">
+          <img src="{{ asset('images/instagram.png') }}" alt="Instagram" width="20" style="transition: transform 0.3s;">
         </a>
         <a href="#" style="margin-right: 10px;">
-          <img src="images/facebook.png" alt="Facebook" width="20" style="transition: transform 0.3s;">
+          <img src="{{ asset('images/facebook.png') }}" alt="Facebook" width="20" style="transition: transform 0.3s;">
         </a>
         <a href="#">
-          <img src="images/twitter.png" alt="Twitter" width="20" style="transition: transform 0.3s;">
+          <img src="{{ asset('images/twitter.png') }}" alt="Twitter" width="20" style="transition: transform 0.3s;">
         </a>
       </div>
     </div>
@@ -29,7 +29,7 @@
       <div>
         <h4 style="font-size: 16px; font-weight: bold;">Explore</h4>
         <ul style="list-style: none; padding: 0; font-size: 14px;">
-          <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;">Go pro</a></li>
+          <li><a href="" style="color: white; text-decoration: none; transition: color 0.3s;">Go pro</a></li>
           <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;">Explore Designs</a></li>
           <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;">Create Designs</a></li>
           <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;">Playoffs</a></li>
