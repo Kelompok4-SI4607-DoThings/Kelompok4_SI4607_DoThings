@@ -1,99 +1,191 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .custom-card {
+        border-radius: 20px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+        padding: 30px 20px;
+        transition: 0.3s ease;
+        height: 100%;
+        background-color: #fff;
+    }
+
+    .custom-card.active {
+        background-color: #2699FB;
+        color: white;
+    }
+
+    .custom-card .icon {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .custom-card h5 {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .custom-card.active h5,
+    .custom-card.active p {
+        color: white;
+    }
+
+    .custom-card p {
+        color: #8F8F8F;
+        font-size: 14px;
+    }
+
+    .custom-btn {
+        border: 2px solid #fff;
+        background: transparent;
+        padding: 8px 24px;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 24px;
+        color: white;
+        transition: 0.3s;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .custom-card:not(.active) .custom-btn {
+        border: 2px solid #2699FB;
+        color: #2699FB;
+    }
+
+    .custom-card:not(.active) .custom-btn:hover {
+        background: #2699FB;
+        color: white;
+    }
+
+    .section-title span {
+        color: #2699FB;
+    }
+
+    .section-subtitle {
+        color: #8F8F8F;
+        font-size: 15px;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+</style>
+
 <div class="container my-5">
-
-    <!-- Header -->
+    <!-- First section -->
     <div class="text-center mb-5">
-        <h1 class="fw-bold">Halo Admin, {{ Auth::user()->name }}!</h1>
-        <p class="text-muted">Ini adalah dashboard untuk admin.</p>
+        <h2 class="fw-bold section-title">Share Your <span>Kindness</span></h2>
+        <p class="section-subtitle">"Sekecil apa pun kebaikan yang kamu berikan, bisa menjadi cahaya bagi mereka yang membutuhkan."</p>
     </div>
 
-    <!-- Hero Section -->
-    <div class="text-center mb-5">
-        <img src="{{ asset('images/hands-illustration.png') }}" alt="Helping Hands" class="img-fluid mb-3" style="max-height: 200px;">
-        <h2 class="fw-semibold fs-4">"More Giving, More Living🩷🩷"</h2>
-    </div>
-
-    <!-- Share Your Kindness Section -->
-    <div class="text-center mb-5">
-        <h3 class="fw-bold text-primary">Share Your <span class="text-success">Kindness</span></h3>
-        <div class="row g-4 mt-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Volunteer</h5>
-                    <p class="card-text">Join as a volunteer and help others.</p>
-                </div>
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">🤝</div>
+                <h5 class="mb-2">Volunteer</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm bg-primary text-white text-center p-4">
-                    <h5 class="card-title">Giving Dana</h5>
-                    <p class="card-text">Berbagi dana untuk kebaikan sesama.</p>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="custom-card text-center active">
+                <div class="icon">📢</div>
+                <h5 class="mb-2">Galang Dana</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Pembangunan Dakwah</h5>
-                    <p class="card-text">Dukung pembangunan kegiatan dakwah.</p>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">🕌</div>
+                <h5 class="mb-2">Pembayaran Zakat</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="{{ route('zakatAdmin.index') }}" class="custom-btn mt-3">Detail</a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm bg-primary text-white text-center p-4">
-                    <h5 class="card-title">Kebutuhan</h5>
-                    <p class="card-text">Donasi kebutuhan pokok.</p>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="custom-card text-center active">
+                <div class="icon">👥</div>
+                <h5 class="mb-2">Komunitas</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Spiritual & Renewal</h5>
-                    <p class="card-text">Kegiatan pembinaan rohani.</p>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">🎮</div>
+                <h5 class="mb-2">Gamifikasi & Reward</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm bg-primary text-white text-center p-4">
-                    <h5 class="card-title">Unggah Artikel</h5>
-                    <p class="card-text">Bagikan artikel yang menginspirasi.</p>
-                </div>
+        </div>
+        <div class="col-md-4">
+            <div class="custom-card text-center active">
+                <div class="icon">📝</div>
+                <h5 class="mb-2">Unggah Artikel</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
     </div>
 
-    <!-- Menebar Kasih Section -->
-    <div class="text-center my-5">
-        <h3 class="fw-bold text-primary">Menebar Kasih, Meraih Berkah Ilahi</h3>
-        <div class="row g-4 mt-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Donasi</h5>
-                    <p class="card-text">Salurkan donasi Anda.</p>
-                </div>
+    <!-- Second section -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold section-title">Menebar <span>Kasih</span>, Meraih <span>Berkah Ilahi</span></h2>
+        <p class="section-subtitle">"Dan barangsiapa bertakwa kepada Allah, niscaya dia menjadikan kemudahan baginya dalam urusannya."</p>
+    </div>
+
+    <!-- First row with 3 cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">❤️</div>
+                <h5 class="mb-2">Donasi</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="{{ route('admin.campaigns.index') }}" class="custom-btn mt-3">Detail</a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm bg-primary text-white text-center p-4">
-                    <h5 class="card-title">Rekapan Donasi</h5>
-                    <p class="card-text">Lihat histori kontribusi Anda.</p>
-                </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="custom-card text-center active">
+                <div class="icon">🔖</div>
+                <h5 class="mb-2">Bookmark</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Pembuktian Donasi</h5>
-                    <p class="card-text">Unggah bukti donasi Anda.</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Rating & Review</h5>
-                    <p class="card-text">Berikan ulasan untuk program kami.</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Spiritual & Renewal</h5>
-                    <p class="card-text">Kegiatan pembinaan jiwa.</p>
-                </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">💳</div>
+                <h5 class="mb-2">Payment Gateway</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
     </div>
 
+    <!-- Second row with 2 centered cards -->
+    <div class="row g-4">
+        <div class="col-md-2"></div> <!-- Empty column for offset -->
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">⭐</div>
+                <h5 class="mb-2">Rating & Review</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">🔔</div>
+                <h5 class="mb-2">Notifikasi & Reminder</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="#" class="custom-btn mt-3">Detail</a>
+            </div>
+        </div>
+        <div class="col-md-2"></div> <!-- Empty column for offset -->
+    </div>
 </div>
 @endsection

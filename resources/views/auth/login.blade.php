@@ -3,12 +3,12 @@
 @section('content')
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-white">
     <!-- Background Images -->
-    <div class="position-absolute top-0 start-0">
+    {{-- <div class="position-absolute top-0 start-0">
         <img src="{{ asset('images/hand-top.png') }}" alt="hand top" style="width: 180px;">
     </div>
     <div class="position-absolute bottom-0 end-0">
         <img src="{{ asset('images/hand-bottom.png') }}" alt="hand bottom" style="width: 180px;">
-    </div>
+    </div> --}}
 
     <!-- Login Card -->
     <div class="card shadow p-4 border-0 rounded-4" style="max-width: 400px; width: 100%; z-index: 1;">

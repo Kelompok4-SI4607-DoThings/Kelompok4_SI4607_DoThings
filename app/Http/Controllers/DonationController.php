@@ -71,7 +71,7 @@ class DonationController extends Controller
             'message' => $request->message,
         ]);
 
-        return redirect()->route('user.donations.index')
+        return redirect()->route('donations.index')
             ->with('success', 'Donasi berhasil diperbarui!');
     }
 
@@ -84,7 +84,7 @@ class DonationController extends Controller
         // Hapus donasi
         $donation->delete();
 
-        return redirect()->route('user.donations.index')
+        return redirect()->route('donations.index')
             ->with('success', 'Donasi berhasil dihapus!');
     }
 
