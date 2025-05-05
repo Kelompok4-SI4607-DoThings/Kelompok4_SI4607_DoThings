@@ -397,7 +397,7 @@
     <h4 class="fw-bold mb-4">Fitur Unggulan</h4>
     <div class="row g-4 mb-5">
         @foreach ([
-            [tle' => 'Volunteer', 'icon' => 'bi-people-fill', 'color' => 'bg-primary', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
+            ['title' => 'Volunteer', 'icon' => 'bi-people-fill', 'color' => 'bg-primary', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
             ['title' => 'Galang Dana', 'icon' => 'bi-cash-coin', 'color' => 'bg-success', 'desc' => 'Buat campaign untuk kebaikan'],
             ['title' => 'Pembayaran Zakat', 'icon' => 'bi-wallet2', 'color' => 'bg-info', 'desc' => 'Tunaikan kewajiban dengan mudah'],
             ['title' => 'Komunitas', 'icon' => 'bi-heart-fill', 'color' => 'bg-warning', 'desc' => 'Bergabung dengan komunitas peduli'],
