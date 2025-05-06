@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row mb-4">
         <div class="col-md-12 d-flex justify-content-between align-items-center">
-            <h2>Daftar Kampanye Donasi</h2>
+            <h2>Daftar Donasi</h2>
             <a href="{{ route('campaigns.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Buat Kampanye Baru
+                <i class="fas fa-plus"></i> Buat Donasi Baru
             </a>
         </div>
     </div>
@@ -71,7 +71,7 @@
         @empty
             <div class="col-12">
                 <div class="alert alert-info text-center">
-                    Belum ada kampanye yang tersedia.
+                    Belum ada Donasi yang tersedia.
                 </div>
             </div>
         @endforelse

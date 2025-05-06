@@ -46,10 +46,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Campaign Routes
-Route::prefix('admin')->name('admin.campaigns.')->group(function () {
+Route::prefix('admin')->name('campaigns.')->group(function () {
     Route::get('/campaigns', [CampaignController::class, 'index'])->name('index');
     Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('create');
-    Route::post('/campaigns', [CampaignController::class, 'store'])->name('store');
+    Route::post('/campaigns', [CampaignController::class, 'store'])->name('store'); // Tambahkan rute ini
     Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('show');
     Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('edit');
     Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('update');

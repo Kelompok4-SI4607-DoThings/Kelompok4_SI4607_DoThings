@@ -50,7 +50,7 @@
 
                     <div class="mt-3">
                     <a href="{{ route('campaigns.edit', $campaign->id) }}" class="btn btn-warning">
-                        <i class="fas fa-edit"></i> Edit Kampanye
+                        <i class="fas fa-edit"></i> Edit Donasi
                     </a>
                     
                     <form action="{{ route('campaigns.destroy', $campaign->id) }}" 
@@ -60,7 +60,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Hapus Kampanye
+                            <i class="fas fa-trash"></i> Hapus Donasi
                         </button>
                     </form>
                 </div>

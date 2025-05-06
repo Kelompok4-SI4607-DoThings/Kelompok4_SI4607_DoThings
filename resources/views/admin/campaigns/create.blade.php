@@ -5,12 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Buat Kampanye Donasi Baru</div>
+                <div class="card-header">Buat Donasi Baru</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('campaigns.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-3">
-                            <label>Judul Kampanye</label>
+                            <label>Judul Donasi</label>
                             <input type="text" name="title" 
                                    class="form-control @error('title') is-invalid @enderror"
                                    value="{{ old('title') }}" required>
@@ -46,14 +46,14 @@
                             @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <label>Gambar Kampanye</label>
+                            <label>Gambar Donasi</label>
                             <input type="file" name="image" 
                                    class="form-control @error('image') is-invalid @enderror" required>
                             @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Buat Kampanye</button>
+                        <button type="submit" class="btn btn-primary">Buat Donasi</button>
                     </form>
                 </div>
             </div>
