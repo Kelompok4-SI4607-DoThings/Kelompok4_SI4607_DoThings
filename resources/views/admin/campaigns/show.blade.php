@@ -60,7 +60,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Hapus Kampanye
+                            <i class="fas fa-trash"></i> Hapus Donasi
                         </button>
                     </form>
                 </div>

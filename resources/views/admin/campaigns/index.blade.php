@@ -71,7 +71,7 @@
         @empty
             <div class="col-12">
                 <div class="alert alert-info text-center">
-                    Belum ada kampanye yang tersedia.
+                    Belum ada Donasi yang tersedia.
                 </div>
             </div>
         @endforelse
