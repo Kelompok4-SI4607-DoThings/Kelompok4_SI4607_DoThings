@@ -55,15 +55,7 @@ Route::prefix('admin')->name('admin.campaigns.')->group(function () {
     Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('update');
     Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('destroy');
 });
-// Route::prefix('admin')->name('campaigns.')->group(function () {
-//     Route::get('/campaigns', [CampaignController::class, 'index'])->name('index');
-//     Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('create');
-//     Route::post('/campaigns', [CampaignController::class, 'store'])->name('store'); // Tambahkan rute ini
-//     Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('show');
-//     Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('edit');
-//     Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('update');
-//     Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('destroy');
-// });
+
 // Donation Routes
 Route::middleware(['auth'])->prefix('donations')->name('donations.')->group(function () {
     Route::get('/', [DonationController::class, 'index'])->name('index');
