@@ -42,7 +42,7 @@ class CampaignController extends Controller
             'image' => $imageName
         ]);
 
-        return redirect()->route('admin.campaigns.index')->with('success', 'Campaign created successfully.');
+        return redirect()->route('campaigns.index')->with('success', 'Campaign created successfully.');
     }
 
     public function show($id)

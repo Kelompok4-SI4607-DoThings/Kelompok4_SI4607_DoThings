@@ -5,7 +5,7 @@
     <div class="row mb-4">
         <div class="col-md-12 d-flex justify-content-between align-items-center">
             <h2>Daftar Kampanye Donasi</h2>
-            <a href="{{ route('admin.campaigns.create') }}" class="btn btn-primary">
+            <a href="{{ route('campaigns.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Buat Kampanye Baru
             </a>
         </div>
@@ -60,7 +60,7 @@
                                 <i class="far fa-clock"></i> 
                                 {{ \Carbon\Carbon::parse($campaign->deadline)->diffForHumans() }}
                             </small>
-                            <a href="{{ route('admin.campaigns.show', $campaign->id) }}" 
+                            <a href="{{ route('campaigns.show', $campaign->id) }}" 
                                class="btn btn-outline-primary btn-sm">
                                 Lihat Detail
                             </a>

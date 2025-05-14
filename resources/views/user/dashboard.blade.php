@@ -423,6 +423,9 @@
                         @if ($item['title'] === 'Unggah Artikel')
                             <a href="{{ route('articles.index') }}" class="btn btn-outline-primary mt-2">Tulis Artikel</a>
                         @endif
+                        @if ($item['title'] === 'Galang Dana')
+                            <a href="{{ route('GalangDana.index') }}" class="btn btn-outline-primary mt-2">Galang Dana</a>
+                        @endif
                     </div>
                 </div>
             </div>

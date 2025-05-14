@@ -16,6 +16,8 @@ class CreateCampaignsTable extends Migration
             $table->decimal('current_amount', 15, 2)->default(0);
             $table->date('deadline');
             $table->string('image');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->text('suggestions')->nullable();
             $table->timestamps();
         });
     }

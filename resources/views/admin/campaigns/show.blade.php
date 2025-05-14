@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h3 class="mb-0">{{ $campaign->title }}</h3>
-                        <a href="{{ route('admin.campaigns.index') }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('campaigns.index') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
                     </div>
@@ -49,11 +49,11 @@
                     </div>
 
                     <div class="mt-3">
-                    <a href="{{ route('admin.campaigns.edit', $campaign->id) }}" class="btn btn-warning">
+                    <a href="{{ route('campaigns.edit', $campaign->id) }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i> Edit Kampanye
                     </a>
                     
-                    <form action="{{ route('admin.campaigns.destroy', $campaign->id) }}" 
+                    <form action="{{ route('campaigns.destroy', $campaign->id) }}" 
                         method="POST" 
                         class="d-inline" 
                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus kampanye ini?')">
