@@ -12,11 +12,13 @@
             <p>{{ $article->content }}</p>
         </div>
     </div>
-    <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning mt-3">Edit Artikel</a>
+    
+    <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning mt-3 mb-3">Edit Artikel</a>
+    
     <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger mt-3">Hapus Artikel</button>
+        <button type="submit" class="btn btn-danger mt-3 mb-3">Hapus Artikel</button>
     </form>
 </div>
 @endsection
