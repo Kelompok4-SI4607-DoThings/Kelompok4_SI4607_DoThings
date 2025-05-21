@@ -112,4 +112,26 @@ Route::prefix('user/artikel')->group(function () {
 
     // Menghapus artikel
     Route::delete('/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+    // Melihat komunitas
+    Route::get('/{id}', [CommunityController::class, 'index'])->name('communitity.index');
+
+
+use App\Http\Controllers\CommunityController;
+
+Route::middleware('auth')->group(function () {
+    // Menampilkan daftar komunitas (READ)
+    Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
+
+    // Menampilkan form tambah komunitas (CREATE)
+    Route::get('/communities/create', [CommunityController::class, 'create'])->name('communities.create');
+
+    // Menyimpan komunitas baru
+    Route::post('/communities', [CommunityController::class, 'store'])->name('communities.store');
+
+    // Menghapus komunitas (DELETE)
+    Route::delete('/communities/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
+});
+
+
 });

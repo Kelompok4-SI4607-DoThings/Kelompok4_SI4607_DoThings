@@ -19,5 +19,10 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger mt-3">Hapus Artikel</button>
     </form>
+<<<<<<< Updated upstream
+=======
+
+    <a href="{{ route('articles.index') }}" class="btn btn-secondary mt-3 mb-3">Kembali ke Daftar Artikel</a>
+>>>>>>> Stashed changes
 </div>
 @endsection

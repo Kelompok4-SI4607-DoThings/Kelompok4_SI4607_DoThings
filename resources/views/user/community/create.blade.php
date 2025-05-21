@@ -10,11 +10,11 @@
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="description">Deskripsi</label>
+            <label for="description">Deskripsi:</label>
             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
         </div>
         <div class="form-group">
-            <label for="category">Kategori</label>
+            <label for="category">Kategori:</label>
             <select class="form-control" id="category" name="category" required>
                 <option value="Bencana Alam">Bencana Alam</option>
                 <option value="Kemiskinan">Kemiskinan</option>
