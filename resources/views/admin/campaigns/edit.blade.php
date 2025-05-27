@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Edit Kampanye Donasi</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.campaigns.update', $campaign->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('campaigns.update', $campaign->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         

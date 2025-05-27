@@ -15,6 +15,10 @@ class CampaignController extends Controller
         return view('admin.campaigns.index', compact('campaigns'));
     }
 
+
+
+    
+
     public function create()
     {
         return view('admin.campaigns.create');
@@ -94,7 +98,7 @@ class CampaignController extends Controller
         }
     
         $campaign->update($data);
-        return redirect()->route('admin.campaigns.show', $campaign->id)
+        return redirect()->route('campaigns.show', $campaign->id)
             ->with('success', 'Kampanye berhasil diperbarui.');
     }
     
@@ -110,7 +114,7 @@ class CampaignController extends Controller
         // Hapus campaign dan semua donasi terkait (pastikan ada cascade delete di migration)
         $campaign->delete();
         
-        return redirect()->route('admin.campaigns.index')
+        return redirect()->route('campaigns.index')
             ->with('success', 'Kampanye berhasil dihapus.');
     }
     

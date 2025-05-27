@@ -9,7 +9,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\ZakatAdminController;
 use App\Http\Controllers\ArticleController;
-
+use App\Http\Controllers\GalangDanaController;
+use App\Http\Controllers\GalangDanaAdminController;
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -126,4 +127,22 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/zakat/{id}/edit', [ZakatAdminController::class, 'edit'])->name('admin.zakat.edit');
     Route::put('/zakat/{id}', [ZakatAdminController::class, 'update'])->name('admin.zakat.update');
     Route::delete('/zakat/{id}', [ZakatAdminController::class, 'destroy'])->name('admin.zakat.destroy');
+});
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('campaigns.create');
+//     Route::post('/campaigns', [CampaignController::class, 'store'])->name('campaigns.store');
+// });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/galang-dana', [GalangDanaController::class, 'index'])->name('GalangDana.index');
+    Route::get('/galang-dana/create', [GalangDanaController::class, 'create'])->name('GalangDana.create');
+    Route::post('/galang-dana', [GalangDanaController::class, 'store'])->name('GalangDana.store');
+});
+
+Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.')->group(function () {
+    Route::get('/', [GalangDanaAdminController::class, 'index'])->name('index');
+    Route::get('/{id}', [GalangDanaAdminController::class, 'show'])->name('show');
+    Route::patch('/{id}', [GalangDanaAdminController::class, 'update'])->name('update');
+    Route::delete('/{id}', [GalangDanaAdminController::class, 'destroy'])->name('destroy');
 });

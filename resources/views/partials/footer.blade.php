@@ -1,4 +1,4 @@
-<footer style="background-color: #111; color: white; padding: 40px 20px 20px; font-family: 'Arial', sans-serif;">
+<footer class="mt-auto" style="background-color: #111; color: white; padding: 40px 20px 20px; font-family: 'Arial', sans-serif;">
   <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
     
     <!-- Left Column -->
@@ -66,3 +66,8 @@
   </div>
 </footer>
 
+<style>
+  html, body {
+    height: 100%;
+  }
+</style>

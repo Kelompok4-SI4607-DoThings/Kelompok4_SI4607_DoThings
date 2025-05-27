@@ -13,7 +13,8 @@ class Campaign extends Model
         'target_amount',
         'current_amount',
         'deadline',
-        'image'
+        'image',
+        'status'
     ];
 
     protected $casts = [

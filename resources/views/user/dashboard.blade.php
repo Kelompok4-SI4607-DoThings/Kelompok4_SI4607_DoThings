@@ -417,14 +417,14 @@
                         @if ($item['title'] === 'Donasi')
                             <a href="{{ route('donations.index') }}" class="btn btn-primary mt-2">Lihat Donasi</a>
                         @endif
-                        {{-- @if ($item['title'] === 'Galang Dana')
-                            <a href="{{ route('admin.campaigns.index') }}" class="btn btn-outline-primary mt-2">Mulai Campaign</a>
-                        @endif --}}
+                        @if ($item['title'] === 'Galang Dana')
+                            <a href="{{ route('GalangDana.index') }}" class="btn btn-primary mt-2">Mulai Galang dana </a>
+                        @endif
                         @if ($item['title'] === 'Pembayaran Zakat')
-                            <a href="{{ route('zakat.index') }}" class="btn btn-outline-primary mt-2">Bayar Zakat</a>
+                            <a href="{{ route('zakat.index') }}" class="btn btn-primary mt-2">Bayar Zakat</a>
                         @endif
                         @if ($item['title'] === 'Unggah Artikel')
-                            <a href="{{ route('articles.index') }}" class="btn btn-outline-primary mt-2">Tulis Artikel</a>
+                            <a href="{{ route('articles.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
                         @endif
                     </div>
                 </div>

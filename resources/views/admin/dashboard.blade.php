@@ -92,7 +92,7 @@
                 <div class="icon">📢</div>
                 <h5 class="mb-2">Galang Dana</h5>
                 <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
-                <a href="#" class="custom-btn mt-3">Detail</a>
+                <a href="{{ route('galangDanaAdmin.index') }}" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
         <div class="col-md-4">
@@ -142,7 +142,7 @@
                 <div class="icon">❤️</div>
                 <h5 class="mb-2">Donasi</h5>
                 <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
-                <a href="{{ route('admin.campaigns.index') }}" class="custom-btn mt-3">Detail</a>
+                <a href="{{ route('campaigns.index') }}" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
         
