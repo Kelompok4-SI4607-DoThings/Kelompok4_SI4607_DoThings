@@ -11,6 +11,8 @@ use App\Http\Controllers\ZakatAdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalangDanaController;
 use App\Http\Controllers\GalangDanaAdminController;
+use App\Http\Controllers\VolunteerAdminController;
+use App\Http\Controllers\KomunitasAdminController;
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -145,9 +147,7 @@ Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.
     Route::get('/{id}', [GalangDanaAdminController::class, 'show'])->name('show');
     Route::patch('/{id}', [GalangDanaAdminController::class, 'update'])->name('update');
     Route::delete('/{id}', [GalangDanaAdminController::class, 'destroy'])->name('destroy');
-<<<<<<< Updated upstream
-});
-=======
+
 });
 
 //volunteer admin
@@ -161,10 +161,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'destroy'])->name('volunteerAdmin.destroy');
 });
 
+
 Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(function () {
     Route::get('/register', [App\Http\Controllers\VolunteerController::class, 'create'])->name('create');
     Route::post('/', [App\Http\Controllers\VolunteerController::class, 'store'])->name('store');
     Route::get('/programs', [App\Http\Controllers\VolunteerController::class, 'index'])->name('index');
     Route::delete('/{id}', [App\Http\Controllers\VolunteerController::class, 'destroy'])->name('destroy');
 });
->>>>>>> Stashed changes
+
+//komunitas admin
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/komunitasadmin', [KomunitasAdminController::class, 'index'])->name('komunitasAdmin.index');
+    Route::get('/komunitasadmin/create', [KomunitasAdminController::class, 'create'])->name('komunitasAdmin.create');
+    Route::post('/komunitasadmin', [KomunitasAdminController::class, 'store'])->name('komunitasAdmin.store');
+    Route::get('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'show'])->name('komunitasAdmin.show');
+    Route::get('/komunitasadmin/{komunitasadmin}/edit', [KomunitasAdminController::class, 'edit'])->name('komunitasAdmin.edit');
+    Route::put('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'update'])->name('komunitasAdmin.update');
+    Route::delete('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'destroy'])->name('komunitasAdmin.destroy');
+});
+
