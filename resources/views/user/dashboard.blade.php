@@ -427,7 +427,7 @@
                             <a href="{{ route('articles.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
                         @endif
                         @if ($item['title'] === 'Volunteer')
-                            <a href="{{ route('volunteer.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
+                            <a href="{{ route('volunteer.index') }}" class="btn btn-primary mt-2">Mulai Volunteer</a>
                         @endif
                     </div>
                 </div>
