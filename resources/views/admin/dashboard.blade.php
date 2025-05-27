@@ -2,6 +2,48 @@
 
 @section('content')
 <style>
+    .custom-background {
+    background-image: url('/images/tangan.png'); /* Path gambar tangan */
+    background-size: contain; /* Agar gambar tidak terpotong dan tetap terlihat utuh */
+    background-position: center center; /* Menempatkan gambar di tengah */
+    background-repeat: no-repeat; /* Mencegah pengulangan gambar */
+    background-attachment: fixed; /* Agar gambar tetap di tempat saat halaman digulir */
+    padding: 100px 0; /* Menambah padding agar lebih estetis */
+    color: white;
+    text-align: center;
+    width: 100%;
+    height: 100vh; /* Membuat elemen menutupi seluruh tinggi layar */
+    position: relative; /* Agar bisa menambah elemen lainnya dengan baik */
+}
+    .custom-background h2 {
+        font-size: 36px;
+        font-weight: bold;
+        font-family: 'Cursive', sans-serif; /* Gunakan font mirip tulisan tangan */
+        letter-spacing: 2px; /* Menambahkan jarak antar huruf */
+        margin-bottom: 10px;
+    }
+
+    .custom-background p {
+        font-size: 18px;
+        font-family: 'Cursive', sans-serif; /* Gunakan font mirip tulisan tangan */
+        letter-spacing: 1px; /* Menambahkan jarak antar huruf */
+        font-weight: normal;
+        margin-top: 0;
+        color: black;
+        display: inline-block;
+        text-align: center;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    /* Styles for the custom section */
+    .section-title {
+        color: black;
+    }
+
+    .section-subtitle {
+        color: black;
+        font-size: 20px;
+    }
     .custom-card {
         border-radius: 20px;
         box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
@@ -72,6 +114,9 @@
 </style>
 
 <div class="container my-5">
+    <!-- Custom Section with Hand Image Background -->
+    <div class="custom-background">
+    </div>
     <!-- First section -->
     <div class="text-center mb-5">
         <h2 class="fw-bold section-title">Share Your <span>Kindness</span></h2>
@@ -115,7 +160,7 @@
             <div class="custom-card text-center">
                 <div class="icon">🎮</div>
                 <h5 class="mb-2">Gamifikasi & Reward</h5>
-                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka</p>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
                 <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
@@ -123,7 +168,7 @@
             <div class="custom-card text-center active">
                 <div class="icon">📝</div>
                 <h5 class="mb-2">Unggah Artikel</h5>
-                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka</p>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
                 <a href="#" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
@@ -132,12 +177,19 @@
     <!-- Second section -->
     <div class="text-center mb-4">
         <h2 class="fw-bold section-title">Menebar <span>Kasih</span>, Meraih <span>Berkah Ilahi</span></h2>
-        <p class="section-subtitle">"Dan barangsiapa bertakwa kepada Allah, niscaya dia menjadikan kemudahan baginya dalam urusannya"</p>
+        <p class="section-subtitle">"Dan barangsiapa bertakwa kepada Allah, niscaya dia menjadikan kemudahan baginya dalam urusannya."</p>
     </div>
 
     <!-- First row with 3 cards -->
     <div class="row g-4 mb-4">
-    
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">❤️</div>
+                <h5 class="mb-2">Donasi</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="{{ route('admin.campaigns.index') }}" class="custom-btn mt-3">Detail</a>
+            </div>
+        </div>
         
         <div class="col-md-4">
             <div class="custom-card text-center active">

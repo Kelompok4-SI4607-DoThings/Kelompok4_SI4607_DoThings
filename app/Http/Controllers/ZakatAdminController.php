@@ -2,44 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ZakatAdmin;
 use Illuminate\Http\Request;
+use App\Models\Zakat;
+use App\Models\ZakatAdmin;
 
 class ZakatAdminController extends Controller
 {
-    // Display a listing of the zakat records
     public function index()
     {
-        $zakats = ZakatAdmin::all();
-        return view('admin.zakatAdmin.index', compact('zakats'));
+            $zakats = Zakat::all(); // Ambil semua data zakat dari tabel zakat
+        return view('admin.zakatAdmin.index', compact('zakats')); // Kirim data ke view
     }
 
-    // Show the form for creating a new zakat record
     public function create()
     {
-        return view('zakatAdmin.create');
+        return view('admin.zakatAdmin.create');
     }
 
-    // Store a newly created zakat record
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|in:Completed,Pending,Not Completed',
+            'status' => 'required|string',
         ]);
 
         ZakatAdmin::create($request->all());
 
-        return redirect()->route('zakatAdmin.index');
+        return redirect()->route('zakatAdmin.index')->with('success', 'Data zakat admin berhasil ditambahkan.');
     }
 
-    // Delete a zakat record
+    public function show($id)
+    {
+        $zakat = Zakat::findOrFail($id); // Ambil data zakat berdasarkan ID
+        return view('admin.zakatAdmin.show', compact('zakat')); // Kirim data ke view
+    }
+
+    public function edit($id)
+    {
+        $zakat = Zakat::findOrFail($id);
+        return view('admin.zakatAdmin.edit', compact('zakat'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_pembayar_zakat' => 'required|string|max:255',
+            'penghasilan_perbulan' => 'required|numeric',
+            'bonus' => 'nullable|numeric',
+            'utang' => 'nullable|numeric',
+            'pantiasuhan' => 'required|string|max:255',
+        ]);
+
+        $zakat = Zakat::findOrFail($id); // Ambil data zakat berdasarkan ID
+        $zakat->update($request->all()); // Perbarui data zakat
+
+        return redirect()->route('zakatAdmin.index')->with('success', 'Data zakat berhasil diperbarui.');
+    }
+
     public function destroy($id)
     {
-        $zakat = ZakatAdmin::findOrFail($id);
-        $zakat->delete();
+        $zakat = Zakat::findOrFail($id); // Ambil data zakat berdasarkan ID
+        $zakat->delete(); // Hapus data zakat
 
-        return redirect()->route('zakatAdmin.index');
+        return redirect()->route('zakatAdmin.index')->with('success', 'Data zakat berhasil dihapus.');
+    }
+
+    public function viewUserZakat()
+    {
+        $zakat = Zakat::all();
+        return view('admin.zakatAdmin.userZakat', compact('zakat'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $zakat = Zakat::findOrFail($id); // Ambil data zakat berdasarkan ID
+        $zakat->status = $request->status; // Perbarui kolom status
+        $zakat->save(); // Simpan perubahan
+
+        return redirect()->route('zakatAdmin.index')->with('success', 'Status zakat berhasil diperbarui.');
     }
 }
 
