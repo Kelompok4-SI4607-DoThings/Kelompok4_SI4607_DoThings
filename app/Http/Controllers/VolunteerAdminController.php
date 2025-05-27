@@ -2,40 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Volunteer;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\VolunteerAdmin;
+use Illuminate\Support\Facades\Storage;
 
 class VolunteerAdminController extends Controller
 {
-    public function create()
-    {
-        return view('volunteers.create');
+    public function index() {
+        $volunteers = VolunteerAdmin::all();
+        return view('admin.volunteerAdmin.index', compact('volunteers'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'company_name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
-            'volunteer_name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
+    public function create() {
+        return view('admin.volunteerAdmin.create');
+    }
+
+    public function store(Request $request) {
+        $data = $request->validate([
+            'company_name' => 'required',
+            'category' => 'required',
+            'name' => 'required',
+            'location' => 'required',
+            'description' => 'required',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        // Handle file upload
-        $imagePath = $request->file('image')->store('public/volunteers_images');
+        if ($request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('volunteer_images', 'public');
+        }
 
-        // Create new volunteer record
-        Volunteer::create([
-            'company_name' => $request->company_name,
-            'category' => $request->category,
-            'volunteer_name' => $request->volunteer_name,
-            'location' => $request->location,
-            'description' => $request->description,
-            'image' => $imagePath,
+        VolunteerAdmin::create($data);
+        return redirect()->route('admin.volunteerAdmin.index')->with('success', 'Data berhasil ditambahkan.');
+    }
+
+    public function show(VolunteerAdmin $volunteeradmin) {
+        return view('admin.volunteerAdmin.show', compact('volunteeradmin'));
+    }
+
+    public function edit(VolunteerAdmin $volunteeradmin) {
+        return view('admin.volunteerAdmin.edit', compact('volunteeradmin'));
+    }
+
+    public function update(Request $request, VolunteerAdmin $volunteeradmin) {
+        $data = $request->validate([
+            'company_name' => 'required',
+            'category' => 'required',
+            'name' => 'required',
+            'location' => 'required',
+            'description' => 'required',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        return redirect()->route('volunteers.create')->with('success', 'Volunteer added successfully!');
+        if ($request->hasFile('image')) {
+            if ($volunteeradmin->image_path) {
+                Storage::disk('public')->delete($volunteeradmin->image_path);
+            }
+            $data['image_path'] = $request->file('image')->store('volunteer_images', 'public');
+        }
+
+        $volunteeradmin->update($data);
+        return redirect()->route('admin.volunteerAdmin.index')->with('success', 'Data berhasil diubah.');
+    }
+
+    public function destroy(VolunteerAdmin $volunteeradmin) {
+        if ($volunteeradmin->image_path) {
+            Storage::disk('public')->delete($volunteeradmin->image_path);
+        }
+        $volunteeradmin->delete();
+        return redirect()->route('admin.volunteerAdmin.index')->with('success', 'Data berhasil dihapus.');
     }
 }

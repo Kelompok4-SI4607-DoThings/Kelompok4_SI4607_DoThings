@@ -10,11 +10,6 @@ class VolunteerAdmin extends Model
     use HasFactory;
 
     protected $fillable = [
-        'company_name',
-        'category',
-        'volunteer_name',
-        'location',
-        'description',
-        'image',
+        'company_name', 'category', 'name', 'location', 'description', 'image_path'
     ];
 }

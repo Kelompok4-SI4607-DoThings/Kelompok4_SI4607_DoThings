@@ -15,15 +15,13 @@
         <h2 class="fw-semibold fs-4">"More Giving, More Living🩷🩷"</h2>
     </div>
 
-    <!-- Share Your Kindness Section -->
-    <div class="text-center mb-5">
-        <h3 class="fw-bold text-primary">Share Your <span class="text-success">Kindness</span></h3>
-        <div class="row g-4 mt-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm text-center p-4">
-                    <h5 class="card-title">Volunteer</h5>
-                    <p class="card-text">Join as a volunteer and help others.</p>
-                </div>
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="custom-card text-center">
+                <div class="icon">🤝</div>
+                <h5 class="mb-2">Volunteer</h5>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <a href="{{ route('admin.volunteerAdmin.index') }}" class="custom-btn mt-3">Detail</a>
             </div>
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm bg-primary text-white text-center p-4">
