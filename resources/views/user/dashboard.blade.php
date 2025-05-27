@@ -415,16 +415,16 @@
                         <h5 class="card-title">{{ $item['title'] }}</h5>
                         <p class="card-text text-muted small">{{ $item['desc'] }}</p>
                         @if ($item['title'] === 'Donasi')
-                            <a href="{{ route('donations.index') }}" class="btn btn-outline-primary mt-2">Lihat Donasi</a>
-                        @endif
-                        @if ($item['title'] === 'Pembayaran Zakat')
-                            <a href="{{ route('zakat.index') }}" class="btn btn-outline-primary mt-2">Bayar Zakat</a>
-                        @endif
-                        @if ($item['title'] === 'Unggah Artikel')
-                            <a href="{{ route('articles.index') }}" class="btn btn-outline-primary mt-2">Tulis Artikel</a>
+                            <a href="{{ route('donations.index') }}" class="btn btn-primary mt-2">Lihat Donasi</a>
                         @endif
                         @if ($item['title'] === 'Galang Dana')
-                            <a href="{{ route('GalangDana.index') }}" class="btn btn-outline-primary mt-2">Galang Dana</a>
+                            <a href="{{ route('GalangDana.index') }}" class="btn btn-primary mt-2">Mulai Galang dana </a>
+                        @endif
+                        @if ($item['title'] === 'Pembayaran Zakat')
+                            <a href="{{ route('zakat.index') }}" class="btn btn-primary mt-2">Bayar Zakat</a>
+                        @endif
+                        @if ($item['title'] === 'Unggah Artikel')
+                            <a href="{{ route('articles.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
                         @endif
                     </div>
                 </div>
@@ -433,8 +433,8 @@
     </div>
 
     {{-- Quote Section 2 --}}
-    <div class="quote-section text-center mb-5">
-        <h2><strong>Menebar <span class="text-primary">Kasih</span>, Meraih <span class="text-primary">Berkah Ilahi</span></strong></h2>
+    <div class="quote-section text-center mb-4">
+        <h5><strong>Menebar <span class="text-primary">Kasih</span>, Meraih <span class="text-info">Berkah Ilahi</span></strong></h5>
         <p class="text-muted fst-italic">"Dan barang siapa bersedekah kepada Allah, niscaya akan diberikan kemudahan baginya dalam urusannya."</p>
     </div>
 </div>

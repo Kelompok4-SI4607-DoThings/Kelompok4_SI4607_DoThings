@@ -14,7 +14,6 @@ class CampaignController extends Controller
         $campaigns = Campaign::latest()->get();
         return view('admin.campaigns.index', compact('campaigns'));
     }
-
     public function create()
     {
         return view('admin.campaigns.create');

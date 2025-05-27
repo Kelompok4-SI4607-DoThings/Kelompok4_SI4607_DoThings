@@ -5,6 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+
+                <div class="card-header">Edit Kampanye Donasi</div>
                 <div class="card-header">Edit Donasi</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('campaigns.update', $campaign->id) }}" enctype="multipart/form-data">
@@ -12,6 +14,7 @@
                         @method('PUT')
                         
                         <div class="form-group mb-3">
+                       
                             <label>Judul Donasi</label>
                             <input type="text" name="title" 
                                    class="form-control @error('title') is-invalid @enderror"
@@ -52,6 +55,7 @@
                         </div>
 
                         <div class="form-group mb-3">
+
                             <label>Gambar Donasi</label>
                             <input type="file" name="image" 
                                    class="form-control @error('image') is-invalid @enderror">
@@ -67,6 +71,7 @@
                                  class="img-thumbnail" 
                                  style="max-height: 200px">
                         </div>
+
 
                         <button type="submit" class="btn btn-primary">Update Donasi</button>
                     </form>

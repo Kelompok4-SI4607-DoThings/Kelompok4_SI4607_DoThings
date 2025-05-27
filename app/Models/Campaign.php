@@ -13,6 +13,8 @@ class Campaign extends Model
         'target_amount',
         'current_amount',
         'deadline',
+        'image',
+        'status'
         'image'
     ];
 
