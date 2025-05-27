@@ -102,17 +102,6 @@ Route::prefix('zakatAdmin')->name('zakatAdmin.')->group(function () {
     Route::put('/{id}/update-status', [ZakatAdminController::class, 'updateStatus'])->name('updateStatus'); // Mengubah status zakat user
 });
 
-// Article Routes
-
-// Route::prefix('user/artikel')->name('articles.')->group(function () {
-//     Route::get('/', [ArticleController::class, 'index'])->name('index');
-//     Route::get('/create', [ArticleController::class, 'create'])->name('create');
-//     Route::post('/', [ArticleController::class, 'store'])->name('store');
-//     Route::get('/{id}', [ArticleController::class, 'show'])->name('show');
-//     Route::get('/{id}/edit', [ArticleController::class, 'edit'])->name('edit'); // Rute untuk edit artikel
-//     Route::put('/{id}', [ArticleController::class, 'update'])->name('update');
-//     Route::delete('/{id}', [ArticleController::class, 'destroy'])->name('destroy');
-// });
 
 // Profile Routes
 Route::middleware(['auth'])->prefix('profile')->name('profile.')->group(function () {

@@ -53,4 +53,5 @@ class VolunteerController extends Controller
 
         return redirect()->route('volunteer.index')->with('success', 'Volunteer berhasil dihapus');
     }
+    
 }

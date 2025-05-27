@@ -36,7 +36,7 @@
             <input type="checkbox" class="form-check-input" id="agreement" name="agreement" required>
             <label class="form-check-label" for="agreement">Saya menyetujui syarat dan ketentuan</label>
         </div>
-        <button class="btn btn-primary">Simpan</button>
+        <button class="btn btn-primary">Submit</button>
     </form>
 </div>
 @endsection

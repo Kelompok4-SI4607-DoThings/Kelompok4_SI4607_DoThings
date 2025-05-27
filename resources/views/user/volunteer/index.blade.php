@@ -4,6 +4,7 @@
 <div class="container">
     <h2>Daftar Volunteer</h2>
     <a href="{{ route('volunteer.create') }}" class="btn btn-primary mb-3">Tambah Volunteer</a>
+    
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

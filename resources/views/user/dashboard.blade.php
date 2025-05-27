@@ -551,6 +551,7 @@
             document.getElementById('categoryChart'),
             categoryConfig
         );
+        
     });
 </script>
 @endsection
