@@ -22,7 +22,12 @@
         </div>
         <div class="form-group">
             <label for="pantiasuhan">Panti Asuhan</label>
-            <input type="text" name="pantiasuhan" class="form-control" required>
+            <select name="pantiasuhan" id="pantiasuhan" class="form-control" required>
+                <option value="" disabled selected>Pilih Panti Asuhan</option>
+                <option value="Panti Asuhan A">Panti Asuhan A</option>
+                <option value="Panti Asuhan B">Panti Asuhan B</option>
+                <option value="Panti Asuhan C">Panti Asuhan C</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary mt-3">Simpan</button>
     </form>

@@ -3,6 +3,16 @@
 @section('content')
     <h1>Daftar Zakat</h1>
     <a href="{{ route('zakat.create') }}" class="btn btn-primary">Tambah Zakat</a>
+<<<<<<< HEAD
+=======
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+>>>>>>> f9d999583e2821262ea1e69dcdbd3e7c8fffa4b8
     <table class="table mt-3">
         <thead>
             <tr>
@@ -12,6 +22,8 @@
                 <th>Bonus</th>
                 <th>Utang</th>
                 <th>Panti Asuhan</th>
+                <th>Total Zakat</th>
+                <th>Status</th> <!-- Kolom untuk status pembayaran -->
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -25,6 +37,27 @@
                     <td>{{ number_format($z->utang, 2) }}</td>
                     <td>{{ $z->pantiasuhan }}</td>
                     <td>
+<<<<<<< HEAD
+=======
+                        @php
+                            $totalZakat = (($z->penghasilan_perbulan + $z->bonus) * 0.025) - $z->utang;
+                        @endphp
+                        {{ number_format(max($totalZakat, 0), 2) }}
+                    </td>
+                    <td>
+                        @if ($z->is_paid)
+                            <span class="badge bg-success">Sudah Dibayar</span>
+                        @else
+                            <span class="badge bg-danger">Belum Dibayar</span>
+                        @endif
+                        <br>
+                        <small>Status: {{ $z->status }}</small> <!-- Tambahkan status dari admin -->
+                    </td>
+                    <td>
+                        @if (!$z->is_paid)
+                            <a href="{{ route('zakat.pay', $z->id) }}" class="btn btn-success">Bayar</a>
+                        @endif
+>>>>>>> f9d999583e2821262ea1e69dcdbd3e7c8fffa4b8
                         <a href="{{ route('zakat.edit', $z->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('zakat.destroy', $z->id) }}" method="POST" style="display:inline;">
                             @csrf
