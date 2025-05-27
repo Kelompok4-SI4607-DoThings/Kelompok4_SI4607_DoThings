@@ -15,6 +15,7 @@ class Campaign extends Model
         'deadline',
         'image',
         'status'
+        'image'
     ];
 
     protected $casts = [
