@@ -145,4 +145,26 @@ Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.
     Route::get('/{id}', [GalangDanaAdminController::class, 'show'])->name('show');
     Route::patch('/{id}', [GalangDanaAdminController::class, 'update'])->name('update');
     Route::delete('/{id}', [GalangDanaAdminController::class, 'destroy'])->name('destroy');
+<<<<<<< Updated upstream
 });
+=======
+});
+
+//volunteer admin
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/volunteeradmin', [VolunteerAdminController::class, 'index'])->name('volunteerAdmin.index');
+    Route::get('/volunteeradmin/create', [VolunteerAdminController::class, 'create'])->name('volunteerAdmin.create');
+    Route::post('/volunteeradmin', [VolunteerAdminController::class, 'store'])->name('volunteerAdmin.store');
+    Route::get('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'show'])->name('volunteerAdmin.show');
+    Route::get('/volunteeradmin/{volunteeradmin}/edit', [VolunteerAdminController::class, 'edit'])->name('volunteerAdmin.edit');
+    Route::put('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'update'])->name('volunteerAdmin.update');
+    Route::delete('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'destroy'])->name('volunteerAdmin.destroy');
+});
+
+Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(function () {
+    Route::get('/register', [App\Http\Controllers\VolunteerController::class, 'create'])->name('create');
+    Route::post('/', [App\Http\Controllers\VolunteerController::class, 'store'])->name('store');
+    Route::get('/programs', [App\Http\Controllers\VolunteerController::class, 'index'])->name('index');
+    Route::delete('/{id}', [App\Http\Controllers\VolunteerController::class, 'destroy'])->name('destroy');
+});
+>>>>>>> Stashed changes
