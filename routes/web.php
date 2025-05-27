@@ -147,6 +147,7 @@ Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.
     Route::get('/{id}', [GalangDanaAdminController::class, 'show'])->name('show');
     Route::patch('/{id}', [GalangDanaAdminController::class, 'update'])->name('update');
     Route::delete('/{id}', [GalangDanaAdminController::class, 'destroy'])->name('destroy');
+
 });
 
 //volunteer admin
@@ -160,6 +161,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'destroy'])->name('volunteerAdmin.destroy');
 });
 
+
+Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(function () {
+    Route::get('/register', [App\Http\Controllers\VolunteerController::class, 'create'])->name('create');
+    Route::post('/', [App\Http\Controllers\VolunteerController::class, 'store'])->name('store');
+    Route::get('/programs', [App\Http\Controllers\VolunteerController::class, 'index'])->name('index');
+    Route::delete('/{id}', [App\Http\Controllers\VolunteerController::class, 'destroy'])->name('destroy');
+});
+
 //komunitas admin
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -171,3 +180,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'update'])->name('komunitasAdmin.update');
     Route::delete('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'destroy'])->name('komunitasAdmin.destroy');
 });
+

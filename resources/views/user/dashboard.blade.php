@@ -426,6 +426,9 @@
                         @if ($item['title'] === 'Unggah Artikel')
                             <a href="{{ route('articles.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
                         @endif
+                        @if ($item['title'] === 'Volunteer')
+                            <a href="{{ route('volunteer.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
+                        @endif
                     </div>
                 </div>
             </div>
