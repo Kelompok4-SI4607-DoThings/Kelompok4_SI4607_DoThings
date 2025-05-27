@@ -5,14 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+
                 <div class="card-header">Edit Kampanye Donasi</div>
+                <div class="card-header">Edit Donasi</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('campaigns.update', $campaign->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         
                         <div class="form-group mb-3">
-                            <label>Judul Kampanye</label>
+                       
+                            <label>Judul Donasi</label>
                             <input type="text" name="title" 
                                    class="form-control @error('title') is-invalid @enderror"
                                    value="{{ old('title', $campaign->title) }}" required>
@@ -52,7 +55,8 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label>Gambar Kampanye</label>
+
+                            <label>Gambar Donasi</label>
                             <input type="file" name="image" 
                                    class="form-control @error('image') is-invalid @enderror">
                             <small class="text-muted">Biarkan kosong jika tidak ingin mengubah gambar</small>
@@ -68,7 +72,8 @@
                                  style="max-height: 200px">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Update Kampanye</button>
+
+                        <button type="submit" class="btn btn-primary">Update Donasi</button>
                     </form>
                 </div>
             </div>
