@@ -14,7 +14,7 @@ class Campaign extends Model
         'current_amount',
         'deadline',
         'image',
-        'status'
+        'status',
         'image'
     ];
 

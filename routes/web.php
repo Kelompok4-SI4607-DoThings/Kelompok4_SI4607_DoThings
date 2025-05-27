@@ -11,6 +11,7 @@ use App\Http\Controllers\ZakatAdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalangDanaController;
 use App\Http\Controllers\GalangDanaAdminController;
+use App\Http\Controllers\VolunteerAdminController;
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -145,4 +146,15 @@ Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.
     Route::get('/{id}', [GalangDanaAdminController::class, 'show'])->name('show');
     Route::patch('/{id}', [GalangDanaAdminController::class, 'update'])->name('update');
     Route::delete('/{id}', [GalangDanaAdminController::class, 'destroy'])->name('destroy');
+});
+
+//volunteer admin
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/volunteeradmin', [VolunteerAdminController::class, 'index'])->name('volunteerAdmin.index');
+    Route::get('/volunteeradmin/create', [VolunteerAdminController::class, 'create'])->name('volunteerAdmin.create');
+    Route::post('/volunteeradmin', [VolunteerAdminController::class, 'store'])->name('volunteerAdmin.store');
+    Route::get('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'show'])->name('volunteerAdmin.show');
+    Route::get('/volunteeradmin/{volunteeradmin}/edit', [VolunteerAdminController::class, 'edit'])->name('volunteerAdmin.edit');
+    Route::put('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'update'])->name('volunteerAdmin.update');
+    Route::delete('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'destroy'])->name('volunteerAdmin.destroy');
 });
