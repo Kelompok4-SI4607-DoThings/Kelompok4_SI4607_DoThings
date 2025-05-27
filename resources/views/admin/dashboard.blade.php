@@ -108,7 +108,7 @@
                 <div class="icon">👥</div>
                 <h5 class="mb-2">Komunitas</h5>
                 <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
-                <a href="#" class="custom-btn mt-3">Detail</a>
+                <a href="{{ route(name: 'admin.komunitasAdmin.index') }}" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
         <div class="col-md-4">

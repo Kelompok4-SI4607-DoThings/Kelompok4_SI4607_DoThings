@@ -12,6 +12,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalangDanaController;
 use App\Http\Controllers\GalangDanaAdminController;
 use App\Http\Controllers\VolunteerAdminController;
+use App\Http\Controllers\KomunitasAdminController;
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -157,4 +158,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/volunteeradmin/{volunteeradmin}/edit', [VolunteerAdminController::class, 'edit'])->name('volunteerAdmin.edit');
     Route::put('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'update'])->name('volunteerAdmin.update');
     Route::delete('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'destroy'])->name('volunteerAdmin.destroy');
+});
+
+//komunitas admin
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/komunitasadmin', [KomunitasAdminController::class, 'index'])->name('komunitasAdmin.index');
+    Route::get('/komunitasadmin/create', [KomunitasAdminController::class, 'create'])->name('komunitasAdmin.create');
+    Route::post('/komunitasadmin', [KomunitasAdminController::class, 'store'])->name('komunitasAdmin.store');
+    Route::get('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'show'])->name('komunitasAdmin.show');
+    Route::get('/komunitasadmin/{komunitasadmin}/edit', [KomunitasAdminController::class, 'edit'])->name('komunitasAdmin.edit');
+    Route::put('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'update'])->name('komunitasAdmin.update');
+    Route::delete('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'destroy'])->name('komunitasAdmin.destroy');
 });
