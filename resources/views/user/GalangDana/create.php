@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("issdss", $user_id, $judul, $deskripsi, $target_dana, $batas_waktu, $gambar_path);
 
     if ($stmt->execute()) {
-        echo "<p style='color:green;'>✅ Kampanye berhasil dibuat.</p>";
+        echo "<p style='color:green;'>✅ Selamat Kampanye berhasil dibuat.</p>";
     } else {
         echo "<p style='color:red;'>❌ Gagal menyimpan: " . $stmt->error . "</p>";
     }
