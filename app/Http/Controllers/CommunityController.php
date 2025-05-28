@@ -2,26 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Community;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class CommunityController extends Controller
 {
-    // Menampilkan semua komunitas
     public function index()
     {
         $communities = Community::all();
-        return view('communities.index', compact('communities'));
+        return view('user.community.index', compact('communities'));
     }
 
-    // Menampilkan form tambah komunitas
     public function create()
     {
-        return view('communities.create');
+        return view('user.community.create');
     }
 
-    // Menyimpan komunitas baru
     public function store(Request $request)
     {
         $request->validate([
@@ -29,27 +25,29 @@ class CommunityController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        Community::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'user_id' => Auth::id(), // Pemilik komunitas
-        ]);
-
-        return redirect()->route('communities.index')->with('success', 'Komunitas berhasil dibuat.');
+        Community::create($request->only('name', 'description'));
+        return redirect()->route('communities.index')->with('success', 'Komunitas berhasil ditambahkan.');
     }
 
-    // Menghapus komunitas
-    public function destroy($id)
+    public function edit(Community $community)
     {
-        $community = Community::findOrFail($id);
+        return view('user.community.edit', compact('community'));
+    }
 
-        // Hanya pemilik yang boleh menghapus
-        if ($community->user_id !== Auth::id()) {
-            return redirect()->route('communities.index')->with('error', 'Anda tidak memiliki izin.');
-        }
+    public function update(Request $request, Community $community)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
 
+        $community->update($request->only('name', 'description'));
+        return redirect()->route('communities.index')->with('success', 'Komunitas berhasil diperbarui.');
+    }
+
+    public function destroy(Community $community)
+    {
         $community->delete();
-
         return redirect()->route('communities.index')->with('success', 'Komunitas berhasil dihapus.');
     }
 }

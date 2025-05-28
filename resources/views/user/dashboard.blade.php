@@ -72,6 +72,9 @@
                         @if ($item['title'] === 'Unggah Artikel')
                             <a href="{{ route('articles.index') }}" class="btn btn-primary mt-3">Unggah Artikel</a>
                         @endif
+                        @if ($item['title'] === 'Komunitas')
+                            <a href="{{ route('communities.index') }}" class="btn btn-outline-primary mt-2">Buat Komunitas</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -84,5 +87,6 @@
         <p class="text-muted fst-italic small">"Dan barang siapa bersedekah kepada Allah, niscaya akan diberikan kemudahan baginya dalam urusannya."</p>
     </div>
 </div>
+
 
 @endsection

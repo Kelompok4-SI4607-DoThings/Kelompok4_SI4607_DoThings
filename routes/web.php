@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommunityController;
+
 
 Route::get('/', function () {
     return view('landing');
@@ -89,8 +91,6 @@ Route::delete('/zakatAdmin/{id}', [ZakatAdminController::class, 'destroy'])->nam
 
 use App\Http\Controllers\ArticleController;
 
-
-
 Route::prefix('user/artikel')->group(function () {
     // Menampilkan daftar artikel
     Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
@@ -113,24 +113,34 @@ Route::prefix('user/artikel')->group(function () {
     // Menghapus artikel
     Route::delete('/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 
-    // Melihat komunitas
-    Route::get('/{id}', [CommunityController::class, 'index'])->name('communitity.index');
+    // // Melihat komunitas
+    // Route::get('/{id}', [CommunityController::class, 'index'])->name('communitity.index');
 
 
-use App\Http\Controllers\CommunityController;
+// Route::middleware('auth')->group(function () {
+//     // Menampilkan daftar komunitas (READ)
+//     Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
 
-Route::middleware('auth')->group(function () {
-    // Menampilkan daftar komunitas (READ)
-    Route::get('/communities', [CommunityController::class, 'index'])->name('communities.index');
+//     // Menampilkan form tambah komunitas (CREATE)
+//     Route::get('/communities/create', [CommunityController::class, 'create'])->name('communities.create');
 
-    // Menampilkan form tambah komunitas (CREATE)
-    Route::get('/communities/create', [CommunityController::class, 'create'])->name('communities.create');
+//     // Menyimpan komunitas baru
+//     Route::post('/communities', [CommunityController::class, 'store'])->name('communities.store');
 
-    // Menyimpan komunitas baru
-    Route::post('/communities', [CommunityController::class, 'store'])->name('communities.store');
+//     // Menghapus komunitas (DELETE)
+//     Route::delete('/communities/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
+// });
+// use App\Http\Controllers\CommunityController;
 
-    // Menghapus komunitas (DELETE)
-    Route::delete('/communities/{id}', [CommunityController::class, 'destroy'])->name('communities.destroy');
+
+
+Route::prefix('communities')->name('communities.')->group(function () {
+    Route::get('/', [CommunityController::class, 'index'])->name('index');         
+    Route::get('/create', [CommunityController::class, 'create'])->name('create'); 
+    Route::post('/', [CommunityController::class, 'store'])->name('store');        
+    Route::get('/{community}/edit', [CommunityController::class, 'edit'])->name('edit');       // Edit form
+    Route::put('/{community}', [CommunityController::class, 'update'])->name('update');        // Proses update
+    Route::delete('/{community}', [CommunityController::class, 'destroy'])->name('destroy'); 
 });
 
 

@@ -12,14 +12,5 @@ class Community extends Model
     protected $fillable = [
         'name',
         'description',
-        'slug',
-        'user_id',
-        'image_path',
-        'category'
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }
