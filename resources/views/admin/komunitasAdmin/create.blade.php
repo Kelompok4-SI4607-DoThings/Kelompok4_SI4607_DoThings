@@ -1,91 +1,27 @@
 @extends('layouts.app')
 @section('content')
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Do Things - Add Komunitas</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff;
-    }
-
-    .form-container {
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 30px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      background-color: #fff;
-    }
-
-    .btn-primary {
-      background-color: #007be5;
-      border: none;
-    }
-
-    .footer {
-      background: #111;
-      color: #fff;
-      padding: 40px 20px;
-    }
-
-    .footer a {
-      color: #fff;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .footer-bottom {
-      background: #eee;
-      padding: 10px;
-      text-align: center;
-      color: #000;
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-
-<!-- Header -->
-<nav class="navbar navbar-light bg-light px-4">
-  <a class="navbar-brand fw-bold text-primary">DO <strong>THINGS</strong></a>
-  <div>
-    <a href="#" class="me-3 text-dark text-decoration-none">Home</a>
-    <button class="btn btn-outline-dark">Log Out</button>
-  </div>
-</nav>
-
-<!-- Form -->
-<div class="form-container shadow-sm">
-  <h3 class="text-center mb-4">Add <span class="text-primary">Komunitas</span></h3>
-  <form id="komunitasForm">
-    <div class="mb-3">
-      <label for="judul" class="form-label">Judul Komunitas</label>
-      <input type="text" class="form-control" id="judul" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="tanggal" class="form-label">Tanggal Dibuat</label>
-      <input type="date" class="form-control" id="tanggal" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="kategori" class="form-label">Content / Category</label>
-      <input type="text" class="form-control" id="kategori" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="deskripsi" class="form-label">Deskripsi</label>
-      <textarea class="form-control" id="deskripsi" rows="3" required></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Add Now ➤</button>
-  </form>
+<div class="container">
+    <h1>Add Komunitas</h1>
+    <form action="{{ route('admin.komunitasAdmin.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="judul_komunitas">Judul Komunitas</label>
+            <input type="text" class="form-control" id="judul_komunitas" name="judul_komunitas" required>
+        </div>
+        <div class="form-group">
+            <label for="tanggal_dibuat">Tanggal Dibuat</label>
+            <input type="date" class="form-control" id="tanggal_dibuat" name="tanggal_dibuat" required>
+        </div>
+        <div class="form-group">
+            <label for="category">Content / Category</label>
+            <input type="text" class="form-control" id="category" name="category" required>
+        </div>
+        <div class="form-group">
+            <label for="deskripsi">Deskripsi</label>
+            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Add Now</button>
+    </form>
 </div>
 
 <!-- Text bawah -->
