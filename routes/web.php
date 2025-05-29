@@ -180,4 +180,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'update'])->name('komunitasAdmin.update');
     Route::delete('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'destroy'])->name('komunitasAdmin.destroy');
 });
-
