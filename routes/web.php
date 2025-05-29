@@ -13,6 +13,7 @@ use App\Http\Controllers\GalangDanaController;
 use App\Http\Controllers\GalangDanaAdminController;
 use App\Http\Controllers\VolunteerAdminController;
 use App\Http\Controllers\KomunitasAdminController;
+use App\Http\Controllers\CommunityController;
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -180,4 +181,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'update'])->name('komunitasAdmin.update');
     Route::delete('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'destroy'])->name('komunitasAdmin.destroy');
 });
-
+Route::prefix('communities')->name('communities.')->group(function () {
+    Route::get('/', [CommunityController::class, 'index'])->name('index');         
+    Route::get('/create', [CommunityController::class, 'create'])->name('create'); 
+    Route::post('/', [CommunityController::class, 'store'])->name('store');        
+    Route::get('/{community}/edit', [CommunityController::class, 'edit'])->name('edit');       // Edit form
+    Route::put('/{community}', [CommunityController::class, 'update'])->name('update');        // Proses update
+    Route::delete('/{community}', [CommunityController::class, 'destroy'])->name('destroy'); 
+});
