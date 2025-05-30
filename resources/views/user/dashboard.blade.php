@@ -401,10 +401,9 @@
             ['title' => 'Galang Dana', 'icon' => 'bi-cash-coin', 'color' => 'bg-success', 'desc' => 'Buat campaign untuk kebaikan'],
             ['title' => 'Pembayaran Zakat', 'icon' => 'bi-wallet2', 'color' => 'bg-info', 'desc' => 'Tunaikan kewajiban dengan mudah'],
             ['title' => 'Komunitas', 'icon' => 'bi-heart-fill', 'color' => 'bg-warning', 'desc' => 'Bergabung dengan komunitas peduli'],
-            ['title' => 'Gamifikasi & Reward', 'icon' => 'bi-trophy-fill', 'color' => 'bg-danger', 'desc' => 'Dapatkan hadiah dari kebaikan'],
             ['title' => 'Unggah Artikel', 'icon' => 'bi-journal-text', 'color' => 'bg-secondary', 'desc' => 'Bagikan inspirasi kebaikan'],
             ['title' => 'Donasi', 'icon' => 'bi-gift-fill', 'color' => 'bg-primary', 'desc' => 'Donasi untuk berbagai kebutuhan'],
-            ['title' => 'Bookmark', 'icon' => 'bi-bookmark-heart-fill', 'color' => 'bg-success', 'desc' => 'Simpan campaign favorit'],
+           
         ] as $item)
             <div class="col-sm-6 col-md-3">
                 <div class="card h-100 text-center shadow-sm feature-card">
@@ -428,6 +427,9 @@
                         @endif
                         @if ($item['title'] === 'Volunteer')
                             <a href="{{ route('volunteer.index') }}" class="btn btn-primary mt-2">Mulai Volunteer</a>
+                        @endif
+                        @if ($item['title'] === 'Komunitas')
+                            <a href="{{ route('communities.index') }}" class="btn btn-primary mt-2">Komunitas</a>
                         @endif
                     </div>
                 </div>
