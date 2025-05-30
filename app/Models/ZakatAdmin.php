@@ -13,5 +13,6 @@ class ZakatAdmin extends Model
         'name',
         'status',
     ];
+    
 }
 

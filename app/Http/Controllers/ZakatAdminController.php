@@ -51,6 +51,7 @@ class ZakatAdminController extends Controller
             'bonus' => 'nullable|numeric',
             'utang' => 'nullable|numeric',
             'pantiasuhan' => 'required|string|max:255',
+            
         ]);
 
         $zakat = Zakat::findOrFail($id); // Ambil data zakat berdasarkan ID
@@ -78,7 +79,6 @@ class ZakatAdminController extends Controller
         $zakat = Zakat::findOrFail($id); // Ambil data zakat berdasarkan ID
         $zakat->status = $request->status; // Perbarui kolom status
         $zakat->save(); // Simpan perubahan
-
         return redirect()->route('zakatAdmin.index')->with('success', 'Status zakat berhasil diperbarui.');
     }
 }
