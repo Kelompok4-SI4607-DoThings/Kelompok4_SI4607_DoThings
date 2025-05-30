@@ -99,6 +99,7 @@ Route::prefix('zakatAdmin')->name('zakatAdmin.')->group(function () {
     Route::delete('/{id}', [ZakatAdminController::class, 'destroy'])->name('destroy');
     Route::get('/user-zakat', [ZakatAdminController::class, 'viewUserZakat'])->name('userZakat'); // Melihat zakat user
     Route::put('/{id}/update-status', [ZakatAdminController::class, 'updateStatus'])->name('updateStatus'); // Mengubah status zakat user
+    
 });
 
 

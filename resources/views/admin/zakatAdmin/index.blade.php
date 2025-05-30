@@ -21,6 +21,7 @@
                     <td>{{ $zakat->pantiasuhan }}</td>
                     <td>{{ $zakat->status }}</td>
                     <td>
+                        
                         <!-- Form untuk mengubah status -->
                         <form action="{{ route('zakatAdmin.updateStatus', $zakat->id) }}" method="POST" style="display:inline;">
                             @csrf

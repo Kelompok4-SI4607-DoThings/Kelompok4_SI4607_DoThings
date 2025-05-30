@@ -144,7 +144,7 @@
             <div class="custom-card text-center">
                 <div class="icon">🕌</div>
                 <h5 class="mb-2">Pembayaran Zakat</h5>
-                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka.</p>
+                <p>Mulailah alur kebaikan bermakna dari langkah sederhana. Masukkan kontribusimu bersama mereka</p>
                 <a href="{{ route('zakatAdmin.index') }}" class="custom-btn mt-3">Detail</a>
             </div>
         </div>
