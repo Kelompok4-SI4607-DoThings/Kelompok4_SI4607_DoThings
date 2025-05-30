@@ -29,7 +29,7 @@
     </form>
 </div>
 
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <h2>Daftar Kampanye</h2>
     <table class="table">
         <thead>
@@ -57,5 +57,5 @@
             @endforeach
         </tbody>
     </table>
-</div>
+</div> -->
 @endsection
