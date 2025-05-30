@@ -8,7 +8,6 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\ZakatAdminController;
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\VolunteerController;
 
 // Landing Page
