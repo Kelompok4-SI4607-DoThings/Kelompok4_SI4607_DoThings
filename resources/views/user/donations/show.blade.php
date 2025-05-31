@@ -14,7 +14,7 @@
             @foreach($donations as $donation)
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-light">
-                        <img src="{{ asset('images/' . $donation->campaign->image) }}" class="card-img-top" alt="Gambar Kampanye" style="height: 200px; object-fit: cover;">
+                        <img src="{{ asset('storage/' . $donation->campaign->image) }}" class="card-img-top" alt="Gambar Kampanye" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">{{ $donation->campaign->title }}</h5>
                             <p class="card-text">

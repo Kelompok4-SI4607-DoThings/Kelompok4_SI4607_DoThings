@@ -26,7 +26,7 @@
         @forelse($campaigns as $campaign)
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <img src="{{ asset('images/'.$campaign->image) }}" 
+                    <img src="{{ asset('storage/'.$campaign->image) }}" 
                          class="card-img-top" 
                          alt="{{ $campaign->title }}"
                          style="height: 200px; object-fit: cover;">
@@ -65,12 +65,11 @@
                                 {{ \Carbon\Carbon::parse($campaign->deadline)->diffForHumans() }}
                             </small>
                             <div class="btn-group">
-                                <button type="button" 
-                                        class="btn btn-outline-primary btn-sm"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#campaignModal-{{ $campaign->id }}">
-                                    Lihat Detail
-                                </button>
+                                
+                                    <a href="{{ route('donations.edit', $campaign) }}"
+                                    class="btn btn-primary btn-sm">
+                                    Edit Donasi    
+                                    </a>
                                 <a href="{{ route('donations.create', $campaign) }}"
                                    class="btn btn-primary btn-sm">
                                     Donasi Sekarang

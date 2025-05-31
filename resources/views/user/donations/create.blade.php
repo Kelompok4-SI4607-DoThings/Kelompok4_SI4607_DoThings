@@ -33,8 +33,11 @@
                 <option value="ewallet">E-Wallet</option>
             </select>
         </div>
-
         <button type="submit" class="btn btn-primary">Donasi Sekarang</button>
+        <a href="{{ route('donations.index') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left-circle"></i> Kembali
+                            </a>
     </form>
 </div>
+<br>
 @endsection

@@ -13,7 +13,7 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>#</th>
+                <th>No</th>
                 <th>Nama Pembayar Zakat</th>
                 <th>Penghasilan Perbulan</th>
                 <th>Bonus</th>
@@ -53,14 +53,15 @@
                             <a href="{{ route('zakat.pay', $z->id) }}" class="btn btn-success">Bayar</a>
                         @endif
                         <a href="{{ route('zakat.edit', $z->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('zakat.destroy', $z->id) }}" method="POST" style="display:inline;">
+                        <!-- <form action="{{ route('zakat.destroy', $z->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
-                        </form>
+                        </form> -->
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <br>
 @endsection

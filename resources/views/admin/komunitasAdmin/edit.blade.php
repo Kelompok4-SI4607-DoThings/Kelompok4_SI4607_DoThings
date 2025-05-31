@@ -26,4 +26,5 @@
         <button type="submit" class="btn btn-primary mt-3">Update Komunitas</button>
     </form>
 </div>
+<br>
 @endsection

@@ -196,13 +196,13 @@
 
     {{-- Donation Summary --}}
     <div class="donation-summary mb-4">
-        <div class="row">
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="d-flex align-items-center">
-                    <div class="donation-summary-icon me-3">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="donation-summary-icon me-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-cash-stack"></i>
-                    </div>
-                    <div>
+                    </span>
+                    <div class="text-center w-100 text-md-start">
                         <h6 class="text-muted mb-1">Total Donasi</h6>
                         <h3 class="fw-bold mb-0">Rp {{ number_format($totalDonations, 0, ',', '.') }}</h3>
                         <p class="text-success small mb-0">
@@ -221,12 +221,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="d-flex align-items-center">
-                    <div class="donation-summary-icon me-3">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="donation-summary-icon me-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-calendar-check"></i>
-                    </div>
-                    <div>
+                    </span>
+                    <div class="text-center w-100 text-md-start">
                         <h6 class="text-muted mb-1">Donasi Bulan Ini</h6>
                         <h3 class="fw-bold mb-0">Rp {{ number_format($currentMonthDonations, 0, ',', '.') }}</h3>
                         <p class="text-success small mb-0">
@@ -246,13 +246,12 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="col-md-3">
-                <div class="d-flex align-items-center">
-                    <div class="donation-summary-icon me-3">
+            <div class="col-md-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="donation-summary-icon me-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-megaphone"></i>
-                    </div>
-                    <div>
+                    </span>
+                    <div class="text-center w-100 text-md-start">
                         <h6 class="text-muted mb-1">Campaign Aktif</h6>
                         <h3 class="fw-bold mb-0">{{ number_format($activeCampaigns) }}</h3>
                         <p class="text-success small mb-0">
@@ -264,9 +263,9 @@
             </div>
         </div>
     </div>
-
+    <br>
     {{-- Statistik Grafik --}}
-    <div class="row mb-5">
+    <div class="row mb-5 justify-content-center">
         <div class="col-md-8 mb-4">
             <div class="card shadow-sm stat-card">
                 <div class="card-body">
@@ -274,10 +273,9 @@
                         <h5 class="card-title mb-0">Total Donasi (6 Bulan Terakhir)</h5>
                         <div class="btn-group btn-group-sm" role="group">
                             <button type="button" class="btn btn-outline-primary active">6 Bulan</button>
-                            <button type="button" class="btn btn-outline-primary">1 Tahun</button>
                         </div>
                     </div>
-                    <div class="chart-container">
+                    <div class="chart-container mx-auto" style="max-width:600px;">
                         <canvas id="donationChart" width="600" height="300"></canvas>
                     </div>
                 </div>
@@ -286,7 +284,7 @@
     </div>
 
     {{-- Activity Stats --}}
-    <div class="row mb-5">        
+    <div class="row mb-5 justify-content-center">        
         <div class="col-md-8 mb-4">
             <div class="card shadow-sm stat-card">
                 <div class="card-body">

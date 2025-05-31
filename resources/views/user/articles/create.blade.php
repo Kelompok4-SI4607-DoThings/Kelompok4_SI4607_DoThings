@@ -23,8 +23,9 @@
             <label for="image">Foto Artikel</label>
             <input type="file" class="form-control" id="image" name="image" accept="image/*">
         </div>
-
+        <br>
         <button type="submit" class="btn btn-primary">Simpan Artikel</button>
     </form>
 </div>
+<br>
 @endsection

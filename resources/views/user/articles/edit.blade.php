@@ -46,4 +46,5 @@
 
     <a href="{{ route('articles.index') }}" class="btn btn-secondary mt-3">Kembali ke Daftar Artikel</a>
 </div>
+<br>   
 @endsection

@@ -22,7 +22,7 @@
         @forelse($campaigns as $campaign)
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <img src="{{ asset('images/'.$campaign->image) }}" 
+                    <img src="{{ asset('storage/'.$campaign->image) }}" 
                          class="card-img-top" 
                          alt="{{ $campaign->title }}"
                          style="height: 200px; object-fit: cover;">

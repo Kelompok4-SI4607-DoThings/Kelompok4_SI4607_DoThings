@@ -23,11 +23,11 @@
                     <td>Rp {{ number_format($campaign->target_amount, 2) }}</td>
                     <td>{{ $campaign->deadline }}</td>
                     <td>
-                        <img src="{{ asset('images/' . $campaign->image) }}" alt="Gambar Kampanye" style="width: 100px; height: auto;">
+                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="Gambar Kampanye" style="width: 100px; height: auto;">
                     </td>
                     <td>{{ ucfirst($campaign->status) }}</td>
                     <td>
-                        <a href="{{ route('galangDanaAdmin.show', $campaign->id) }}" class="btn btn-primary btn-sm">Detail</a>
+                        <a href="{{ route('galangDanaAdmin.show', $campaign->id) }}" class="btn btn-primary">Detail</a>
                         <form action="{{ route('galangDanaAdmin.destroy', $campaign->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

@@ -24,4 +24,5 @@
         <button type="submit" class="btn btn-primary mt-3">Add Now</button>
     </form>
 </div>
+<br>
 @endsection

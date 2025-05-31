@@ -14,4 +14,5 @@
         <button class="btn btn-primary">Add New</button>
     </form>
 </div>
+<br>
 @endsection

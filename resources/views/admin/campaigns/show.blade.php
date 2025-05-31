@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card">
-                <img src="{{ asset('images/'.$campaign->image) }}" 
+                <img src="{{ asset('storage/'.$campaign->image) }}" 
                      class="card-img-top" 
                      alt="{{ $campaign->title }}"
                      style="height: 400px; object-fit: cover;">
@@ -70,4 +70,5 @@
         </div>
     </div>
 </div>
+<br>
 @endsection

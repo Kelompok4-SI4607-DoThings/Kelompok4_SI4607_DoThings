@@ -45,4 +45,5 @@
         <a href="{{ route('galangDanaAdmin.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
+<br>
 @endsection

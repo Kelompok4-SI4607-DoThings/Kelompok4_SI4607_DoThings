@@ -30,4 +30,5 @@
         <button type="submit" class="btn btn-danger mt-3">Hapus Artikel</button>
     </form>
 </div>
+<br>
 @endsection

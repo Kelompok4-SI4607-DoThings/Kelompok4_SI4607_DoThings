@@ -65,13 +65,11 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <img src="{{ asset('images/'.$campaign->image) }}" 
+                            <img src="{{ asset('storage/'.$campaign->image) }}" 
                                  alt="Current Image" 
                                  class="img-thumbnail" 
                                  style="max-height: 200px">
                         </div>
-
-
                         <button type="submit" class="btn btn-primary">Update Donasi</button>
                     </form>
                 </div>
@@ -79,4 +77,5 @@
         </div>
     </div>
 </div>
+<br>
 @endsection
