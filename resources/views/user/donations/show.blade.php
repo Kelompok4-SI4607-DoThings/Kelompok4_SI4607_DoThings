@@ -27,9 +27,6 @@
                                 <li><span class="badge bg-light text-dark mb-1"><i class="bi bi-chat-dots"></i> {{ $donation->message ?? '-' }}</span></li>
                             </ul>
                             <div class="d-flex gap-2 mt-auto">
-                                <a href="{{ route('donations.edit', $donation) }}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm">
-                                    <i class="bi bi-pencil-square"></i> Edit
-                                </a>
                                 <form action="{{ route('donations.destroy', $donation) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus donasi ini?')" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

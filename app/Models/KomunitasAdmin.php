@@ -17,4 +17,8 @@ class KomunitasAdmin extends Model
         'category',
         'deskripsi',
     ];
+
+    public function chats() {
+        return $this->hasMany(CommunityChat::class, 'komunitas_admin_id');
+    }
 }
