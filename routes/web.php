@@ -190,7 +190,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 //community chat
-
 Route::middleware(['auth'])->prefix('community-chat')->name('community.chat.')->group(function () {
     Route::get('/', [CommunityChatController::class, 'index'])->name('index');
     Route::get('/{komunitas_admin_id}', [CommunityChatController::class, 'show'])->name('show');
