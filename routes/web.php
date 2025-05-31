@@ -198,4 +198,3 @@ Route::middleware(['auth'])->prefix('community-chat')->name('community.chat.')->
     Route::put('/{komunitas_admin_id}/{chat_id}', [CommunityChatController::class, 'update'])->name('update');
     Route::delete('/{komunitas_admin_id}/{chat_id}', [CommunityChatController::class, 'delete'])->name('delete');
 });
-
