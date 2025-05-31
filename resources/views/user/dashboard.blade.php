@@ -14,11 +14,16 @@
         --dark: #5a5c69;
     }
     
+    body {
+        background-color: #f8f9fa;
+    }
+
     .feature-card {
         transition: transform 0.3s, box-shadow 0.3s;
         border-radius: 12px;
         overflow: hidden;
         border: none;
+        background-color: white;
     }
     
     .feature-card:hover {
@@ -47,6 +52,12 @@
         border-radius: 12px;
         border: none;
         height: 100%;
+        background-color: white;
+        transition: transform 0.3s;
+    }
+    
+    .stat-card:hover {
+        transform: scale(1.02);
     }
     
     .quote-section {
@@ -57,7 +68,7 @@
     }
     
     .dashboard-header {
-        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        background: linear-gradient(135deg, #4e73df 0%, #36b9cc 100%);
         color: white;
         border-radius: 15px;
         padding: 25px;
@@ -67,9 +78,14 @@
     .donation-summary {
         background-color: #fff;
         border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         padding: 20px;
         margin-bottom: 30px;
+        transition: transform 0.3s;
+    }
+    
+    .donation-summary:hover {
+        transform: scale(1.02);
     }
     
     .donation-summary-icon {
@@ -92,8 +108,12 @@
     
     .progress {
         border-radius: 10px;
-        height: 8px;
+        height: 10px;
         background-color: #f1f1f1;
+    }
+    
+    .progress-bar {
+        transition: width 0.4s ease;
     }
     
     .category-item {
@@ -144,9 +164,17 @@
         align-items: center;
         justify-content: center;
         z-index: 999;
+        background-color: var(--primary);
+        color: white;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-float:hover {
+        background-color: var(--primary-dark);
     }
 </style>
 @endsection
+
 
 @section('content')
 <div class="container py-5">
@@ -174,23 +202,23 @@
                     <div class="donation-summary-icon me-3">
                         <i class="bi bi-cash-stack"></i>
                     </div>
-            <div>
-                <h6 class="text-muted mb-1">Total Donasi</h6>
-                <h3 class="fw-bold mb-0">Rp {{ number_format($totalDonations, 0, ',', '.') }}</h3>
-                <p class="text-success small mb-0">
-                    <i class="bi bi-arrow-up"></i>
-                    @php
-                        $lastMonthTotal = App\Models\Donation::whereMonth('created_at', now()->subMonth()->month)
-                            ->whereYear('created_at', now()->subMonth()->year)
-                            ->sum('amount');
-                        
-                        $percentageChange = $lastMonthTotal > 0 
-                            ? (($totalDonations - $lastMonthTotal) / $lastMonthTotal * 100)
-                            : 0;
-                    @endphp
-                    {{ number_format($percentageChange, 1) }}% dari bulan lalu
-                </p>
-            </div>
+                    <div>
+                        <h6 class="text-muted mb-1">Total Donasi</h6>
+                        <h3 class="fw-bold mb-0">Rp {{ number_format($totalDonations, 0, ',', '.') }}</h3>
+                        <p class="text-success small mb-0">
+                            <i class="bi bi-arrow-up"></i>
+                            @php
+                                $lastMonthTotal = App\Models\Donation::whereMonth('created_at', now()->subMonth()->month)
+                                    ->whereYear('created_at', now()->subMonth()->year)
+                                    ->sum('amount');
+                                
+                                $percentageChange = $lastMonthTotal > 0 
+                                    ? (($totalDonations - $lastMonthTotal) / $lastMonthTotal * 100)
+                                    : 0;
+                            @endphp
+                            {{ number_format($percentageChange, 1) }}% dari bulan lalu
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 mb-3 mb-md-0">
@@ -228,9 +256,9 @@
                         <h6 class="text-muted mb-1">Campaign Aktif</h6>
                         <h3 class="fw-bold mb-0">{{ number_format($activeCampaigns) }}</h3>
                         <p class="text-success small mb-0">
-        <i class="bi bi-arrow-up"></i> 
-        {{ number_format($campaignPercentageChange, 1) }}% dari bulan lalu
-    </p>
+                            <i class="bi bi-arrow-up"></i> 
+                            {{ number_format($campaignPercentageChange, 1) }}% dari bulan lalu
+                        </p>
                     </div>
                 </div>
             </div>
@@ -280,7 +308,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="campaign-image me-3">
                                                     @if($campaign->image)
-                                                        <img src="{{ asset('images/' . $campaign->image) }}" 
+                                                        <img src="{{ asset('storage/' . $campaign->image) }}" 
                                                             alt="{{ $campaign->title }}" 
                                                             class="rounded"
                                                             style="width: 48px; height: 48px; object-fit: cover;">
@@ -296,11 +324,12 @@
                                                     <small class="text-muted">{{ Str::limit($campaign->description, 50) }}</small>
                                                 </div>
                                             </div>
+                                        </td>
                                         <td class="text-primary">
-                                            <strong>Rp {{ $campaign->target_amount }}</strong>
+                                            <strong>Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</strong>
                                         </td>
                                         <td class="text-success">
-                                            <strong>Rp {{ $campaign->current_amount }}</strong>
+                                            <strong>Rp {{ number_format($campaign->current_amount, 0, ',', '.') }}</strong>
                                         </td>
 
                                         <td style="min-width: 150px;">
@@ -310,7 +339,7 @@
                                                             ($percentage > 33 ? 'bg-primary' : 'bg-warning');
                                             @endphp
                                             <div class="d-flex align-items-center">
-                                                <div class="progress flex-grow-1" style="height: 8px;">
+                                                <div class="progress flex-grow-1" style="height: 10px;">
                                                     <div class="progress-bar {{ $progressClass }}" 
                                                         role="progressbar" 
                                                         style="width: {{ min($percentage, 100) }}%"
@@ -322,7 +351,6 @@
                                                 <small class="ms-2 text-muted">{{ number_format($percentage, 0) }}%</small>
                                             </div>
                                         </td>
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -330,16 +358,22 @@
                     </div>
 
                     <div class="text-center mt-4">
-    <a href="{{ route('donations.index') }}" 
-       class="btn btn-outline-primary">
-        <i class="bi bi-list-ul me-1"></i>
-        Lihat Semua Campaign
-    </a>
-</div>
+                        <a href="{{ route('donations.index') }}" 
+                           class="btn btn-outline-primary">
+                            <i class="bi bi-list-ul me-1"></i>
+                            Lihat Semua Campaign
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <a href="{{ route('donations.create', ['campaign' => 1]) }}" class="btn-float">
+        <i class="bi bi-plus"></i>
+    </a>
+</div>
+
 
     {{-- Quote --}}
     <div class="quote-section text-center mb-5">
@@ -432,9 +466,6 @@
         text-decoration: none;
     }
 </style>
-
-
-
 </div>
 @endsection
 

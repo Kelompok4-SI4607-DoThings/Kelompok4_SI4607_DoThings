@@ -50,7 +50,7 @@
                     <td>Rp {{ number_format($campaign->target_amount, 2) }}</td>
                     <td>{{ $campaign->deadline }}</td>
                     <td>
-                        <img src="{{ asset('images/' . $campaign->image) }}" alt="Gambar Kampanye" style="width: 100px; height: auto;">
+                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="Gambar Kampanye" style="width: 100px; height: auto;">
                     </td>
                     <td>{{ ucfirst($campaign->status) }}</td>
                 </tr>
