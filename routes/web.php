@@ -14,6 +14,7 @@ use App\Http\Controllers\GalangDanaAdminController;
 use App\Http\Controllers\VolunteerAdminController;
 use App\Http\Controllers\KomunitasAdminController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\UserDashboardController;
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -38,9 +39,8 @@ Route::get('/redirect-dashboard', function () {
 
 // DASHBOARD Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
-    })->name('user.dashboard');
+    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+
 
     Route::middleware([\App\Http\Middleware\AdminMiddleware::class])->group(function () {
         Route::get('/admin/dashboard', function () {
@@ -180,9 +180,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/komunitasadmin/{komunitasadmin}/edit', [KomunitasAdminController::class, 'edit'])->name('komunitasAdmin.edit');
     Route::put('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'update'])->name('komunitasAdmin.update');
     Route::delete('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'destroy'])->name('komunitasAdmin.destroy');
-<<<<<<< HEAD
-});
-=======
+
+
 });
 Route::prefix('communities')->name('communities.')->group(function () {
     Route::get('/', [CommunityController::class, 'index'])->name('index');         
@@ -192,4 +191,4 @@ Route::prefix('communities')->name('communities.')->group(function () {
     Route::put('/{community}', [CommunityController::class, 'update'])->name('update');        // Proses update
     Route::delete('/{community}', [CommunityController::class, 'destroy'])->name('destroy'); 
 });
->>>>>>> alifio
+

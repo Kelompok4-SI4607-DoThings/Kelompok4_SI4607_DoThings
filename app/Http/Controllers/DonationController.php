@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class DonationController extends Controller
 {
@@ -13,32 +15,42 @@ class DonationController extends Controller
         return view('user.donations.create', compact('campaign'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'campaign_id' => 'required|exists:campaigns,id',
-            'donor_name' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:1',
-            'message' => 'nullable|string|max:500',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'campaign_id' => 'required|exists:campaigns,id',
+        'donor_name' => 'required|string|max:255',
+        'amount' => 'required|numeric|min:1',
+        'message' => 'nullable|string|max:500',
+    ]);
 
-        $campaign = Campaign::findOrFail($request->campaign_id);
+    try {
+        DB::transaction(function () use ($request) {
+            // 1. Find the campaign
+            $campaign = Campaign::findOrFail($request->campaign_id);
 
-        // Tambahkan donasi ke database
-        Donation::create([
-            'campaign_id' => $campaign->id,
-            'donor_name' => $request->donor_name,
-            'amount' => $request->amount,
-            'message' => $request->message,
-        ]);
+            // 2. Create donation record
+            Donation::create([
+                'campaign_id' => $campaign->id,
+                'donor_name' => $request->donor_name,
+                'amount' => $request->amount,
+                'message' => $request->message,
+            ]);
 
-        // Update jumlah terkumpul di kampanye
-        $campaign->current_amount += $request->amount;
-        $campaign->save();
+            // 3. Update campaign amount
+            $campaign->current_amount += $request->amount;
+            $campaign->save();
+        });
 
         return redirect()->route('donations.index')
             ->with('success', 'Terima kasih atas donasi Anda!');
+
+    } catch (\Exception $e) {
+        return redirect()->back()
+            ->with('error', 'Terjadi kesalahan saat memproses donasi.')
+            ->withInput();
     }
+}
 
     public function index()
     {
@@ -95,6 +107,11 @@ class DonationController extends Controller
 
         return view('user.donations.show', compact('donations'));
     }
+
+   
+
+
+
 
 
 }

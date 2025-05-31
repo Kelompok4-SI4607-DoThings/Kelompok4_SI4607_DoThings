@@ -7,18 +7,18 @@
       <p style="font-size: 14px; line-height: 1.6;">
         Open source is source code that is made freely available for possible modification and redistribution. Products include permission to use the source code, design documents, or content of the product.
       </p>
-      <div style="margin-top: 10px;">
-        <a href="#" style="margin-right: 10px;">
-          <img src="images/discord.png" alt="Discord" width="20" style="transition: transform 0.3s;">
+      <div style="margin-top: 10px;" class="social-icons">
+        <a href="#" class="me-3 text-white">
+          <i class="bi bi-discord fs-5"></i>
         </a>
-        <a href="#" style="margin-right: 10px;">
-          <img src="images/instagram.png" alt="Instagram" width="20" style="transition: transform 0.3s;">
+        <a href="#" class="me-3 text-white">
+          <i class="bi bi-instagram fs-5"></i>
         </a>
-        <a href="#" style="margin-right: 10px;">
-          <img src="images/facebook.png" alt="Facebook" width="20" style="transition: transform 0.3s;">
+        <a href="#" class="me-3 text-white">
+          <i class="bi bi-facebook fs-5"></i>
         </a>
-        <a href="#">
-          <img src="images/twitter.png" alt="Twitter" width="20" style="transition: transform 0.3s;">
+        <a href="#" class="text-white">
+          <i class="bi bi-twitter-x fs-5"></i>
         </a>
       </div>
     </div>
@@ -70,4 +70,12 @@
   html, body {
     height: 100%;
   }
+
+.social-icons a {
+    transition: opacity 0.3s;
+}
+
+.social-icons a:hover {
+    opacity: 0.7;
+}
 </style>
