@@ -348,48 +348,92 @@
     </div>
 
     {{-- Fitur Kartu --}}
-    <h4 class="fw-bold mb-4">Fitur Unggulan</h4>
-    <div class="row g-4 mb-5">
-        @foreach ([
-            ['title' => 'Volunteer', 'icon' => 'bi-people-fill', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
-            ['title' => 'Galang Dana', 'icon' => 'bi-cash-coin',  'desc' => 'Buat campaign untuk kebaikan'],
-            ['title' => 'Pembayaran Zakat', 'icon' => 'bi-wallet2',  'desc' => 'Tunaikan kewajiban dengan mudah'],
-            ['title' => 'Komunitas', 'icon' => 'bi-heart-fill',  'desc' => 'Bergabung dengan komunitas peduli'],
-            ['title' => 'Unggah Artikel', 'icon' => 'bi-journal-text',   'desc' => 'Bagikan inspirasi kebaikan'],
-            ['title' => 'Donasi', 'icon' => 'bi-gift-fill',  'desc' => 'Donasi untuk berbagai kebutuhan'],
-           
-        ] as $item)
-            <div class="col-sm-6 col-md-3">
-                <div class="card h-100 text-center shadow-sm feature-card">
-                    <div class="card-body">
-                        <div class="feature-icon">
-                            <i class="{{ $item['icon'] }}"></i>
-                        </div>
-                        <h5 class="card-title">{{ $item['title'] }}</h5>
-                        <p class="card-text text-muted small">{{ $item['desc'] }}</p>
+<h4 class="fw-bold mb-4 text-center" style="color: #0d6efd;">Fitur Unggulan</h4>
+<div class="row g-4 mb-5">
+    @foreach ([
+        ['title' => 'Volunteer', 'icon' => 'bi-people-fill', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
+        ['title' => 'Galang Dana', 'icon' => 'bi-cash-coin',  'desc' => 'Buat campaign untuk kebaikan'],
+        ['title' => 'Pembayaran Zakat', 'icon' => 'bi-wallet2',  'desc' => 'Tunaikan kewajiban dengan mudah'],
+        ['title' => 'Komunitas', 'icon' => 'bi-heart-fill',  'desc' => 'Bergabung dengan komunitas peduli'],
+        ['title' => 'Unggah Artikel', 'icon' => 'bi-journal-text',   'desc' => 'Bagikan inspirasi kebaikan'],
+        ['title' => 'Donasi', 'icon' => 'bi-gift-fill',  'desc' => 'Donasi untuk berbagai kebutuhan'],
+    ] as $item)
+        <div class="col-sm-6 col-md-4">
+            <div class="card h-100 feature-card shadow rounded-4" style="border: none; background: white; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <div class="card-body d-flex flex-column text-center px-4 py-5">
+                    <div class="icon-circle mb-4 mx-auto">
+                        <i class="{{ $item['icon'] }} feature-icon"></i>
+                    </div>
+                    <h5 class="card-title fw-bold" style="color: #0d6efd; font-size: 1.5rem;">{{ $item['title'] }}</h5>
+                    <p class="card-text text-secondary small mb-4">{{ $item['desc'] }}</p>
+                    <div class="mt-auto">
                         @if ($item['title'] === 'Donasi')
-                            <a href="{{ route('donations.index') }}" class="btn btn-primary mt-2">Lihat Donasi</a>
+                            <a href="{{ route('donations.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Lihat Donasi</a>
                         @endif
                         @if ($item['title'] === 'Galang Dana')
-                            <a href="{{ route('GalangDana.index') }}" class="btn btn-primary mt-2">Mulai Galang dana </a>
+                            <a href="{{ route('GalangDana.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Mulai Galang Dana</a>
                         @endif
                         @if ($item['title'] === 'Pembayaran Zakat')
-                            <a href="{{ route('zakat.index') }}" class="btn btn-primary mt-2">Bayar Zakat</a>
+                            <a href="{{ route('zakat.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Bayar Zakat</a>
                         @endif
                         @if ($item['title'] === 'Unggah Artikel')
-                            <a href="{{ route('articles.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
+                            <a href="{{ route('articles.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Tulis Artikel</a>
                         @endif
                         @if ($item['title'] === 'Volunteer')
-                            <a href="{{ route('volunteer.index') }}" class="btn btn-primary mt-2">Mulai Volunteer</a>
+                            <a href="{{ route('volunteer.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Mulai Volunteer</a>
                         @endif
                         @if ($item['title'] === 'Komunitas')
-                            <a href="{{ route('communities.index') }}" class="btn btn-primary mt-2">Komunitas</a>
+                            <a href="{{ route('communities.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Komunitas</a>
                         @endif
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
+</div>
+
+<style>
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(13, 110, 253, 0.3);
+        cursor: pointer;
+    }
+    .icon-circle {
+        width: 70px;
+        height: 70px;
+        background-color: #e7f1ff; /* Light blue background */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        transition: background-color 0.3s ease;
+    }
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #0d6efd; /* Bootstrap primary blue */
+        transition: color 0.3s ease;
+    }
+    .feature-card:hover .icon-circle {
+        background-color: #0d6efd; /* Solid blue on hover */
+    }
+    .feature-card:hover .feature-icon {
+        color: white;
+    }
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-primary:hover, .btn-primary:focus {
+        background-color: #084ede;
+        box-shadow: 0 6px 12px rgba(13, 110, 253, 0.5);
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+
 
 </div>
 @endsection
