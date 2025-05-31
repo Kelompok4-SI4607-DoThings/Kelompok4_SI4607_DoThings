@@ -26,7 +26,8 @@ class VolunteerController extends Controller
      */
     public function create()
     {
-        return view('user.volunteer.create');
+        $programs = \App\Models\VolunteerAdmin::all();
+        return view('user.volunteer.create', compact('programs'));
     }
 
     /**
@@ -35,17 +36,24 @@ class VolunteerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:volunteers',
+            'name' => 'required', // nama program volunteer
+            'email' => 'required|email|unique:volunteers,email',
             'phone' => 'required',
             'address' => 'required',
             'gender' => 'required|in:laki laki,perempuan',
             'agreement' => 'accepted',
         ]);
 
-        Volunteer::create($request->except('agreement'));
+        \App\Models\Volunteer::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'user_id' => auth()->id(), // <-- Tambahkan ini
+        ]);
 
-        return redirect()->route('volunteer.index')->with('success', 'Volunteer berhasil ditambahkan!');
+        return redirect()->route('volunteer.index')->with('success', 'Pendaftaran volunteer berhasil!');
     }
 
     /**

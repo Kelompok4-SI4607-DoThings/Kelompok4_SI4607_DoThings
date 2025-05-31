@@ -55,11 +55,12 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('admin')->name('campaigns.')->group(function () {
     Route::get('/campaigns', [CampaignController::class, 'index'])->name('index');
     Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('create');
-    Route::post('/campaigns', [CampaignController::class, 'store'])->name('store'); // Tambahkan rute ini
+    Route::post('/campaigns', [CampaignController::class, 'store'])->name('store');
     Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('show');
     Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('edit');
     Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('update');
     Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('destroy');
+    Route::get('/campaigns/{id}/donors', [CampaignController::class, 'donors'])->name('donors');
 });
 // Donation Routes
 Route::middleware(['auth'])->prefix('donations')->name('donations.')->group(function () {
@@ -161,6 +162,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/volunteeradmin/{volunteeradmin}/edit', [VolunteerAdminController::class, 'edit'])->name('volunteerAdmin.edit');
     Route::put('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'update'])->name('volunteerAdmin.update');
     Route::delete('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'destroy'])->name('volunteerAdmin.destroy');
+    Route::get('/volunteerAdmin/{id}/registrants', [VolunteerAdminController::class, 'registrants'])->name('volunteerAdmin.registrants');
 });
 
 

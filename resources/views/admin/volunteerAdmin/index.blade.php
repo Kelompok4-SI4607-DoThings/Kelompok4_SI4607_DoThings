@@ -12,17 +12,17 @@
 
     <div class="row g-4">
         @forelse ($volunteers as $item)
-        <div class="col-md-4">
-            <div class="card volunteer-card border-0 rounded-4 shadow-lg h-100 position-relative overflow-hidden" style="transition: transform .2s;">
+        <div class="col-md-6 col-lg-5"> <!-- Ubah dari col-md-4 ke col-md-6 col-lg-5 agar card lebih besar -->
+            <div class="card volunteer-card border-0 rounded-4 shadow-lg h-100 position-relative overflow-hidden" style="transition: transform .2s; min-height: 370px;"> <!-- Tambah min-height -->
                 @if ($item->image_path)
-                <div class="overflow-hidden" style="height: 200px;">
+                <div class="overflow-hidden" style="height: 220px;"> <!-- Tinggikan gambar -->
                     <img src="{{ asset('storage/' . $item->image_path) }}"
                         class="card-img-top img-fluid volunteer-img"
                         style="object-fit: cover; height: 100%; transition: transform 0.4s cubic-bezier(.4,2,.6,1);"
                         alt="Volunteer Image">
                 </div>
                 @else
-                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
                     <i class="bi bi-person-badge text-secondary" style="font-size: 3rem;"></i>
                 </div>
                 @endif
@@ -33,12 +33,15 @@
                     </span>
                     <h5 class="card-title fw-bold text-primary">{{ $item->name }}</h5>
                     <p class="card-text text-muted small mb-3">{{ Str::limit($item->description, 90) }}</p>
-                    <div class="mt-auto d-flex gap-2">
+                    <div class="mt-auto d-flex flex-wrap gap-2"> <!-- flex-wrap agar tombol turun ke bawah jika tidak muat -->
                         <a href="{{ route('admin.volunteerAdmin.show', $item->id) }}" class="btn btn-outline-primary btn-sm rounded-pill px-3 d-flex align-items-center">
                             <i class="bi bi-eye me-1"></i> Detail
                         </a>
                         <a href="{{ route('admin.volunteerAdmin.edit', $item->id) }}" class="btn btn-outline-warning btn-sm rounded-pill px-3 d-flex align-items-center">
                             <i class="bi bi-pencil-square me-1"></i> Edit
+                        </a>
+                        <a href="{{ route('admin.volunteerAdmin.registrants', $item->id) }}" class="btn btn-info btn-sm rounded-pill px-3 d-flex align-items-center">
+                            <i class="bi bi-people-fill me-1"></i> Riwayat Pendaftar
                         </a>
                         <form action="{{ route('admin.volunteerAdmin.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
                             @csrf
