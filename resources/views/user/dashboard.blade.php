@@ -391,11 +391,6 @@
         @endforeach
     </div>
 
-    {{-- Quote Section 2 --}}
-    <div class="quote-section text-center mb-4">
-        <h5><strong>Menebar <span class="text-primary">Kasih</span>, Meraih <span class="text-info">Berkah Ilahi</span></strong></h5>
-        <p class="text-muted fst-italic">"Dan barang siapa bersedekah kepada Allah, niscaya akan diberikan kemudahan baginya dalam urusannya."</p>
-    </div>
 </div>
 @endsection
 
