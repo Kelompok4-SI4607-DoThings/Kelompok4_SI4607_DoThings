@@ -255,10 +255,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm stat-card">
-            </div>
-        </div>
     </div>
 
     {{-- Activity Stats --}}
@@ -266,12 +262,12 @@
         <div class="col-md-8 mb-4">
             <div class="card shadow-sm stat-card">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Campaign Populer</h5>
+                    <h5 class="card-title mb-3">Donasi Populer</h5>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
                                 <tr>
-                                    <th scope="col">Campaign</th>
+                                    <th scope="col">Donasi</th>
                                     <th scope="col">Target</th>
                                     <th scope="col">Terkumpul</th>
                                     <th scope="col">Progress</th>
