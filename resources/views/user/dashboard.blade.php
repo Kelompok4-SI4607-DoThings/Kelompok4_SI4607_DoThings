@@ -415,7 +415,7 @@
                             <a href="{{ route('volunteer.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Mulai Volunteer</a>
                         @endif
                         @if ($item['title'] === 'Komunitas')
-                            <a href="{{ route('communities.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Komunitas</a>
+                            <a href="{{ route('community.chat.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Komunitas</a>
                         @endif
                     </div>
                 </div>

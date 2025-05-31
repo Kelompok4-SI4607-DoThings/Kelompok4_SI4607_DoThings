@@ -13,7 +13,7 @@ use App\Http\Controllers\GalangDanaController;
 use App\Http\Controllers\GalangDanaAdminController;
 use App\Http\Controllers\VolunteerAdminController;
 use App\Http\Controllers\KomunitasAdminController;
-use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\CommunityChatController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\VolunteerController;
 // Landing Page
@@ -175,8 +175,6 @@ Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(func
     Route::delete('/{id}', [VolunteerController::class, 'destroy'])->name('destroy');
 });
 
-
-
 //komunitas admin
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -190,12 +188,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 });
-Route::prefix('communities')->name('communities.')->group(function () {
-    Route::get('/', [CommunityController::class, 'index'])->name('index');         
-    Route::get('/create', [CommunityController::class, 'create'])->name('create'); 
-    Route::post('/', [CommunityController::class, 'store'])->name('store');        
-    Route::get('/{community}/edit', [CommunityController::class, 'edit'])->name('edit');       // Edit form
-    Route::put('/{community}', [CommunityController::class, 'update'])->name('update');        // Proses update
-    Route::delete('/{community}', [CommunityController::class, 'destroy'])->name('destroy'); 
+
+//community chat
+
+Route::middleware(['auth'])->prefix('community-chat')->name('community.chat.')->group(function () {
+    Route::get('/', [CommunityChatController::class, 'index'])->name('index');
+    Route::get('/{komunitas_admin_id}', [CommunityChatController::class, 'show'])->name('show');
+    Route::post('/{komunitas_admin_id}', [CommunityChatController::class, 'store'])->name('store');
+    Route::put('/{komunitas_admin_id}/{chat_id}', [CommunityChatController::class, 'update'])->name('update');
+    Route::delete('/{komunitas_admin_id}/{chat_id}', [CommunityChatController::class, 'delete'])->name('delete');
 });
 
