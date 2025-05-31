@@ -13,4 +13,9 @@ class Community extends Model
         'name',
         'description',
     ];
+    
+    public function messages(): HasMany
+    {
+        return $this->hasMany(CommunityMessage::class);
+    }
 }

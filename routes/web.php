@@ -7,6 +7,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\CommunityMessageController;
 
 
 Route::get('/', function () {
@@ -138,9 +139,15 @@ Route::prefix('communities')->name('communities.')->group(function () {
     Route::get('/', [CommunityController::class, 'index'])->name('index');         
     Route::get('/create', [CommunityController::class, 'create'])->name('create'); 
     Route::post('/', [CommunityController::class, 'store'])->name('store');        
-    Route::get('/{community}/edit', [CommunityController::class, 'edit'])->name('edit');       // Edit form
-    Route::put('/{community}', [CommunityController::class, 'update'])->name('update');        // Proses update
+    Route::get('/{community}/edit', [CommunityController::class, 'edit'])->name('edit');       
+    Route::put('/{community}', [CommunityController::class, 'update'])->name('update');        
     Route::delete('/{community}', [CommunityController::class, 'destroy'])->name('destroy'); 
+});
+
+
+Route::middleware('auth')->group(function () {
+    Route::post('communities/{community}/messages', [CommunityMessageController::class, 'store'])->name('community.messages.store');
+    Route::delete('messages/{message}', [CommunityMessageController::class, 'destroy'])->name('community.messages.destroy');
 });
 
 
