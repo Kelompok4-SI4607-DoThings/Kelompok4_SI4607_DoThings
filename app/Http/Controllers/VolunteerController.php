@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use App\Models\VolunteerAdmin;
 
 class VolunteerController extends Controller
 {
@@ -12,8 +13,12 @@ class VolunteerController extends Controller
      */
     public function index()
     {
+        // Ambil semua volunteer dan program (VolunteerAdmin)
         $volunteers = Volunteer::all();
-        return view('user.volunteer.index', compact('volunteers'));
+        $programs = VolunteerAdmin::all();
+
+        // Kirim ke view user.volunteer.index
+        return view('user.volunteer.index', compact('volunteers', 'programs'));
     }
 
     /**
@@ -30,17 +35,46 @@ class VolunteerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:volunteers',
-        'phone' => 'required',
-        'address' => 'required',
-        'gender' => 'required|in:laki laki,perempuan',
-        'agreement' => 'accepted',
-    ]);
+            'name' => 'required',
+            'email' => 'required|email|unique:volunteers',
+            'phone' => 'required',
+            'address' => 'required',
+            'gender' => 'required|in:laki laki,perempuan',
+            'agreement' => 'accepted',
+        ]);
 
-    Volunteer::create($request->except('agreement'));
+        Volunteer::create($request->except('agreement'));
 
-    return redirect()->route('volunteer.index')->with('success', 'Volunteer berhasil ditambahkan!');
+        return redirect()->route('volunteer.index')->with('success', 'Volunteer berhasil ditambahkan!');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $volunteer = Volunteer::findOrFail($id);
+        return view('user.volunteer.edit', compact('volunteer'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $volunteer = Volunteer::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:volunteers,email,' . $volunteer->id,
+            'phone' => 'required',
+            'address' => 'required',
+            'gender' => 'required|in:laki laki,perempuan',
+        ]);
+
+        $volunteer->update($request->all());
+
+        return redirect()->route('volunteer.index')->with('success', 'Data volunteer berhasil diupdate!');
     }
 
     /**

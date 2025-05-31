@@ -1,10 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+    <h2>Program Volunteer Tersedia</h2>
+    <div class="row">
+        @forelse($programs as $program)
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ asset('storage/' . $program->image_path) }}" class="card-img-top" alt="{{ $program->name }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $program->name }}</h5>
+                    <p class="text-muted">{{ $program->company_name }} - {{ $program->category }}</p>
+                    <p>{{ Str::limit($program->description, 100) }}</p>
+                    <p><strong>Lokasi:</strong> {{ $program->location }}</p>
+                    <a href="{{ route('volunteer.create', $program) }}" class="btn btn-success btn-sm me-2">Daftar Volunteer</a>
+                    <a href="{{ route('volunteer.edit', $program) }}" class="btn btn-warning btn-sm">Edit</a>
+                </div>
+            </div>
+        </div>
+        @empty
+        <div class="col-12">
+            <p class="text-muted">Belum ada program volunteer tersedia saat ini.</p>
+        </div>
+        @endforelse
+    </div>
+</div>
+
+<hr>
+
 <div class="container">
     <h2>Daftar Volunteer</h2>
-    <a href="{{ route('volunteer.create') }}" class="btn btn-primary mb-3">Tambah Volunteer</a>
-
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -35,5 +59,5 @@
         </tr>
         @endforeach
     </table>
-</div>
+<br>
 @endsection

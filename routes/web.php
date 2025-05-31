@@ -15,6 +15,7 @@ use App\Http\Controllers\VolunteerAdminController;
 use App\Http\Controllers\KomunitasAdminController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\VolunteerController;
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -163,12 +164,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
+
+
 Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(function () {
-    Route::get('/register', [App\Http\Controllers\VolunteerController::class, 'create'])->name('create');
-    Route::post('/', [App\Http\Controllers\VolunteerController::class, 'store'])->name('store');
-    Route::get('/programs', [App\Http\Controllers\VolunteerController::class, 'index'])->name('index');
-    Route::delete('/{id}', [App\Http\Controllers\VolunteerController::class, 'destroy'])->name('destroy');
+    Route::get('/', [VolunteerController::class, 'index'])->name('index');
+    Route::get('/register', [VolunteerController::class, 'create'])->name('create');
+    Route::post('/', [VolunteerController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [VolunteerController::class, 'edit'])->name('edit');      // <--- Tambahkan ini
+    Route::put('/{id}', [VolunteerController::class, 'update'])->name('update');        // <--- Tambahkan ini
+    Route::delete('/{id}', [VolunteerController::class, 'destroy'])->name('destroy');
 });
+
+
 
 //komunitas admin
 
