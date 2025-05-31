@@ -40,17 +40,13 @@ class ZakatController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'nama_pembayar_zakat' => 'required|string|max:255',
-            'penghasilan_perbulan' => 'required|numeric',
-            'bonus' => 'nullable|numeric',
-            'utang' => 'nullable|numeric',
-            'pantiasuhan' => 'required|string|max:255',
-        ]);
-
         $zakat = Zakat::findOrFail($id);
-        $zakat->update($validated);
-        return redirect()->route('zakat.index')->with('success', 'Data zakat berhasil diperbarui!');
+
+        $zakat->update($request->all());
+
+        // Redirect ke halaman pembayaran zakat yang baru diupdate
+        return redirect()->route('zakat.pay', $zakat->id)
+            ->with('success', 'Data zakat berhasil diperbarui. Silakan lakukan pembayaran ulang.');
     }
 
     public function destroy($id)
@@ -63,10 +59,8 @@ class ZakatController extends Controller
 public function pay($id)
 {
     $zakat = Zakat::findOrFail($id);
-
-    // Hitung total zakat
-    $totalZakat = (($zakat->penghasilan_perbulan + $zakat->bonus) * 0.025) - $zakat->utang;
-    $totalZakat = max($totalZakat, 0); // Pastikan tidak negatif
+    $penghasilanBersih = $zakat->penghasilan_perbulan + ($zakat->bonus ?? 0) - ($zakat->utang ?? 0);
+    $totalZakat = max($penghasilanBersih * 0.025, 0);
 
     return view('user.zakat.pay', compact('zakat', 'totalZakat'));
 }

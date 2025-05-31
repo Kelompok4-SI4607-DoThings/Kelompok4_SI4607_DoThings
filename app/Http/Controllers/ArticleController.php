@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; // Tambahkan use statement untuk Storage
 
 class ArticleController extends Controller
 {
@@ -30,23 +29,21 @@ class ArticleController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'author' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'published_at' => 'nullable|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $article = new Article();
-        $article->title = $request->title;
-        $article->content = $request->content;
-        $article->author = $request->author;
+        $data = $request->only(['title', 'content', 'author', 'published_at']);
 
         // Proses gambar jika ada
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $filename); // Simpan di folder public/images
-            $article->image = $filename; // Simpan nama file di database
+            $file->move(public_path('images'), $filename);
+            $data['image'] = $filename;
         }
 
-        $article->save();
+        Article::create($data);
 
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil ditambahkan.');
     }
@@ -74,8 +71,11 @@ class ArticleController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'author' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'published_at' => 'nullable|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $data = $request->only(['title', 'content', 'author', 'published_at']);
 
         // Menyimpan foto baru (jika ada)
         if ($request->hasFile('image')) {
@@ -83,21 +83,13 @@ class ArticleController extends Controller
             if ($article->image && file_exists(public_path('images/' . $article->image))) {
                 unlink(public_path('images/' . $article->image));
             }
-
-            // Simpan foto baru
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images'), $filename);
-            $article->image = $filename; // Simpan nama file di database
+            $data['image'] = $filename;
         }
 
-        // Update artikel
-        $article->update([
-            'title' => $request->title,
-            'content' => $request->content,
-            'author' => $request->author,
-            'image' => $article->image, // Menyimpan nama file gambar
-        ]);
+        $article->update($data);
 
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil diperbarui!');
     }

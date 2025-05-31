@@ -16,4 +16,10 @@ class Article extends Model
         'author',
         'published_at',
     ];
+
+    protected $dates = ['published_at'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 }
