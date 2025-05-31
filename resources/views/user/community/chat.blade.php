@@ -6,8 +6,8 @@
     <div class="mb-4">
         <a href="{{ route('community.chat.index') }}" class="btn btn-secondary btn-sm rounded-pill">← Daftar Komunitas</a>
     </div>
-    <div class="card mb-3 shadow-sm" style="max-height: 400px; overflow-y: auto;">
-        <div class="card-body px-4 py-3">
+    <div class="card mb-3 shadow-sm" style="overflow-y: auto; max-height: 400px;">
+        <div class="card-body px-4 py-3" id="chat-body">
             @forelse($chats as $chat)
                 <div class="mb-3 d-flex {{ $chat->user_id == Auth::id() ? 'justify-content-end' : 'justify-content-start' }}">
                     <div style="max-width: 70%;">
@@ -34,41 +34,59 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal Edit Pesan -->
-                <div class="modal fade" id="editChatModal{{ $chat->id }}" tabindex="-1" aria-labelledby="editChatModalLabel{{ $chat->id }}" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <form action="{{ route('community.chat.update', [$komunitas->id, $chat->id]) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="editChatModalLabel{{ $chat->id }}">Edit Pesan</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <textarea name="message" class="form-control" rows="3" required>{{ $chat->message }}</textarea>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                          </div>
-                        </div>
-                    </form>
-                  </div>
-                </div>
             @empty
                 <p class="text-muted text-center">Belum ada pesan.</p>
             @endforelse
         </div>
     </div>
+
+    {{-- Modal Edit Pesan, letakkan di luar .card-body --}}
+    @foreach($chats as $chat)
+        @if($chat->user_id == Auth::id())
+        <div class="modal fade" id="editChatModal{{ $chat->id }}" tabindex="-1" aria-labelledby="editChatModalLabel{{ $chat->id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <form action="{{ route('community.chat.update', [$komunitas->id, $chat->id]) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editChatModalLabel{{ $chat->id }}">Edit Pesan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <textarea name="message" class="form-control" rows="3" required>{{ $chat->message }}</textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+        @endif
+    @endforeach
+
     <form action="{{ route('community.chat.store', $komunitas->id) }}" method="POST" class="mt-3">
         @csrf
-        <div class="input-group">
-            <textarea name="message" class="form-control rounded-start-pill" rows="1" placeholder="Tulis pesan..." required style="resize:none"></textarea>
-            <button type="submit" class="btn btn-primary rounded-end-pill px-4">Kirim</button>
+        <div class="mb-2">
+            <textarea name="message" class="form-control rounded-3" rows="3" placeholder="Tulis pesan..." required style="resize:vertical"></textarea>
         </div>
+        <button type="submit" class="btn btn-primary px-4 rounded-pill">Kirim</button>
     </form>
 </div>
 <br>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+            var chatBody = document.getElementById('chat-body');
+            if(chatBody){
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+        }, 200); // 200ms, bisa diperbesar jika masih gagal
+    });
+</script>
+@endpush
