@@ -12,7 +12,7 @@
                         @method('PUT')
                         
                         <div class="form-group mb-4">
-                            <label class="form-label">Kampanye</label>
+                            <label class="form-label">Donasi</label>
                             <input type="text" class="form-control" value="{{ $donation->campaign->title }}" disabled>
                         </div>
                         

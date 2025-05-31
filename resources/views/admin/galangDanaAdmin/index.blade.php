@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Daftar Kampanye Pending</h2>
+    <h2>Daftar Galang Dana Pending</h2>
     <table class="table">
         <thead>
             <tr>

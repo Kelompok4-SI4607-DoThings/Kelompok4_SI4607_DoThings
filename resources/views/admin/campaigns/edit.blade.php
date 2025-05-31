@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
 
-                <div class="card-header">Edit Kampanye Donasi</div>
                 <div class="card-header">Edit Donasi</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('campaigns.update', $campaign->id) }}" enctype="multipart/form-data">

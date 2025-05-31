@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row mb-4">
         <div class="col-md-12 d-flex justify-content-between align-items-center">
-            <h2>Daftar Kampanye Donasi</h2>
+            <h2>Daftar Donasi</h2>
             <a href="{{ route('campaigns.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Buat Kampanye Baru
+                <i class="fas fa-plus"></i> Buat Donasi Baru
             </a>
         </div>
     </div>

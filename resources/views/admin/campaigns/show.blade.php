@@ -50,7 +50,7 @@
 
                     <div class="mt-3">
                     <a href="{{ route('campaigns.edit', $campaign->id) }}" class="btn btn-warning">
-                        <i class="fas fa-edit"></i> Edit Kampanye
+                        <i class="fas fa-edit"></i> Edit Donasi
                     </a>
                     
                     <form action="{{ route('campaigns.destroy', $campaign->id) }}" 

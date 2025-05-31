@@ -6,7 +6,7 @@
     <form action="{{ route('GalangDana.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="title" class="form-label">Judul Kampanye</label>
+            <label for="title" class="form-label">Judul Galang Dana</label>
             <input type="text" name="title" id="title" class="form-control" required>
         </div>
         <div class="mb-3">
@@ -22,15 +22,15 @@
             <input type="date" name="deadline" id="deadline" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label">Gambar Kampanye</label>
+            <label for="image" class="form-label">Gambar Galang Dana</label>
             <input type="file" name="image" id="image" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">Ajukan Kampanye</button>
+        <button type="submit" class="btn btn-primary">Ajukan Galang Dana</button>
     </form>
 </div>
 
-<!-- <div class="container mt-5">
-    <h2>Daftar Kampanye</h2>
+<div class="container mt-5">
+    <h2>Daftar Galang Dana</h2>
     <table class="table">
         <thead>
             <tr>
@@ -57,5 +57,5 @@
             @endforeach
         </tbody>
     </table>
-</div> -->
+</div>
 @endsection
