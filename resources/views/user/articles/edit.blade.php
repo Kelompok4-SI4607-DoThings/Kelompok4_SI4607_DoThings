@@ -29,17 +29,16 @@
             <textarea name="content" id="content" class="form-control" rows="5" required>{{ old('content', $article->content) }}</textarea>
         </div>
 
-        <!-- Input untuk foto -->
-        <div class="form-group">
-            <label for="image">Foto Artikel</label>
-            <input type="file" name="image" id="image" class="form-control">
-            @if ($article->image)
-                <div class="mt-2">
-                    <p><strong>Foto Saat Ini:</strong></p>
-                    <img src="{{ asset('images/' . $article->image) }}" alt="Article Image" style="width: 150px; height: auto;">
+                <div class="mb-3">
+                    <label for="image" class="form-label fw-semibold">Foto Artikel</label>
+                    <input type="file" name="image" id="image" class="form-control rounded-3">
+                    @if ($article->image)
+                        <div class="mt-2">
+                            <p class="mb-1"><strong>Foto Saat Ini:</strong></p>
+                            <img src="{{ asset('storage/' . $article->image) }}" alt="Article Image" class="rounded shadow" style="width: 150px; height: auto;">
+                        </div>
+                    @endif
                 </div>
-            @endif
-        </div>
 
         <button type="submit" class="btn btn-success mt-3">Simpan Perubahan</button>
     </form>

@@ -35,4 +35,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Zakat::class);
     }
+    public function campaigns()
+    {
+        return $this->hasMany(Campaign::class);
+    }
 }

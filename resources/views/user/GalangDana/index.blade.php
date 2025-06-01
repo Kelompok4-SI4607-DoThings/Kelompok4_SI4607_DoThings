@@ -25,37 +25,98 @@
             <label for="image" class="form-label">Gambar Kampanye</label>
             <input type="file" name="image" id="image" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">Ajukan Kampanye</button>
-    </form>
-</div>
+    </div>
 
-<div class="container mt-5">
-    <h2>Daftar Kampanye</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Judul</th>
-                <th>Deskripsi</th>
-                <th>Target</th>
-                <th>Batas Waktu</th>
-                <th>Gambar</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($campaigns as $campaign)
-                <tr>
-                    <td>{{ $campaign->title }}</td>
-                    <td>{{ $campaign->description }}</td>
-                    <td>Rp {{ number_format($campaign->target_amount, 2) }}</td>
-                    <td>{{ $campaign->deadline }}</td>
-                    <td>
-                        <img src="{{ asset('images/' . $campaign->image) }}" alt="Gambar Kampanye" style="width: 100px; height: auto;">
-                    </td>
-                    <td>{{ ucfirst($campaign->status) }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- Tambahkan setelah form galang dana dan sebelum tabel daftar galang dana -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-4 text-primary">
+                <i class="bi bi-tags"></i> Daftar Kategori Galang Dana
+            </h5>
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($categories as $category)
+                        <tr>
+                            <td class="fw-semibold">{{ $category->name }}</td>
+                            <td>{{ $category->description }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="2" class="text-center py-4 text-muted">
+                                <i class="bi bi-info-circle me-2"></i>Belum ada kategori tersedia
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-body">
+            <h2 class="fw-bold mb-4 text-gradient">Daftar <span class="text-primary">Galang Dana</span></h2>
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Judul</th>
+                            <th>Deskripsi</th>
+                            <th>Target</th>
+                            <th>Batas Waktu</th>
+                            <th>Gambar</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($campaigns as $campaign)
+                            <tr>
+                                <td class="fw-semibold">{{ $campaign->title }}</td>
+                                <td style="max-width:220px;">{{ Str::limit($campaign->description, 60) }}</td>
+                                <td class="text-success fw-bold">Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</td>
+                                <td>
+                                    <span class="badge bg-light text-primary px-3 py-2 shadow-sm">
+                                        <i class="bi bi-calendar-event"></i>
+                                        {{ \Carbon\Carbon::parse($campaign->deadline)->format('d M Y') }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <img src="{{ asset('storage/' . $campaign->image) }}" alt="Gambar Kampanye" class="rounded shadow-sm" style="width: 90px; height: 60px; object-fit:cover;">
+                                </td>
+                                <td>
+                                    <span class="badge {{ $campaign->status == 'pending' ? 'bg-warning text-dark' : ($campaign->status == 'approved' ? 'bg-success' : 'bg-danger') }} px-3 py-2 shadow-sm text-capitalize">
+                                        {{ ucfirst($campaign->status) }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+<style>
+    .text-gradient {
+        background: linear-gradient(90deg, #0d6efd 60%, #20c997 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .table-responsive {
+        border-radius: 0.5rem;
+    }
+    
+    .table th {
+        border-top: none;
+    }
+</style>
 @endsection

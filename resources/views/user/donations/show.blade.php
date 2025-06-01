@@ -12,25 +12,31 @@
     @else
         <div class="row">
             @foreach($donations as $donation)
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm border-light">
-                        <img src="{{ asset('images/' . $donation->campaign->image) }}" class="card-img-top" alt="Gambar Kampanye" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $donation->campaign->title }}</h5>
-                            <p class="card-text">
-                                <strong>Jumlah:</strong> Rp {{ number_format($donation->amount) }}<br>
-                                <strong>Tanggal:</strong> {{ $donation->created_at->format('d M Y H:i') }}<br>
-                                <strong>Pesan:</strong> {{ $donation->message ?? '-' }}
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                <div class="btn-group">
-                                    <a href="{{ route('donations.edit', $donation) }}" class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ route('donations.destroy', $donation) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus donasi ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                    </form>
-                                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-lg rounded-4 h-100">
+                        <img src="{{ asset('storage/' . $donation->campaign->image) }}" class="card-img-top rounded-top-4" alt="Gambar Kampanye" style="height: 180px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold text-primary text-gradient mb-2">
+                                <i class="bi bi-heart-pulse-fill me-1 text-danger"></i>
+                                {{ $donation->campaign->title }}
+                            </h5>
+                            <ul class="list-unstyled mb-3">
+                                <li><span class="badge bg-success bg-opacity-10 text-success mb-1"><i class="bi bi-cash-coin"></i> Rp {{ number_format($donation->amount) }}</span></li>
+                                <li><span class="badge bg-info bg-opacity-10 text-info mb-1"><i class="bi bi-calendar-event"></i> {{ $donation->created_at->format('d M Y H:i') }}</span></li>
+                                <li><span class="badge bg-light text-dark mb-1"><i class="bi bi-chat-dots"></i> {{ $donation->message ?? '-' }}</span></li>
+                            </ul>
+                            <div class="d-flex gap-2 mt-auto">
+                                <a href="{{ route('donations.edit', $donation->id) }}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                
+                                <form action="{{ route('donations.destroy', $donation) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus donasi ini?')" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm">
+                                        <i class="bi bi-trash"></i> Hapus
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

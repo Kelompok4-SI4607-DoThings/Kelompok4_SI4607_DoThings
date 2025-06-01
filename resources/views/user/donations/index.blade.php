@@ -64,13 +64,12 @@
                                 <i class="far fa-clock"></i> 
                                 {{ \Carbon\Carbon::parse($campaign->deadline)->diffForHumans() }}
                             </small>
-                            <div class="btn-group">
-                                <button type="button" 
-                                        class="btn btn-outline-primary btn-sm"
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#campaignModal-{{ $campaign->id }}">
-                                    Lihat Detail
-                                </button>
+                            <div class="btn-group gap-2">
+                                <a href="{{ route('donations.detail', $campaign->id) }}"
+                                   class="btn btn-info btn-sm rounded-pill px-3 shadow-sm">
+                                    <i class="bi bi-eye"></i> Detail
+                                </a>
+                               
                                 <a href="{{ route('donations.create', $campaign) }}"
                                    class="btn btn-primary btn-sm">
                                     Donasi Sekarang
@@ -90,8 +89,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="{{ asset('images/'.$campaign->image) }}" 
-                                 class="img-fluid mb-3" 
+                            <img src="{{ asset('storage/'.$campaign->image) }}" 
+                                 class="img-fluid mb-3 rounded-4 shadow-sm" 
                                  alt="{{ $campaign->title }}"
                                  style="width: 100%; height: 300px; object-fit: cover;">
                             
