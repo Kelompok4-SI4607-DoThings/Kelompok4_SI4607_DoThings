@@ -13,7 +13,9 @@
             </div>
             @if ($article->image)
                 <div class="text-center mb-4">
-                    <img src="{{ asset('images/' . $article->image) }}" alt="Article Image" class="img-fluid rounded-4 shadow" style="max-width: 500px;">
+
+                    <img src="{{ asset('storage/' . $article->image) }}" alt="Article Image" class="img-fluid rounded-4 shadow" style="max-width: 500px;">
+
                 </div>
             @endif
 

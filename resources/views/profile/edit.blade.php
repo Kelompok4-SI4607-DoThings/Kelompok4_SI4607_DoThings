@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="profile-header d-flex align-items-center mb-4">
-        <img src="{{ asset('images/' . $user->profile_picture) }}" alt="Foto Profil" class="profile-img rounded-circle" width="80">
+        <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Foto Profil" class="profile-img rounded-circle" width="80">
         <div class="ml-3">
             <h2>Edit Profil</h2>
             <p class="text-muted">{{ $user->name }}</p>

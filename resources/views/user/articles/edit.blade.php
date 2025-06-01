@@ -17,8 +17,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="author" class="form-label fw-semibold">Penulis</label>
-                    <input type="text" name="author" id="author" class="form-control rounded-3" value="{{ old('author', $article->author) }}" required>
+                    <label for="image" class="form-label fw-semibold">Foto Artikel</label>
+                    <input type="file" name="image" id="image" class="form-control rounded-3">
+                    @if ($article->image)
+                        <div class="mt-2">
+                            <p class="mb-1"><strong>Foto Saat Ini:</strong></p>
+                            <img src="{{ asset('storage/' . $article->image) }}" alt="Article Image" class="rounded shadow" style="width: 150px; height: auto;">
+                        </div>
+                    @endif
+
                 </div>
 
                 <div class="mb-3">

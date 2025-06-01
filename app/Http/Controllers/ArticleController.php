@@ -66,7 +66,7 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         $article = Article::findOrFail($id);
-
+        
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required',
@@ -79,9 +79,9 @@ class ArticleController extends Controller
 
         // Menyimpan foto baru (jika ada)
         if ($request->hasFile('image')) {
-            // Hapus foto lama jika ada
-            if ($article->image && file_exists(public_path('images/' . $article->image))) {
-                unlink(public_path('images/' . $article->image));
+            // Hapus gambar lama
+            if ($article->image) {
+                Storage::disk('public')->delete($article->image);
             }
             $file = $request->file('image');
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -99,9 +99,9 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        // Hapus foto terkait jika ada
-        if ($article->image && file_exists(public_path('images/' . $article->image))) {
-            unlink(public_path('images/' . $article->image));
+        // Hapus gambar jika ada
+        if ($article->image) {
+            Storage::disk('public')->delete($article->image);
         }
 
         $article->delete();

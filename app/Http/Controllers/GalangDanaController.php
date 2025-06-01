@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\FundraisingCategory;
 use Illuminate\Http\Request;
 
 class GalangDanaController extends Controller
@@ -11,14 +12,18 @@ class GalangDanaController extends Controller
     {
         // Ambil semua kampanye yang dibuat oleh pengguna
         $campaigns = Campaign::all();
+        
+        // Tambahkan ini untuk mengambil kategori
+        $categories = FundraisingCategory::where('status', 'active')->get();
 
-        // Tampilkan view dengan data kampanye
-        return view('user.GalangDana.index', compact('campaigns'));
+        // Tampilkan view dengan data kampanye dan kategori
+        return view('user.GalangDana.index', compact('campaigns', 'categories'));
     }
 
     public function create()
     {
-        return view('campaigns.create');
+        $categories = FundraisingCategory::where('status', 'active')->get();
+        return view('user.galangDana.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -29,6 +34,7 @@ class GalangDanaController extends Controller
             'target_amount' => 'required|numeric|min:1',
             'deadline' => 'required|date|after:today',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+           
         ]);
 
         $imagePath = $request->file('image')->store('campaign_images', 'public');
@@ -40,6 +46,7 @@ class GalangDanaController extends Controller
             'deadline' => $request->deadline,
             'image' => $imagePath,
             'status' => 'pending', // Default status
+         
         ]);
 
         return redirect()->route('GalangDana.index')->with('success', 'Kampanye berhasil diajukan dan menunggu verifikasi.');

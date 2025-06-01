@@ -4,18 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\User;
+use App\Models\Donation;
 
 class Campaign extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
+        'user_id',
         'title',
         'description',
         'target_amount',
         'current_amount',
         'deadline',
         'image',
-        'status',
-        'image'
+        'status'
     ];
 
     protected $casts = [
@@ -26,16 +31,19 @@ class Campaign extends Model
 
     public function getProgressPercentageAttribute()
     {
-        // Cek apakah target_amount adalah nol
         if ($this->target_amount == 0) {
-            return 0; // Jika nol, kembalikan 0 untuk menghindari pembagian dengan nol
+            return 0;
         }
-
         return ($this->current_amount / $this->target_amount) * 100;
     }
 
     public function donations()
     {
         return $this->hasMany(Donation::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

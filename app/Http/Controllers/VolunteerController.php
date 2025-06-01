@@ -80,7 +80,16 @@ class VolunteerController extends Controller
             'gender' => 'required|in:laki laki,perempuan',
         ]);
 
-        $volunteer->update($request->all());
+
+        \App\Models\Volunteer::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            // 'user_id' => auth()->id(), // <-- Tambahkan ini
+        ]);
+
 
         return redirect()->route('volunteer.index')->with('success', 'Data volunteer berhasil diupdate!');
     }

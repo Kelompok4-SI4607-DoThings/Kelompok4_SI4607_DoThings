@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class CampaignController extends Controller
 {
@@ -29,8 +30,8 @@ class CampaignController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        // Simpan gambar ke storage
+        $path = $request->file('image')->store('campaigns', 'public');
 
         Campaign::create([
             'title' => $request->title,
@@ -38,7 +39,7 @@ class CampaignController extends Controller
             'target_amount' => $request->target_amount,
             'current_amount' => 0,
             'deadline' => $request->deadline,
-            'image' => $imageName
+            'image' => $path // Simpan path relatif ke storage
         ]);
 
         return redirect()->route('campaigns.index')->with('success', 'Campaign created successfully.');
@@ -80,18 +81,18 @@ class CampaignController extends Controller
             'target_amount' => $request->target_amount,
             'deadline' => $request->deadline,
         ];
-    
+
         if ($request->hasFile('image')) {
-            // Hapus gambar lama
-            if (file_exists(public_path('images/'.$campaign->image))) {
-                unlink(public_path('images/'.$campaign->image));
+            // Hapus gambar lama jika ada
+            if ($campaign->image && Storage::disk('public')->exists($campaign->image)) {
+                Storage::disk('public')->delete($campaign->image);
             }
             
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
-            $data['image'] = $imageName;
+            // Upload gambar baru
+            $path = $request->file('image')->store('campaigns', 'public');
+            $data['image'] = $path;
         }
-    
+
         $campaign->update($data);
         return redirect()->route('campaigns.show', $campaign->id)
             ->with('success', 'Kampanye berhasil diperbarui.');
@@ -101,12 +102,12 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::findOrFail($id);
         
-        // Hapus gambar terkait
-        if (file_exists(public_path('images/'.$campaign->image))) {
-            unlink(public_path('images/'.$campaign->image));
+        // Hapus gambar dari storage jika ada
+        if ($campaign->image && Storage::disk('public')->exists($campaign->image)) {
+            Storage::disk('public')->delete($campaign->image);
         }
         
-        // Hapus campaign dan semua donasi terkait (pastikan ada cascade delete di migration)
+        // Hapus campaign dan semua donasi terkait
         $campaign->delete();
         
         return redirect()->route('campaigns.index')

@@ -68,9 +68,10 @@ Route::middleware(['auth'])->prefix('donations')->name('donations.')->group(func
     Route::get('/create/{campaign}', [DonationController::class, 'create'])->name('create');
     Route::post('/store', [DonationController::class, 'store'])->name('store');
     Route::get('/my-donations', [DonationController::class, 'show'])->name('show');
-    Route::get('/{donation}/edit', [DonationController::class, 'edit'])->name('edit');
-    Route::put('/{donation}', [DonationController::class, 'update'])->name('update');
+    Route::get('/edit/{donation}', [DonationController::class, 'edit'])->name('edit');
+    Route::put('/update/{donation}', [DonationController::class, 'update'])->name('update');
     Route::delete('/{donation}', [DonationController::class, 'destroy'])->name('destroy'); // Pastikan rute ini ada
+    Route::get('/detail/{campaign}', [DonationController::class, 'detail'])->name('detail');
 });
 
 // Zakat Routes
@@ -147,10 +148,12 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.')->group(function () {
     Route::get('/', [GalangDanaAdminController::class, 'index'])->name('index');
+    Route::get('/categories/create', [GalangDanaAdminController::class, 'createCategory'])->name('createCategory');
+    Route::post('/categories', [GalangDanaAdminController::class, 'storeCategory'])->name('storeCategory');
     Route::get('/{id}', [GalangDanaAdminController::class, 'show'])->name('show');
     Route::patch('/{id}', [GalangDanaAdminController::class, 'update'])->name('update');
     Route::delete('/{id}', [GalangDanaAdminController::class, 'destroy'])->name('destroy');
-
+     Route::delete('/categories/{category}', [GalangDanaAdminController::class, 'destroyCategory'])->name('destroyCategory');
 });
 
 //volunteer admin

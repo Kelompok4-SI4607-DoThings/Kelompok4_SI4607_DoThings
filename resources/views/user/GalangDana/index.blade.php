@@ -34,6 +34,57 @@
                 </div>
             </form>
         </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Deskripsi</label>
+            <textarea name="description" id="description" class="form-control" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="target_amount" class="form-label">Target Donasi</label>
+            <input type="number" name="target_amount" id="target_amount" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="deadline" class="form-label">Batas Waktu</label>
+            <input type="date" name="deadline" id="deadline" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Gambar Kampanye</label>
+            <input type="file" name="image" id="image" class="form-control" required>
+        </div>
+    </div>
+
+    <!-- Tambahkan setelah form galang dana dan sebelum tabel daftar galang dana -->
+    <div class="card border-0 shadow-lg rounded-4 mb-4">
+        <div class="card-body">
+            <h5 class="fw-bold mb-4 text-primary">
+                <i class="bi bi-tags"></i> Daftar Kategori Galang Dana
+            </h5>
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($categories as $category)
+                        <tr>
+                            <td class="fw-semibold">{{ $category->name }}</td>
+                            <td>{{ $category->description }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="2" class="text-center py-4 text-muted">
+                                <i class="bi bi-info-circle me-2"></i>Belum ada kategori tersedia
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <div class="card border-0 shadow-lg rounded-4">
@@ -86,5 +137,15 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
+
+    
+    .table-responsive {
+        border-radius: 0.5rem;
+    }
+    
+    .table th {
+        border-top: none;
+    }
+
 </style>
 @endsection

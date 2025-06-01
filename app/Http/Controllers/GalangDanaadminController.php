@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\FundraisingCategory;
 use Illuminate\Http\Request;
 
 class GalangDanaAdminController extends Controller
@@ -48,4 +49,34 @@ class GalangDanaAdminController extends Controller
 
     return redirect()->route('galangDanaAdmin.index')->with('success', 'Kampanye berhasil dihapus.');
     }
+
+    public function storeCategory(Request $request)
+    {
+        $request->validate([
+            'category_name' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]);
+
+        FundraisingCategory::create([
+            'name' => $request->category_name,
+            'description' => $request->description,
+            'status' => 'active'
+        ]);
+
+        return redirect()->back()->with('success', 'Kategori galang dana berhasil ditambahkan');
+    }
+
+    public function createCategory()
+    {
+        $categories = FundraisingCategory::all();
+        return view('admin.galangDanaAdmin.create', compact('categories'));
+    }
+    public function destroyCategory($id)
+{
+    $category = FundraisingCategory::findOrFail($id);
+    $category->delete();
+
+    return redirect()->route('galangDanaAdmin.createCategory')
+        ->with('success', 'Kategori berhasil dihapus');
+}
 }
