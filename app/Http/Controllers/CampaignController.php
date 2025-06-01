@@ -114,4 +114,9 @@ class CampaignController extends Controller
             ->with('success', 'Kampanye berhasil dihapus.');
     }
     
+    public function donors($id)
+    {
+        $campaign = Campaign::with('donations')->findOrFail($id);
+        return view('admin.campaigns.donors', compact('campaign'));
+    }
 }

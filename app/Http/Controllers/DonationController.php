@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class DonationController extends Controller
 {
@@ -16,12 +18,14 @@ class DonationController extends Controller
 public function store(Request $request)
 {
     $request->validate([
+
         'amount' => 'required|numeric|min:1000',
         'message' => 'nullable|string|max:500',
     ]);
 
     try {
         DB::transaction(function () use ($request) {
+
             $campaign = Campaign::findOrFail($request->campaign_id);
             
             // Buat donasi dengan nama donor dari user yang login
@@ -32,14 +36,19 @@ public function store(Request $request)
                 'message' => $request->message,
             ]);
 
+
             $campaign->current_amount += $request->amount;
             $campaign->save();
         });
 
         return redirect()->route('donations.index')
             ->with('success', 'Terima kasih atas donasi Anda!');
+
+
     } catch (\Exception $e) {
-        return back()->with('error', 'Terjadi kesalahan saat memproses donasi.');
+        return redirect()->back()
+            ->with('error', 'Terjadi kesalahan saat memproses donasi.')
+            ->withInput();
     }
 }
 
@@ -128,6 +137,7 @@ public function store(Request $request)
         $campaign = Campaign::with('user')->findOrFail($id);
         return view('user.donations.detail', compact('campaign'));
     }
+
 
     
 }

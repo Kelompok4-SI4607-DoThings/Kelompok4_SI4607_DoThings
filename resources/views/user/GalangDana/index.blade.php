@@ -1,14 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Buat Galang Dana Baru</h2>
-    <form action="{{ route('GalangDana.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="mb-3">
-            <label for="title" class="form-label">Judul Kampanye</label>
-            <input type="text" name="title" id="title" class="form-control" required>
+<div class="container py-4">
+    <div class="card border-0 shadow-lg rounded-4 mb-5">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-4 text-gradient text-center">Buat <span class="text-primary">Galang Dana</span> Baru</h2>
+            <form action="{{ route('GalangDana.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">Judul Galang Dana</label>
+                    <input type="text" name="title" id="title" class="form-control rounded-3" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-semibold">Deskripsi</label>
+                    <textarea name="description" id="description" class="form-control rounded-3" rows="4" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="target_amount" class="form-label fw-semibold">Target Donasi</label>
+                    <input type="number" name="target_amount" id="target_amount" class="form-control rounded-3" required>
+                </div>
+                <div class="mb-3">
+                    <label for="deadline" class="form-label fw-semibold">Batas Waktu</label>
+                    <input type="date" name="deadline" id="deadline" class="form-control rounded-3" required>
+                </div>
+                <div class="mb-4">
+                    <label for="image" class="form-label fw-semibold">Gambar Galang Dana</label>
+                    <input type="file" name="image" id="image" class="form-control rounded-3" required>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success rounded-pill px-4 fw-semibold shadow-sm">
+                        <i class="bi bi-plus-circle"></i> Ajukan Galang Dana
+                    </button>
+                </div>
+            </form>
         </div>
+
         <div class="mb-3">
             <label for="description" class="form-label">Deskripsi</label>
             <textarea name="description" id="description" class="form-control" rows="4" required></textarea>
@@ -58,6 +84,7 @@
                 </table>
             </div>
         </div>
+
     </div>
 
     <div class="card border-0 shadow-lg rounded-4">
@@ -110,6 +137,7 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
+
     
     .table-responsive {
         border-radius: 0.5rem;
@@ -118,5 +146,6 @@
     .table th {
         border-top: none;
     }
+
 </style>
 @endsection

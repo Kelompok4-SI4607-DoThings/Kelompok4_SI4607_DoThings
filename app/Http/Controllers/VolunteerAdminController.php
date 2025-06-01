@@ -72,4 +72,11 @@ class VolunteerAdminController extends Controller
         $volunteeradmin->delete();
         return redirect()->route('admin.volunteerAdmin.index')->with('success', 'Data berhasil dihapus.');
     }
+
+    public function registrants($id)
+    {
+        $volunteer = VolunteerAdmin::findOrFail($id);
+        $registrants = \App\Models\Volunteer::where('name', $volunteer->name)->get();
+        return view('admin.volunteerAdmin.registrants', compact('volunteer', 'registrants'));
+    }
 }

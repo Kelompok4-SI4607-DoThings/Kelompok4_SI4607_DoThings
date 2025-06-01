@@ -14,11 +14,16 @@
         --dark: #5a5c69;
     }
     
+    body {
+        background-color: #f8f9fa;
+    }
+
     .feature-card {
         transition: transform 0.3s, box-shadow 0.3s;
         border-radius: 12px;
         overflow: hidden;
         border: none;
+        background-color: white;
     }
     
     .feature-card:hover {
@@ -47,6 +52,12 @@
         border-radius: 12px;
         border: none;
         height: 100%;
+        background-color: white;
+        transition: transform 0.3s;
+    }
+    
+    .stat-card:hover {
+        transform: scale(1.02);
     }
     
     .quote-section {
@@ -57,7 +68,7 @@
     }
     
     .dashboard-header {
-        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        background: linear-gradient(135deg, #4e73df 0%, #36b9cc 100%);
         color: white;
         border-radius: 15px;
         padding: 25px;
@@ -67,9 +78,14 @@
     .donation-summary {
         background-color: #fff;
         border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         padding: 20px;
         margin-bottom: 30px;
+        transition: transform 0.3s;
+    }
+    
+    .donation-summary:hover {
+        transform: scale(1.02);
     }
     
     .donation-summary-icon {
@@ -92,8 +108,12 @@
     
     .progress {
         border-radius: 10px;
-        height: 8px;
+        height: 10px;
         background-color: #f1f1f1;
+    }
+    
+    .progress-bar {
+        transition: width 0.4s ease;
     }
     
     .category-item {
@@ -144,9 +164,17 @@
         align-items: center;
         justify-content: center;
         z-index: 999;
+        background-color: var(--primary);
+        color: white;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-float:hover {
+        background-color: var(--primary-dark);
     }
 </style>
 @endsection
+
 
 @section('content')
 <div class="container py-5">
@@ -168,60 +196,76 @@
 
     {{-- Donation Summary --}}
     <div class="donation-summary mb-4">
-        <div class="row">
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="d-flex align-items-center">
-                    <div class="donation-summary-icon me-3">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="donation-summary-icon me-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-cash-stack"></i>
-                    </div>
-                    <div>
+                    </span>
+                    <div class="text-center w-100 text-md-start">
                         <h6 class="text-muted mb-1">Total Donasi</h6>
-                        <h3 class="fw-bold mb-0">Rp 425,678,000</h3>
-                        <p class="text-success small mb-0"><i class="bi bi-arrow-up"></i> 12.5% dari bulan lalu</p>
+                        <h3 class="fw-bold mb-0">Rp {{ number_format($totalDonations, 0, ',', '.') }}</h3>
+                        <p class="text-success small mb-0">
+                            <i class="bi bi-arrow-up"></i>
+                            @php
+                                $lastMonthTotal = App\Models\Donation::whereMonth('created_at', now()->subMonth()->month)
+                                    ->whereYear('created_at', now()->subMonth()->year)
+                                    ->sum('amount');
+                                
+                                $percentageChange = $lastMonthTotal > 0 
+                                    ? (($totalDonations - $lastMonthTotal) / $lastMonthTotal * 100)
+                                    : 0;
+                            @endphp
+                            {{ number_format($percentageChange, 1) }}% dari bulan lalu
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="d-flex align-items-center">
-                    <div class="donation-summary-icon me-3">
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="donation-summary-icon me-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-calendar-check"></i>
-                    </div>
-                    <div>
+                    </span>
+                    <div class="text-center w-100 text-md-start">
                         <h6 class="text-muted mb-1">Donasi Bulan Ini</h6>
-                        <h3 class="fw-bold mb-0">Rp 85,230,000</h3>
-                        <p class="text-success small mb-0"><i class="bi bi-arrow-up"></i> 8.2% dari minggu lalu</p>
+                        <h3 class="fw-bold mb-0">Rp {{ number_format($currentMonthDonations, 0, ',', '.') }}</h3>
+                        <p class="text-success small mb-0">
+                            <i class="bi bi-arrow-up"></i>
+                            @php
+                                $lastWeekTotal = App\Models\Donation::whereBetween('created_at', [
+                                    now()->subWeek()->startOfDay(),
+                                    now()->subWeek()->endOfDay()
+                                ])->sum('amount');
+                                
+                                $weeklyChange = $lastWeekTotal > 0
+                                    ? (($currentMonthDonations - $lastWeekTotal) / $lastWeekTotal * 100)
+                                    : 0;
+                            @endphp
+                            {{ number_format($weeklyChange, 1) }}% dari minggu lalu
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="d-flex align-items-center">
-                    <div class="donation-summary-icon me-3">
-                        <i class="bi bi-person-hearts"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-muted mb-1">Donatur Aktif</h6>
-                        <h3 class="fw-bold mb-0">32,062</h3>
-                        <p class="text-success small mb-0"><i class="bi bi-arrow-up"></i> 5.3% dari bulan lalu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="d-flex align-items-center">
-                    <div class="donation-summary-icon me-3">
+            <div class="col-md-4">
+                <div class="d-flex align-items-center justify-content-center">
+                    <span class="donation-summary-icon me-3 d-flex align-items-center justify-content-center">
                         <i class="bi bi-megaphone"></i>
-                    </div>
-                    <div>
+                    </span>
+                    <div class="text-center w-100 text-md-start">
                         <h6 class="text-muted mb-1">Campaign Aktif</h6>
-                        <h3 class="fw-bold mb-0">2,665</h3>
-                        <p class="text-success small mb-0"><i class="bi bi-arrow-up"></i> 3.7% dari bulan lalu</p>
+                        <h3 class="fw-bold mb-0">{{ number_format($activeCampaigns) }}</h3>
+                        <p class="text-success small mb-0">
+                            <i class="bi bi-arrow-up"></i> 
+                            {{ number_format($campaignPercentageChange, 1) }}% dari bulan lalu
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <br>
     {{-- Statistik Grafik --}}
-    <div class="row mb-5">
+    <div class="row mb-5 justify-content-center">
         <div class="col-md-8 mb-4">
             <div class="card shadow-sm stat-card">
                 <div class="card-body">
@@ -229,39 +273,10 @@
                         <h5 class="card-title mb-0">Total Donasi (6 Bulan Terakhir)</h5>
                         <div class="btn-group btn-group-sm" role="group">
                             <button type="button" class="btn btn-outline-primary active">6 Bulan</button>
-                            <button type="button" class="btn btn-outline-primary">1 Tahun</button>
                         </div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="donationChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm stat-card">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">Kategori Donasi</h5>
-                    <div class="chart-container">
-                        <canvas id="categoryChart"></canvas>
-                    </div>
-                    <div class="mt-3">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div><i class="bi bi-circle-fill text-primary"></i> Pendidikan</div>
-                            <div class="fw-bold">35%</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div><i class="bi bi-circle-fill text-success"></i> Kesehatan</div>
-                            <div class="fw-bold">28%</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div><i class="bi bi-circle-fill text-warning"></i> Bencana Alam</div>
-                            <div class="fw-bold">20%</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div><i class="bi bi-circle-fill text-danger"></i> Sosial & Lainnya</div>
-                            <div class="fw-bold">17%</div>
-                        </div>
+                    <div class="chart-container mx-auto" style="max-width:600px;">
+                        <canvas id="donationChart" width="600" height="300"></canvas>
                     </div>
                 </div>
             </div>
@@ -269,123 +284,94 @@
     </div>
 
     {{-- Activity Stats --}}
-    <div class="row mb-5">
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm stat-card">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">Top Donatur</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center me-3" style="width:40px;height:40px">AS</div>
-                                <div>
-                                    <h6 class="mb-0">Ahmad Sulaiman</h6>
-                                    <small class="text-muted">Jakarta</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">Rp 15.5jt</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-info rounded-circle text-white d-flex align-items-center justify-content-center me-3" style="width:40px;height:40px">SR</div>
-                                <div>
-                                    <h6 class="mb-0">Siti Rahmawati</h6>
-                                    <small class="text-muted">Bandung</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">Rp 12.8jt</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-success rounded-circle text-white d-flex align-items-center justify-content-center me-3" style="width:40px;height:40px">BH</div>
-                                <div>
-                                    <h6 class="mb-0">Budi Hartono</h6>
-                                    <small class="text-muted">Surabaya</small>
-                                </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">Rp 10.2jt</span>
-                        </li>
-                    </ul>
-                    <div class="text-center mt-3">
-                        <a href="#" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row mb-5 justify-content-center">        
         <div class="col-md-8 mb-4">
             <div class="card shadow-sm stat-card">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Campaign Populer</h5>
+                    <h5 class="card-title mb-3">Donasi Populer</h5>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
-                            <thead>
+                            <thead class="table-light">
                                 <tr>
-                                    <th>Campaign</th>
-                                    <th>Kategori</th>
-                                    <th>Target</th>
-                                    <th>Terkumpul</th>
-                                    <th>Progress</th>
+                                    <th scope="col">Donasi</th>
+                                    <th scope="col">Target</th>
+                                    <th scope="col">Terkumpul</th>
+                                    <th scope="col">Progress</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-light rounded me-3" style="width:40px;height:40px"></div>
-                                            <div>Beasiswa Anak Yatim</div>
-                                        </div>
-                                    </td>
-                                    <td>Pendidikan</td>
-                                    <td>Rp 100jt</td>
-                                    <td>Rp 85jt</td>
-                                    <td>
-                                        <div class="progress" style="height: 8px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-light rounded me-3" style="width:40px;height:40px"></div>
-                                            <div>Bantuan Kesehatan Lansia</div>
-                                        </div>
-                                    </td>
-                                    <td>Kesehatan</td>
-                                    <td>Rp 75jt</td>
-                                    <td>Rp 52jt</td>
-                                    <td>
-                                        <div class="progress" style="height: 8px;">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 69%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-light rounded me-3" style="width:40px;height:40px"></div>
-                                            <div>Bangun Masjid Pelosok</div>
-                                        </div>
-                                    </td>
-                                    <td>Ibadah</td>
-                                    <td>Rp 500jt</td>
-                                    <td>Rp 285jt</td>
-                                    <td>
-                                        <div class="progress" style="height: 8px;">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 57%"></div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach($popularCampaigns as $campaign)
+                                    <tr>
+                                        <td style="min-width: 250px;">
+                                            <div class="d-flex align-items-center">
+                                                <div class="campaign-image me-3">
+                                                    @if($campaign->image)
+                                                        <img src="{{ asset('storage/' . $campaign->image) }}" 
+                                                            alt="{{ $campaign->title }}" 
+                                                            class="rounded"
+                                                            style="width: 48px; height: 48px; object-fit: cover;">
+                                                    @else
+                                                        <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                                             style="width: 48px; height: 48px;">
+                                                            <i class="bi bi-image text-muted"></i>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="campaign-title">
+                                                    <h6 class="mb-0">{{ $campaign->title }}</h6>
+                                                    <small class="text-muted">{{ Str::limit($campaign->description, 50) }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-primary">
+                                            <strong>Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</strong>
+                                        </td>
+                                        <td class="text-success">
+                                            <strong>Rp {{ number_format($campaign->current_amount, 0, ',', '.') }}</strong>
+                                        </td>
+
+                                        <td style="min-width: 150px;">
+                                            @php
+                                                $percentage = ($campaign->current_amount / $campaign->target_amount) * 100;
+                                                $progressClass = $percentage > 66 ? 'bg-success' : 
+                                                            ($percentage > 33 ? 'bg-primary' : 'bg-warning');
+                                            @endphp
+                                            <div class="d-flex align-items-center">
+                                                <div class="progress flex-grow-1" style="height: 10px;">
+                                                    <div class="progress-bar {{ $progressClass }}" 
+                                                        role="progressbar" 
+                                                        style="width: {{ min($percentage, 100) }}%"
+                                                        aria-valuenow="{{ $percentage }}"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                                <small class="ms-2 text-muted">{{ number_format($percentage, 0) }}%</small>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <div class="text-center mt-3">
-                        <a href="#" class="btn btn-sm btn-outline-primary">Lihat Semua Campaign</a>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ route('donations.index') }}" 
+                           class="btn btn-outline-primary">
+                            <i class="bi bi-list-ul me-1"></i>
+                            Lihat Semua Campaign
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <a href="{{ route('donations.create', ['campaign' => 1]) }}" class="btn-float">
+        <i class="bi bi-plus"></i>
+    </a>
+</div>
+
 
     {{-- Quote --}}
     <div class="quote-section text-center mb-5">
@@ -394,54 +380,90 @@
     </div>
 
     {{-- Fitur Kartu --}}
-    <h4 class="fw-bold mb-4">Fitur Unggulan</h4>
-    <div class="row g-4 mb-5">
-        @foreach ([
-            ['title' => 'Volunteer', 'icon' => 'bi-people-fill', 'color' => 'bg-primary', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
-            ['title' => 'Galang Dana', 'icon' => 'bi-cash-coin', 'color' => 'bg-success', 'desc' => 'Buat campaign untuk kebaikan'],
-            ['title' => 'Pembayaran Zakat', 'icon' => 'bi-wallet2', 'color' => 'bg-info', 'desc' => 'Tunaikan kewajiban dengan mudah'],
-            ['title' => 'Komunitas', 'icon' => 'bi-heart-fill', 'color' => 'bg-warning', 'desc' => 'Bergabung dengan komunitas peduli'],
-            ['title' => 'Unggah Artikel', 'icon' => 'bi-journal-text', 'color' => 'bg-secondary', 'desc' => 'Bagikan inspirasi kebaikan'],
-            ['title' => 'Donasi', 'icon' => 'bi-gift-fill', 'color' => 'bg-primary', 'desc' => 'Donasi untuk berbagai kebutuhan'],
-           
-        ] as $item)
-            <div class="col-sm-6 col-md-3">
-                <div class="card h-100 text-center shadow-sm feature-card">
-                    <div class="card-body">
-                        <div class="feature-icon {{ $item['color'] }}">
-                            <i class="{{ $item['icon'] }}"></i>
-                        </div>
-                        <h5 class="card-title">{{ $item['title'] }}</h5>
-                        <p class="card-text text-muted small">{{ $item['desc'] }}</p>
+<h4 class="fw-bold mb-4 text-center" style="color: #0d6efd;">Fitur Unggulan</h4>
+<div class="row g-4 mb-5">
+    @foreach ([
+        ['title' => 'Volunteer', 'icon' => 'bi-people-fill', 'desc' => 'Jadilah bagian dari relawan kemanusiaan'],
+        ['title' => 'Galang Dana', 'icon' => 'bi-cash-coin',  'desc' => 'Buat campaign untuk kebaikan'],
+        ['title' => 'Pembayaran Zakat', 'icon' => 'bi-wallet2',  'desc' => 'Tunaikan kewajiban dengan mudah'],
+        ['title' => 'Komunitas', 'icon' => 'bi-heart-fill',  'desc' => 'Bergabung dengan komunitas peduli'],
+        ['title' => 'Unggah Artikel', 'icon' => 'bi-journal-text',   'desc' => 'Bagikan inspirasi kebaikan'],
+        ['title' => 'Donasi', 'icon' => 'bi-gift-fill',  'desc' => 'Donasi untuk berbagai kebutuhan'],
+    ] as $item)
+        <div class="col-sm-6 col-md-4">
+            <div class="card h-100 feature-card shadow rounded-4" style="border: none; background: white; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <div class="card-body d-flex flex-column text-center px-4 py-5">
+                    <div class="icon-circle mb-4 mx-auto">
+                        <i class="{{ $item['icon'] }} feature-icon"></i>
+                    </div>
+                    <h5 class="card-title fw-bold" style="color: #0d6efd; font-size: 1.5rem;">{{ $item['title'] }}</h5>
+                    <p class="card-text text-secondary small mb-4">{{ $item['desc'] }}</p>
+                    <div class="mt-auto">
                         @if ($item['title'] === 'Donasi')
-                            <a href="{{ route('donations.index') }}" class="btn btn-primary mt-2">Lihat Donasi</a>
+                            <a href="{{ route('donations.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Lihat Donasi</a>
                         @endif
                         @if ($item['title'] === 'Galang Dana')
-                            <a href="{{ route('GalangDana.index') }}" class="btn btn-primary mt-2">Mulai Galang dana </a>
+                            <a href="{{ route('GalangDana.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Mulai Galang Dana</a>
                         @endif
                         @if ($item['title'] === 'Pembayaran Zakat')
-                            <a href="{{ route('zakat.index') }}" class="btn btn-primary mt-2">Bayar Zakat</a>
+                            <a href="{{ route('zakat.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Bayar Zakat</a>
                         @endif
                         @if ($item['title'] === 'Unggah Artikel')
-                            <a href="{{ route('articles.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
+                            <a href="{{ route('articles.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Tulis Artikel</a>
                         @endif
                         @if ($item['title'] === 'Volunteer')
-                            <a href="{{ route('volunteer.index') }}" class="btn btn-primary mt-2">Tulis Artikel</a>
+                            <a href="{{ route('volunteer.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Mulai Volunteer</a>
                         @endif
                         @if ($item['title'] === 'Komunitas')
-                            <a href="{{ route('communities.index') }}" class="btn btn-primary mt-2">Komunitas</a>
+                            <a href="{{ route('community.chat.index') }}" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm">Komunitas</a>
                         @endif
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
+</div>
 
-    {{-- Quote Section 2 --}}
-    <div class="quote-section text-center mb-4">
-        <h5><strong>Menebar <span class="text-primary">Kasih</span>, Meraih <span class="text-info">Berkah Ilahi</span></strong></h5>
-        <p class="text-muted fst-italic">"Dan barang siapa bersedekah kepada Allah, niscaya akan diberikan kemudahan baginya dalam urusannya."</p>
-    </div>
+<style>
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(13, 110, 253, 0.3);
+        cursor: pointer;
+    }
+    .icon-circle {
+        width: 70px;
+        height: 70px;
+        background-color: #e7f1ff; /* Light blue background */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        transition: background-color 0.3s ease;
+    }
+    .feature-icon {
+        font-size: 2.5rem;
+        color: #0d6efd; /* Bootstrap primary blue */
+        transition: color 0.3s ease;
+    }
+    .feature-card:hover .icon-circle {
+        background-color: #0d6efd; /* Solid blue on hover */
+    }
+    .feature-card:hover .feature-icon {
+        color: white;
+    }
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-primary:hover, .btn-primary:focus {
+        background-color: #084ede;
+        box-shadow: 0 6px 12px rgba(13, 110, 253, 0.5);
+        color: white;
+        text-decoration: none;
+    }
+</style>
 </div>
 @endsection
 
@@ -545,17 +567,48 @@
         }
     };
 
-    // Inisialisasi chart
-    window.addEventListener('DOMContentLoaded', () => {
         const donationChart = new Chart(
-            document.getElementById('donationChart'),
-            donationConfig
-        );
-        
-        const categoryChart = new Chart(
-            document.getElementById('categoryChart'),
-            categoryConfig
-        );
-    });
+        document.getElementById('donationChart'),
+        {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($labels) !!},
+                datasets: [{
+                    label: 'Total Donasi (juta Rp)',
+                    data: {!! json_encode($data) !!},
+                    backgroundColor: 'rgba(78, 115, 223, 0.2)',
+                    borderColor: 'rgba(78, 115, 223, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rp ' + value + ' jt';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Rp ' + context.raw + ' juta';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    );
 </script>
 @endsection

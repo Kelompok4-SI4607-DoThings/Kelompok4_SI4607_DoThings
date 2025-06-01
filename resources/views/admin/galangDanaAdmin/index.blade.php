@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container py-4">
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold text-gradient m-0">Daftar <span class="text-primary">Galang Dana</span></h2>
         <div class="d-flex gap-2">
@@ -10,6 +11,7 @@
             </a>
         </div>
     </div>
+
 
     <div class="card border-0 shadow-lg rounded-4">
         <div class="card-body">
@@ -73,6 +75,7 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
+
     
     .btn {
         transition: all 0.3s ease;
@@ -82,5 +85,6 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+
 </style>
 @endsection

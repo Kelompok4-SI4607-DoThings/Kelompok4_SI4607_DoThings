@@ -1,83 +1,57 @@
+<!-- resources/views/admin/zakatAdmin/show.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <img src="{{ asset('images/'.$campaign->image) }}" 
-                     class="card-img-top" 
-                     alt="{{ $campaign->title }}"
-                     style="height: 400px; object-fit: cover;">
-                     
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3 class="mb-0">{{ $campaign->title }}</h3>
-                        <a href="{{ route('campaigns.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left"></i> Kembali
-                        </a>
-                    </div>
-                    
-                    <p class="text-justify">{{ $campaign->description }}</p>
-                    
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" 
-                             style="width: {{ $campaign->getProgressPercentageAttribute() }}%">
-                            {{ number_format($campaign->getProgressPercentageAttribute(), 1) }}%
-                        </div>
-                    </div>
-
-                    <div class="row mb-4">
-                        <div class="col-md-4">
-                            <div class="border rounded p-3 text-center">
-                                <h5>Target</h5>
-                                <p class="h4 text-primary mb-0">Rp {{ number_format($campaign->target_amount) }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="border rounded p-3 text-center">
-                                <h5>Terkumpul</h5>
-                                <p class="h4 text-success mb-0">Rp {{ number_format($campaign->current_amount) }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="border rounded p-3 text-center">
-                                <h5>Deadline</h5>
-                                <p class="h4 text-danger mb-0">{{ \Carbon\Carbon::parse($campaign->deadline)->format('d M Y') }}</p>
-                            </div>  
-                        </div>
-                    </div>
-
-                    <div class="mt-3">
-                    <a href="{{ route('campaigns.edit', $campaign->id) }}" class="btn btn-warning">
-                        <i class="fas fa-edit"></i> Edit Kampanye
-                    </a>
-                    
-                    <form action="{{ route('campaigns.destroy', $campaign->id) }}" 
-                        method="POST" 
-                        class="d-inline" 
-                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus kampanye ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Hapus Kampanye
-                        </button>
-                    </form>
-                </div>
-                </div>
+<div class="container py-5">
+    <div class="card border-0 shadow-lg rounded-4 mx-auto" style="max-width: 500px;">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-4 text-gradient text-center">Detail <span class="text-primary">Zakat</span></h2>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item py-3">
+                    <strong>Nama Pembayar:</strong>
+                    <span class="float-end">{{ $zakat->nama_pembayar_zakat }}</span>
+                </li>
+                <li class="list-group-item py-3">
+                    <strong>Penghasilan Perbulan:</strong>
+                    <span class="float-end text-success">Rp {{ number_format($zakat->penghasilan_perbulan, 0, ',', '.') }}</span>
+                </li>
+                <li class="list-group-item py-3">
+                    <strong>Panti Asuhan:</strong>
+                    <span class="float-end">{{ $zakat->pantiasuhan }}</span>
+                </li>
+                <li class="list-group-item py-3">
+                    <strong>Status Bayar:</strong>
+                    <span class="float-end">
+                        @if ($zakat->is_paid)
+                            <span class="badge bg-success px-3 py-2 shadow-sm">Sudah Dibayar</span>
+                        @else
+                            <span class="badge bg-danger px-3 py-2 shadow-sm">Belum Dibayar</span>
+                        @endif
+                    </span>
+                </li>
+                <li class="list-group-item py-3">
+                    <strong>Status Admin:</strong>
+                    <span class="float-end">
+                        <span class="badge {{ $zakat->status === 'Pending' ? 'bg-warning text-dark' : 'bg-success' }} px-3 py-2 shadow-sm text-capitalize">
+                            {{ $zakat->status }}
+                        </span>
+                    </span>
+                </li>
+            </ul>
+            <div class="text-center">
+                <a href="{{ route('zakatAdmin.index') }}" class="btn btn-outline-secondary rounded-pill px-4 fw-semibold shadow-sm">
+                    <i class="bi bi-arrow-left"></i> Kembali
+                </a>
             </div>
         </div>
     </div>
 </div>
-
-<div class="container">
-    <h2>Detail Zakat</h2>
-
-    <p><strong>Nama Pembayar:</strong> {{ $zakat->nama_pembayar_zakat }}</p>
-    <p><strong>Panti Asuhan:</strong> {{ $zakat->pantiasuhan }}</p>
-    <p><strong>Total Zakat:</strong> Rp {{ number_format(($zakat->penghasilan_perbulan + $zakat->bonus) * 0.025 - $zakat->utang, 2) }}</p>
-    <p><strong>Status:</strong> {{ $zakat->is_approved ? 'Disetujui' : 'Menunggu' }}</p>
-
-    <a href="{{ route('zakatAdmin.index') }}" class="btn btn-secondary">Kembali</a>
-</div>
+<style>
+    .text-gradient {
+        background: linear-gradient(90deg, #0d6efd 60%, #20c997 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
 @endsection

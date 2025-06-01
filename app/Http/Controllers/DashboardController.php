@@ -14,4 +14,5 @@ class DashboardController
         // Mengirim data ke view
         return view('dashboard', ['donations' => $donations]);
     }
+    
 }

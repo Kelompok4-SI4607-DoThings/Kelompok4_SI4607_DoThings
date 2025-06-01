@@ -2,15 +2,16 @@
 
 @section('content')
 <div class="container py-5">
-    <h2 class="fw-bold text-center mb-5">Donasi Saya</h2>
+    <h2 class="fw-bold text-gradient text-center mb-5">
+        <i class="bi bi-archive-fill text-primary me-2"></i> Arsip Donasi Saya
+    </h2>
     
-    {{-- Pesan Jika Tidak Ada Donasi --}}
     @if($donations->isEmpty())
-        <div class="alert alert-warning text-center">
+        <div class="alert alert-warning text-center shadow-sm rounded-3">
             <strong>Belum ada donasi yang dilakukan.</strong>
         </div>
     @else
-        <div class="row">
+        <div class="row g-4">
             @foreach($donations as $donation)
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 shadow-lg rounded-4 h-100">
@@ -26,10 +27,12 @@
                                 <li><span class="badge bg-light text-dark mb-1"><i class="bi bi-chat-dots"></i> {{ $donation->message ?? '-' }}</span></li>
                             </ul>
                             <div class="d-flex gap-2 mt-auto">
+
                                 <a href="{{ route('donations.edit', $donation->id) }}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>
                                 
+
                                 <form action="{{ route('donations.destroy', $donation) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus donasi ini?')" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
@@ -45,11 +48,18 @@
         </div>
     @endif
 
-    {{-- Tombol Kembali --}}
-    <div class="text-center mt-4">
-        <a href="{{ route('donations.index') }}" class="btn btn-outline-secondary btn-lg">
+    <div class="text-center mt-5">
+        <a href="{{ route('donations.index') }}" class="btn btn-outline-secondary btn-lg rounded-pill px-4 fw-semibold shadow-sm">
             <i class="bi bi-arrow-left-circle"></i> Kembali
         </a>
     </div>
 </div>
+<style>
+    .text-gradient {
+        background: linear-gradient(90deg, #0d6efd 60%, #20c997 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
 @endsection

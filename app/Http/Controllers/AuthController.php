@@ -68,24 +68,15 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Jika yang login adalah admin, logout dan berikan pesan kesalahan
-
-            // Jika yang login adalah admin, logout dan berikan pesan kesalahan
             if (Auth::user()->role === 'admin') {
-                Auth::logout();
-                return back()->withErrors([
-                    'email' => 'Invalid login credentials.',
-                ]);
                 Auth::logout();
                 return back()->withErrors([
                     'email' => 'Invalid login credentials.',
                 ]);
             }
 
-
             return redirect()->route('user.dashboard');
         }
-
-        // Jika gagal login
 
         // Jika gagal login
         return back()->withErrors(['email' => 'Email atau password salah.']);
@@ -107,8 +98,6 @@ class AuthController extends Controller
         ]);
 
         // Buat user baru dengan role default 'user'
-
-        // Buat user baru dengan role default 'user'
         User::create([
             'name'     => $request->name,
             'email'    => $request->email,
@@ -124,10 +113,8 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-      
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-      
-        return redirect('/');
+        return redirect('/login');
     }
 }
