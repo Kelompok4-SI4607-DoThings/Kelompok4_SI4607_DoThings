@@ -27,11 +27,9 @@ public function store(Request $request)
         DB::transaction(function () use ($request) {
 
             $campaign = Campaign::findOrFail($request->campaign_id);
-            
-            // Buat donasi dengan nama donor dari user yang login
             Donation::create([
                 'campaign_id' => $request->campaign_id,
-                'donor_name' => auth()->user()->name, // Gunakan nama user yang login
+                'donor_name' => auth()->user()->name, 
                 'amount' => $request->amount,
                 'message' => $request->message,
             ]);
@@ -54,13 +52,13 @@ public function store(Request $request)
 
     public function index()
     {
-        $campaigns = Campaign::all(); // Fetch all campaigns from the database
-        return view('user.donations.index', compact('campaigns')); // Pass the campaigns to the view
+        $campaigns = Campaign::all(); 
+        return view('user.donations.index', compact('campaigns')); 
     }
 
     public function edit(Donation $donation)
     {
-        // Cek apakah donasi ini milik user yang sedang login
+      
         if ($donation->donor_name !== auth()->user()->name) {
             return redirect()->route('donations.show')
                 ->with('error', 'Anda tidak memiliki akses untuk mengedit donasi ini.');
@@ -71,7 +69,7 @@ public function store(Request $request)
 
     public function update(Request $request, Donation $donation)
     {
-        // Cek apakah donasi ini milik user yang sedang login
+
         if ($donation->donor_name !== auth()->user()->name) {
             return redirect()->route('donations.edit')
                 ->with('error', 'Anda tidak memiliki akses untuk mengedit donasi ini.');
@@ -82,14 +80,14 @@ public function store(Request $request)
             'message' => 'nullable|string|max:500',
         ]);
 
-        // Hitung selisih jumlah donasi
+
         $amountDifference = $request->amount - $donation->amount;
 
-        // Update jumlah terkumpul di kampanye
+
         $donation->campaign->current_amount += $amountDifference;
         $donation->campaign->save();
 
-        // Update donasi
+
         $donation->update([
             'amount' => $request->amount,
             'message' => $request->message,
@@ -101,17 +99,17 @@ public function store(Request $request)
 
     public function destroy(Donation $donation)
     {
-        // Cek apakah donasi ini milik user yang sedang login
+
         if ($donation->donor_name !== auth()->user()->name) {
             return redirect()->route('donations.show')
                 ->with('error', 'Anda tidak memiliki akses untuk menghapus donasi ini.');
         }
 
-        // Kurangi jumlah terkumpul di kampanye
+    
         $donation->campaign->current_amount -= $donation->amount;
         $donation->campaign->save();
 
-        // Hapus donasi
+   
         $donation->delete();
 
         return redirect()->route('donations.show')
@@ -120,10 +118,7 @@ public function store(Request $request)
 
     public function show()
     {
-        // Ganti ini
-        // $donations = Donation::with('campaign')->latest()->get();
-
-        // Menjadi ini - hanya ambil donasi milik user yang login
+        
         $donations = Donation::where('donor_name', auth()->user()->name)
             ->with('campaign')
             ->latest()

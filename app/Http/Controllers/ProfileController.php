@@ -30,30 +30,25 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . Auth::id(),
-            'role' => 'nullable|string|max:20', // Opsional jika role bisa diedit
+            'role' => 'nullable|string|max:20',
             'password' => 'nullable|min:6|confirmed',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk gambar
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user = Auth::user(); // Mengambil data pengguna yang sedang login
+        $user = Auth::user();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->role = $request->role; // Jika role diubah, diperbarui di sini
+        $user->role = $request->role;
 
-        // Jika ada foto profil yang diunggah, simpan di folder 'public/images'
         if ($request->hasFile('profile_picture')) {
             // Hapus gambar lama jika ada
-            if ($user->profile_picture && file_exists(public_path('images/' . $user->profile_picture))) {
-                unlink(public_path('images/' . $user->profile_picture));
+            if ($user->profile_picture) {
+                Storage::disk('public')->delete($user->profile_picture);
             }
 
             // Simpan gambar baru
-            $file = $request->file('profile_picture');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $filename);
-
-            // Simpan nama file ke database
-            $user->profile_picture = $filename;
+            $path = $request->file('profile_picture')->store('profile-pictures', 'public');
+            $user->profile_picture = $path;
         }
 
         // Jika password diisi, perbarui password
@@ -71,14 +66,12 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Hapus gambar profil jika ada
-        if ($user->profile_picture && file_exists(public_path('images/' . $user->profile_picture))) {
-            unlink(public_path('images/' . $user->profile_picture));
+        if ($user->profile_picture) {
+            Storage::disk('public')->delete($user->profile_picture);
         }
 
         // Hapus akun pengguna
         $user->delete();
-
-        // Logout pengguna setelah akun dihapus
         Auth::logout();
 
         return redirect('/')->with('success', 'Akun Anda berhasil dihapus.');

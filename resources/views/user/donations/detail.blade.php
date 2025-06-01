@@ -12,8 +12,6 @@
                          class="img-fluid rounded-4 shadow-sm mb-4" 
                          alt="{{ $campaign->title }}"
                          style="width: 100%; height: 300px; object-fit: cover;">
-                    
-                    <!-- Tambahan informasi pembuat campaign -->
                     <div class="card border-0 shadow-sm rounded-4 mb-4">
                         <div class="card-body">
                             <h5 class="fw-bold mb-3">
