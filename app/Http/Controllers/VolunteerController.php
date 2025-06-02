@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use App\Models\VolunteerAdmin;
 
 class VolunteerController extends Controller
 {
@@ -12,8 +13,12 @@ class VolunteerController extends Controller
      */
     public function index()
     {
+        // Ambil semua volunteer dan program (VolunteerAdmin)
         $volunteers = Volunteer::all();
-        return view('user.volunteer.index', compact('volunteers'));
+        $programs = VolunteerAdmin::all();
+
+        // Kirim ke view user.volunteer.index
+        return view('user.volunteer.index', compact('volunteers', 'programs'));
     }
 
     /**
@@ -21,7 +26,8 @@ class VolunteerController extends Controller
      */
     public function create()
     {
-        return view('user.volunteer.create');
+        $programs = \App\Models\VolunteerAdmin::all();
+        return view('user.volunteer.create', compact('programs'));
     }
 
     /**
@@ -30,18 +36,61 @@ class VolunteerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:volunteers',
-        'phone' => 'required',
-        'address' => 'required',
-        'gender' => 'required|in:laki laki,perempuan',
-        'agreement' => 'accepted',
+            'name' => 'required', // nama program volunteer
+            'email' => 'required|email|unique:volunteers,email',
+            'phone' => 'required',
+            'address' => 'required',
+            'gender' => 'required|in:laki laki,perempuan',
+            'agreement' => 'accepted',
+        ]);
+
+        \App\Models\Volunteer::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'user_id' => auth()->id(), // <-- Tambahkan ini
+        ]);
+
+        return redirect()->route('volunteer.index')->with('success', 'Pendaftaran volunteer berhasil!');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $volunteer = Volunteer::findOrFail($id);
+        return view('user.volunteer.edit', compact('volunteer'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $volunteer = Volunteer::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:volunteers,email,' . $volunteer->id,
+            'phone' => 'required',
+            'address' => 'required',
+            'gender' => 'required|in:laki laki,perempuan',
+        ]);
+
+
+        $volunteer->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'gender' => $request->gender,
     ]);
 
-    Volunteer::create($request->except('agreement'));
-
-    return redirect()->route('volunteer.index')->with('success', 'Volunteer berhasil ditambahkan!');
-    }
+    return redirect()->route('volunteer.index')->with('success', 'Data volunteer berhasil diupdate!');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -53,5 +102,4 @@ class VolunteerController extends Controller
 
         return redirect()->route('volunteer.index')->with('success', 'Volunteer berhasil dihapus');
     }
-    
 }

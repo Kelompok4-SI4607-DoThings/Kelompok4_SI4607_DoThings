@@ -9,5 +9,9 @@ class Volunteer extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'email', 'phone', 'address', 'gender'];
-    
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
