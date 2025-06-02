@@ -8,8 +8,14 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ZakatController;
 use App\Http\Controllers\ZakatAdminController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\GalangDanaController;
+use App\Http\Controllers\GalangDanaAdminController;
+use App\Http\Controllers\VolunteerAdminController;
+use App\Http\Controllers\KomunitasAdminController;
+use App\Http\Controllers\CommunityChatController;
+use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\VolunteerController;
-
 // Landing Page
 Route::get('/', function () {
     return view('landing');
@@ -34,9 +40,8 @@ Route::get('/redirect-dashboard', function () {
 
 // DASHBOARD Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
-    })->name('user.dashboard');
+    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+
 
     Route::middleware([\App\Http\Middleware\AdminMiddleware::class])->group(function () {
         Route::get('/admin/dashboard', function () {
@@ -46,34 +51,28 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Campaign Routes
-// Route::prefix('admin')->name('admin.campaigns.')->group(function () {
-//     Route::get('/campaigns', [CampaignController::class, 'index'])->name('index');
-//     Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('create');
-//     Route::post('/campaigns', [CampaignController::class, 'store'])->name('store');
-//     Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('show');
-//     Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('edit');
-//     Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('update');
-//     Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('destroy');
-// });
-// Route::prefix('admin')->name('campaigns.')->group(function () {
-//     Route::get('/campaigns', [CampaignController::class, 'index'])->name('index');
-//     Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('create');
-//     Route::post('/campaigns', [CampaignController::class, 'store'])->name('store'); // Tambahkan rute ini
-//     Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('show');
-//     Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('edit');
-//     Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('update');
-//     Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('destroy');
-// });
+
+Route::prefix('admin')->name('campaigns.')->group(function () {
+    Route::get('/campaigns', [CampaignController::class, 'index'])->name('index');
+    Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('create');
+    Route::post('/campaigns', [CampaignController::class, 'store'])->name('store');
+    Route::get('/campaigns/{id}', [CampaignController::class, 'show'])->name('show');
+    Route::get('/campaigns/{id}/edit', [CampaignController::class, 'edit'])->name('edit');
+    Route::put('/campaigns/{id}', [CampaignController::class, 'update'])->name('update');
+    Route::delete('/campaigns/{id}', [CampaignController::class, 'destroy'])->name('destroy');
+    Route::get('/campaigns/{id}/donors', [CampaignController::class, 'donors'])->name('donors');
+});
 // Donation Routes
-// Route::middleware(['auth'])->prefix('donations')->name('donations.')->group(function () {
-//     Route::get('/', [DonationController::class, 'index'])->name('index');
-//     Route::get('/create/{campaign}', [DonationController::class, 'create'])->name('create');
-//     Route::post('/store', [DonationController::class, 'store'])->name('store');
-//     Route::get('/my-donations', [DonationController::class, 'show'])->name('show');
-//     Route::get('/{donation}/edit', [DonationController::class, 'edit'])->name('edit');
-//     Route::put('/{donation}', [DonationController::class, 'update'])->name('update');
-//     Route::delete('/{donation}', [DonationController::class, 'destroy'])->name('destroy'); // Pastikan rute ini ada
-// });
+Route::middleware(['auth'])->prefix('donations')->name('donations.')->group(function () {
+    Route::get('/', [DonationController::class, 'index'])->name('index');
+    Route::get('/create/{campaign}', [DonationController::class, 'create'])->name('create');
+    Route::post('/store', [DonationController::class, 'store'])->name('store');
+    Route::get('/my-donations', [DonationController::class, 'show'])->name('show');
+    Route::get('/edit/{donation}', [DonationController::class, 'edit'])->name('edit');
+    Route::put('/update/{donation}', [DonationController::class, 'update'])->name('update');
+    Route::delete('/{donation}', [DonationController::class, 'destroy'])->name('destroy'); // Pastikan rute ini ada
+    Route::get('/detail/{campaign}', [DonationController::class, 'detail'])->name('detail');
+});
 
 // Zakat Routes
 Route::prefix('zakat')->name('zakat.')->group(function () {
@@ -99,9 +98,19 @@ Route::prefix('zakatAdmin')->name('zakatAdmin.')->group(function () {
     Route::delete('/{id}', [ZakatAdminController::class, 'destroy'])->name('destroy');
     Route::get('/user-zakat', [ZakatAdminController::class, 'viewUserZakat'])->name('userZakat'); // Melihat zakat user
     Route::put('/{id}/update-status', [ZakatAdminController::class, 'updateStatus'])->name('updateStatus'); // Mengubah status zakat user
-    
 });
 
+// Article Routes
+
+Route::prefix('user/artikel')->name('articles.')->group(function () {
+    Route::get('/', [ArticleController::class, 'index'])->name('index');
+    Route::get('/create', [ArticleController::class, 'create'])->name('create');
+    Route::post('/', [ArticleController::class, 'store'])->name('store');
+    Route::get('/{id}', [ArticleController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [ArticleController::class, 'edit'])->name('edit'); // Rute untuk edit artikel
+    Route::put('/{id}', [ArticleController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ArticleController::class, 'destroy'])->name('destroy');
+});
 
 // Profile Routes
 Route::middleware(['auth'])->prefix('profile')->name('profile.')->group(function () {
@@ -126,11 +135,70 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::delete('/zakat/{id}', [ZakatAdminController::class, 'destroy'])->name('admin.zakat.destroy');
 });
 
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('campaigns.create');
+//     Route::post('/campaigns', [CampaignController::class, 'store'])->name('campaigns.store');
+// });
 
-// Volunteer Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/galang-dana', [GalangDanaController::class, 'index'])->name('GalangDana.index');
+    Route::get('/galang-dana/create', [GalangDanaController::class, 'create'])->name('GalangDana.create');
+    Route::post('/galang-dana', [GalangDanaController::class, 'store'])->name('GalangDana.store');
+});
+
+Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.')->group(function () {
+    Route::get('/', [GalangDanaAdminController::class, 'index'])->name('index');
+    Route::get('/categories/create', [GalangDanaAdminController::class, 'createCategory'])->name('createCategory');
+    Route::post('/categories', [GalangDanaAdminController::class, 'storeCategory'])->name('storeCategory');
+    Route::get('/{id}', [GalangDanaAdminController::class, 'show'])->name('show');
+    Route::patch('/{id}', [GalangDanaAdminController::class, 'update'])->name('update');
+    Route::delete('/{id}', [GalangDanaAdminController::class, 'destroy'])->name('destroy');
+     Route::delete('/categories/{category}', [GalangDanaAdminController::class, 'destroyCategory'])->name('destroyCategory');
+});
+
+//volunteer admin
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/volunteeradmin', [VolunteerAdminController::class, 'index'])->name('volunteerAdmin.index');
+    Route::get('/volunteeradmin/create', [VolunteerAdminController::class, 'create'])->name('volunteerAdmin.create');
+    Route::post('/volunteeradmin', [VolunteerAdminController::class, 'store'])->name('volunteerAdmin.store');
+    Route::get('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'show'])->name('volunteerAdmin.show');
+    Route::get('/volunteeradmin/{volunteeradmin}/edit', [VolunteerAdminController::class, 'edit'])->name('volunteerAdmin.edit');
+    Route::put('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'update'])->name('volunteerAdmin.update');
+    Route::delete('/volunteeradmin/{volunteeradmin}', [VolunteerAdminController::class, 'destroy'])->name('volunteerAdmin.destroy');
+    Route::get('/volunteerAdmin/{id}/registrants', [VolunteerAdminController::class, 'registrants'])->name('volunteerAdmin.registrants');
+});
+
+
+
+
 Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(function () {
-    Route::get('/register', [App\Http\Controllers\VolunteerController::class, 'create'])->name('create');
-    Route::post('/', [App\Http\Controllers\VolunteerController::class, 'store'])->name('store');
-    Route::get('/programs', [App\Http\Controllers\VolunteerController::class, 'index'])->name('index');
-    Route::delete('/{id}', [App\Http\Controllers\VolunteerController::class, 'destroy'])->name('destroy');
+    Route::get('/', [VolunteerController::class, 'index'])->name('index');
+    Route::get('/register', [VolunteerController::class, 'create'])->name('create');
+    Route::post('/', [VolunteerController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [VolunteerController::class, 'edit'])->name('edit');      // <--- Tambahkan ini
+    Route::put('/{id}', [VolunteerController::class, 'update'])->name('update');        // <--- Tambahkan ini
+    Route::delete('/{id}', [VolunteerController::class, 'destroy'])->name('destroy');
+});
+
+//komunitas admin
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/komunitasadmin', [KomunitasAdminController::class, 'index'])->name('komunitasAdmin.index');
+    Route::get('/komunitasadmin/create', [KomunitasAdminController::class, 'create'])->name('komunitasAdmin.create');
+    Route::post('/komunitasadmin', [KomunitasAdminController::class, 'store'])->name('komunitasAdmin.store');
+    Route::get('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'show'])->name('komunitasAdmin.show');
+    Route::get('/komunitasadmin/{komunitasadmin}/edit', [KomunitasAdminController::class, 'edit'])->name('komunitasAdmin.edit');
+    Route::put('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'update'])->name('komunitasAdmin.update');
+    Route::delete('/komunitasadmin/{komunitasadmin}', [KomunitasAdminController::class, 'destroy'])->name('komunitasAdmin.destroy');
+
+
+});
+
+//community chat
+Route::middleware(['auth'])->prefix('community-chat')->name('community.chat.')->group(function () {
+    Route::get('/', [CommunityChatController::class, 'index'])->name('index');
+    Route::get('/{komunitas_admin_id}', [CommunityChatController::class, 'show'])->name('show');
+    Route::post('/{komunitas_admin_id}', [CommunityChatController::class, 'store'])->name('store');
+    Route::put('/{komunitas_admin_id}/{chat_id}', [CommunityChatController::class, 'update'])->name('update');
+    Route::delete('/{komunitas_admin_id}/{chat_id}', [CommunityChatController::class, 'delete'])->name('delete');
 });
