@@ -51,4 +51,41 @@ class GalangDanaController extends Controller
 
         return redirect()->route('GalangDana.index')->with('success', 'Kampanye berhasil diajukan dan menunggu verifikasi.');
     }
+
+    public function edit($id)
+    {
+        $campaign = Campaign::findOrFail($id);
+        $categories = FundraisingCategory::where('status', 'active')->get();
+        return view('user.GalangDana.edit', compact('campaign', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $campaign = Campaign::findOrFail($id);
+        
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'target_amount' => 'required|numeric|min:1',
+            'deadline' => 'required|date|after:today',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'target_amount' => $request->target_amount,
+            'deadline' => $request->deadline,
+        ];
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('campaign_images', 'public');
+            $data['image'] = $imagePath;
+        }
+
+        $campaign->update($data);
+
+        return redirect()->route('GalangDana.index')
+            ->with('success', 'Kampanye berhasil diperbarui.');
+    }
 }

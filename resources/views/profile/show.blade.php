@@ -39,7 +39,7 @@
                 <label for="profile_picture" class="form-label">Foto Profil</label>
                 <div>
                     @if($user->profile_picture)
-                        <img src="{{ asset('images/' . $user->profile_picture) }}" alt="Foto Profil" width="150" class="img-thumbnail">
+                        <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Foto Profil" width="150" class="img-thumbnail">
                     @else
                         <p>Foto profil belum diunggah.</p>
                     @endif

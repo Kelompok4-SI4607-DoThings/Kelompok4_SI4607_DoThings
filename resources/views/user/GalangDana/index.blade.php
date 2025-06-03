@@ -94,6 +94,7 @@
                             <th>Batas Waktu</th>
                             <th>Gambar</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,6 +125,12 @@
                                         px-3 py-2 shadow-sm text-capitalize">
                                         {{ ucfirst($campaign->status) }}
                                     </span>
+                                </td>
+                                <td>
+                                    <a href="{{ route('GalangDana.edit', $campaign->id) }}" 
+                                        class="btn btn-outline-primary btn-sm rounded-pill px-3 mb-1">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
                                 </td>
                             </tr>
                         @empty

@@ -144,6 +144,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/galang-dana', [GalangDanaController::class, 'index'])->name('GalangDana.index');
     Route::get('/galang-dana/create', [GalangDanaController::class, 'create'])->name('GalangDana.create');
     Route::post('/galang-dana', [GalangDanaController::class, 'store'])->name('GalangDana.store');
+    Route::get('/galang-dana/{id}/edit', [GalangDanaController::class, 'edit'])->name('GalangDana.edit');
+    Route::put('/galang-dana/{id}', [GalangDanaController::class, 'update'])->name('GalangDana.update');
 });
 
 Route::middleware(['auth'])->prefix('admin/galang-dana')->name('galangDanaAdmin.')->group(function () {
