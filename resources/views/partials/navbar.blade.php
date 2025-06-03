@@ -29,7 +29,7 @@
           <!-- Profile Button -->
           <li class="nav-item">
             <a href="{{ route('profile.show') }}" class="btn btn-outline-primary d-flex align-items-center">
-              <img src="{{ asset('images/' . Auth::user()->profile_picture) }}" 
+              <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" 
                    alt="Profile"
                    class="rounded-circle border border-primary"
                    style="width: 40px; height: 40px; object-fit: cover;">
