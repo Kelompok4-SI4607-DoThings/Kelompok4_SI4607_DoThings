@@ -17,6 +17,9 @@
                         <a href="{{ route('volunteer.create', $program) }}" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm">
                             <i class="bi bi-person-plus"></i> Daftar
                         </a>
+                        <a href="{{ route('volunteer.show', $program) }}" class="btn btn-info btn-sm rounded-pill px-3 shadow-sm">
+                            <i class="bi bi-eye"></i> Lihat Detail
+                        </a>
                     </div>
                 </div>
             </div>

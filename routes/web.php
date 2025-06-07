@@ -180,6 +180,7 @@ Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(func
     Route::get('/{volunteer}/edit', [VolunteerController::class, 'edit'])->name('edit');      // <--- Tambahkan ini
     Route::put('/{volunteer}', [VolunteerController::class, 'update'])->name('update');        // <--- Tambahkan ini
     Route::delete('/{volunteer}', [VolunteerController::class, 'destroy'])->name('destroy');
+    Route::get('/{volunteer}', [VolunteerController::class, 'show'])->name('show');
 });
 
 //komunitas admin

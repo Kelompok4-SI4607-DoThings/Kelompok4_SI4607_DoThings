@@ -99,4 +99,9 @@ class VolunteerController extends Controller
 
         return redirect()->route('volunteer.index')->with('success', 'Volunteer berhasil dihapus');
     }
+    public function show($id)
+    {
+        $program = \App\Models\VolunteerAdmin::findOrFail($id);
+        return view('user.volunteer.show', compact('program'));
+    }
 }
