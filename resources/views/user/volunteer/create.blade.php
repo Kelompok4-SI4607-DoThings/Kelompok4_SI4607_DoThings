@@ -20,13 +20,10 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="name" class="form-label fw-semibold">Pilih Program Volunteer</label>
-                    <select name="name" id="name" class="form-select rounded-3" required>
-                        <option value="" disabled selected>Pilih Program</option>
-                        @foreach($programs as $program)
-                            <option value="{{ $program->name }}">{{ $program->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="mb-3">
+                    <label for="name" class="form-label fw-semibold">Nama</label>
+                    <input type="text" name="name" class="form-control rounded-3" value="{{ ('') }}" required>
+                </div>  
                 </div>
 
                 <div class="mb-3">

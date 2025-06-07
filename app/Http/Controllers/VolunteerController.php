@@ -59,19 +59,16 @@ class VolunteerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Volunteer $volunteer)
     {
-        $volunteer = Volunteer::findOrFail($id);
         return view('user.volunteer.edit', compact('volunteer'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Volunteer $volunteer)
     {
-        $volunteer = Volunteer::findOrFail($id);
-
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:volunteers,email,' . $volunteer->id,
@@ -81,18 +78,16 @@ class VolunteerController extends Controller
         ]);
 
 
-        \App\Models\Volunteer::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'gender' => $request->gender,
-            // 'user_id' => auth()->id(), // <-- Tambahkan ini
-        ]);
+        $volunteer->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'gender' => $request->gender,
+    ]);
 
-
-        return redirect()->route('volunteer.index')->with('success', 'Data volunteer berhasil diupdate!');
-    }
+    return redirect()->route('volunteer.index')->with('success', 'Data volunteer berhasil diupdate!');
+}
 
     /**
      * Remove the specified resource from storage.

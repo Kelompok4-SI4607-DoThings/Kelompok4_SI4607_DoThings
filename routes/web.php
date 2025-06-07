@@ -175,11 +175,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::middleware(['auth'])->prefix('volunteer')->name('volunteer.')->group(function () {
     Route::get('/', [VolunteerController::class, 'index'])->name('index');
-    Route::get('/register', [VolunteerController::class, 'create'])->name('create');
+    Route::get('/create', [VolunteerController::class, 'create'])->name('create');
     Route::post('/', [VolunteerController::class, 'store'])->name('store');
-    Route::get('/{id}/edit', [VolunteerController::class, 'edit'])->name('edit');      // <--- Tambahkan ini
-    Route::put('/{id}', [VolunteerController::class, 'update'])->name('update');        // <--- Tambahkan ini
-    Route::delete('/{id}', [VolunteerController::class, 'destroy'])->name('destroy');
+    Route::get('/{volunteer}/edit', [VolunteerController::class, 'edit'])->name('edit');      // <--- Tambahkan ini
+    Route::put('/{volunteer}', [VolunteerController::class, 'update'])->name('update');        // <--- Tambahkan ini
+    Route::delete('/{volunteer}', [VolunteerController::class, 'destroy'])->name('destroy');
 });
 
 //komunitas admin

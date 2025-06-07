@@ -20,7 +20,8 @@ class Campaign extends Model
         'current_amount',
         'deadline',
         'image',
-        'status'
+        'status',
+        'suggestions'  // Pastikan field ini ada
     ];
 
     protected $casts = [

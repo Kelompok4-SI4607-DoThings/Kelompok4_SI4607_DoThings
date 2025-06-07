@@ -101,9 +101,7 @@
                         @forelse($campaigns as $campaign)
                             <tr>
                                 <td class="fw-semibold">{{ $campaign->title }}</td>
-                                <td style="max-width:220px;">
-                                    {{ Str::limit($campaign->description, 60) }}
-                                </td>
+                                <td>{{ Str::limit($campaign->description, 60) }}</td>
                                 <td class="text-success fw-bold">
                                     Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}
                                 </td>
@@ -125,6 +123,36 @@
                                         px-3 py-2 shadow-sm text-capitalize">
                                         {{ ucfirst($campaign->status) }}
                                     </span>
+                                    @if($campaign->status === 'rejected' && $campaign->suggestions)
+                                        <div class="mt-2">
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-outline-danger" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#suggestionModal{{ $campaign->id }}">
+                                                <i class="bi bi-info-circle"></i> Lihat Catatan Admin
+                                            </button>
+                                        </div>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="suggestionModal{{ $campaign->id }}" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Catatan Admin</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="alert alert-danger">
+                                                            {{ $campaign->suggestions }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('GalangDana.edit', $campaign->id) }}" 
@@ -164,6 +192,17 @@
         border-top: none;
     }
 </style>
+@endpush
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+</script>
 @endpush
 
 @endsection

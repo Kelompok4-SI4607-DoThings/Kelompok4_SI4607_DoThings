@@ -24,22 +24,19 @@ class GalangDanaAdminController extends Controller
 
     public function update(Request $request, $id)
     {
-        
         $request->validate([
             'status' => 'required|in:approved,rejected',
             'suggestions' => 'nullable|string',
         ]);
 
-        // Cari kampanye berdasarkan ID
         $campaign = Campaign::findOrFail($id);
-
-        // Perbarui status dan saran
         $campaign->update([
             'status' => $request->status,
-            'suggestions' => $request->suggestions,
+            'suggestions' => $request->suggestions,  // Pastikan field ini terisi
         ]);
-        // Jika statusnya approved, lakukan tindakan tambahan jika diperlukan
-        return redirect()->route('galangDanaAdmin.index')->with('success', 'Kampanye berhasil diperbarui.');
+
+        return redirect()->route('galangDanaAdmin.index')
+            ->with('success', 'Kampanye berhasil diperbarui.');
     }
 
     public function destroy($id)

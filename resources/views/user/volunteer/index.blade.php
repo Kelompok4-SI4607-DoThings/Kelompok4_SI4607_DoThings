@@ -17,9 +17,6 @@
                         <a href="{{ route('volunteer.create', $program) }}" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm">
                             <i class="bi bi-person-plus"></i> Daftar
                         </a>
-                        <a href="{{ route('volunteer.edit', $program) }}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </a>
                     </div>
                 </div>
             </div>
@@ -63,13 +60,18 @@
                             <td>{{ $v->phone }}</td>
                             <td>{{ $v->address }}</td>
                             <td>
-                                <form action="{{ route('volunteer.destroy', $v->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm">
-                                        <i class="bi bi-trash"></i> Hapus
-                                    </button>
-                                </form>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ route('volunteer.edit', $v->id) }}" class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <form action="{{ route('volunteer.destroy', $v->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button onclick="return confirm('Yakin ingin menghapus?')" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm">
+                                            <i class="bi bi-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
