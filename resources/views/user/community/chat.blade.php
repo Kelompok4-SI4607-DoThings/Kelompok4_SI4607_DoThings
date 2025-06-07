@@ -22,7 +22,11 @@
                                 {{ $chat->user->name }}
                             </span>
                             <span class="text-muted small ms-2" style="font-size:0.95rem;">{{ $chat->created_at->format('d M Y H:i') }}</span>
-                            @if($chat->user_id == Auth::id())
+                            @php
+                                $canEditOrDelete = $chat->user_id == Auth::id() && now()->diffInSeconds($chat->created_at) <= 30;
+                            @endphp
+
+                            @if($canEditOrDelete)
                                 <!-- Tombol Edit -->
                                 <button type="button" class="btn btn-sm btn-link text-warning ms-2 p-0" data-bs-toggle="modal" data-bs-target="#editChatModal{{ $chat->id }}">
                                     <i class="bi bi-pencil-square"></i>

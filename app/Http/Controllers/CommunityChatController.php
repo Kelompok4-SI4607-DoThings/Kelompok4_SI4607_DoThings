@@ -46,9 +46,13 @@ class CommunityChatController extends Controller
 
     public function update(Request $request, $komunitas_admin_id, $chat_id)
     {
-        $chat = \App\Models\CommunityChat::where('id', $chat_id)
+        $chat = CommunityChat::where('id', $chat_id)
             ->where('user_id', auth()->id())
             ->firstOrFail();
+
+            if (now()->greaterThan($chat->created_at->addSeconds(30))) {
+            return back()->with('error', 'Pesan hanya bisa diedit dalam 30 detik setelah dikirim.');
+        }
 
         $request->validate([
             'message' => 'required|string|max:1000',
@@ -64,6 +68,11 @@ class CommunityChatController extends Controller
     public function delete($komunitas_admin_id, $chat_id)
     {
         $chat = CommunityChat::where('id', $chat_id)->where('user_id', Auth::id())->firstOrFail();
+
+        if (now()->greaterThan($chat->created_at->addSeconds(30))) {
+            return back()->with('error', 'Pesan hanya bisa dihapus dalam 30 detik setelah dikirim.');
+        }
+
         $chat->delete();
         return redirect()->route('community.chat.show', $komunitas_admin_id);
     }
